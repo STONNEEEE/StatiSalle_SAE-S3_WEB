@@ -1,0 +1,10 @@
+body {
+    background-image: url(../img/fond-neutral.png);
+    background-repeat: repeat;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+.full-screen {
+    margin-bottom: 100vh;
+}

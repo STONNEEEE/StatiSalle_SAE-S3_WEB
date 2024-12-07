@@ -1,0 +1,17 @@
+body {
+    background-image: url(../img/fond-neutral.png);
+    background-repeat: repeat;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+.auth-row {
+    min-height: 70vh;
+    margin: 150px;
+}
+
+.auth-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
