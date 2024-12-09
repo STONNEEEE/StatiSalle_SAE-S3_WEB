@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>StatiSalle - Connexion</title>
         <!-- CSS -->
+        <link rel="stylesheet" href="css/commun.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/footer.css">
