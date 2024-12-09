@@ -16,13 +16,13 @@
     <body>
         <div class="container-fluid">
             <!-- l'index (page de connexion) est la seule page avec un header custom-->
-            <header class="header row">
-                <div class="header-gauche">
-                    <a href="#" class="text-black text-decoration-none" title="Page d'accueil">
-                        <img src="img/LogoStatisalle.jpg" alt="Logo de StatiSalle">
+            <header class="header row align-items-center">
+                <div class="header-gauche d-flex align-items-center gap-2">
+                    <a href="#" title="Page d'accueil">
+                        <img src="img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
                     </a>
-                    <a href="#" class="text-black text-decoration-none" title="Page d'accueil">
-                        <h1>StatiSalle</h1>
+                    <a href="#" class="text-decoration-none" title="Page d'accueil">
+                        <h1 class="m-0">StatiSalle</h1>
                     </a>
                 </div>
             </header>
