@@ -4,12 +4,11 @@
 }
 
 .header img {
-    height: 100px;
+    height: 70px;
     border-radius: 4%;
 }
 
-.menu-pages button {
+.bouton-header {
     background-color: #0A2D47;
     color: white;
-    text-align: center;
 }
