@@ -8,6 +8,8 @@
     border-radius: 4%;
 }
 
-.header h1 {
-
+.menu-pages button {
+    background-color: #0A2D47;
+    color: white;
+    text-align: center;
 }

@@ -21,7 +21,7 @@
                     <a href="#" title="Page d'accueil">
                         <img src="img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
                     </a>
-                    <a href="#" class="text-decoration-none" title="Page d'accueil">
+                    <a href="#" class="text-decoration-none text-white" title="Page d'accueil">
                         <h1 class="m-0">StatiSalle</h1>
                     </a>
                 </div>
