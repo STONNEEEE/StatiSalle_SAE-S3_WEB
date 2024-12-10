@@ -1,46 +1,75 @@
-<header class="header row d-flex align-items-center fixed-top">
-    <!-- partie de gauche -->
-    <div class="col-12 col-md-8 d-flex align-items-center gap-3">
-        <!-- Logo cliquable pour revenir à l'accueil -->
-        <a href="#" title="Page d'accueil" class="d-flex align-items-center">
-            <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
-        </a>
+<header class="header row d-flex align-items-center fixed-top px-3">
+    <!-- Conteneur pour organiser le contenu à gauche et à droite -->
+    <div class="d-flex w-100 justify-content-between align-items-center">
+        <!-- Partie gauche -->
+        <div class="d-flex align-items-center gap-3">
+            <!-- Logo cliquable pour revenir à l'accueil -->
+            <a href="#" title="Page d'accueil" class="d-flex align-items-center d-none d-sm-block">
+                <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
+            </a>
 
-        <!-- Menu principal -->
-        <div class="menu-pages d-flex flex-row gap-3">
-            <!-- Bouton Accueil -->
-            <button class="rounded bouton-header">
-                Accueil
-            </button>
-
-            <!-- Menu déroulant pour l'affichage des salles ou des réservations -->
-            <div class="dropdown">
-                <button class="rounded dropdown-toggle bouton-header" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Affichage
+            <!-- Boutons principaux -->
+            <div class="menu-pages d-flex flex-row gap-3 align-items-center">
+                <!-- Bouton Accueil (visible sur écrans md et plus) -->
+                <button class="rounded bouton-header d-none d-md-block">
+                    Accueil
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Réservations</a></li>
-                    <li><a class="dropdown-item" href="#">Salles</a></li>
+
+                <!-- Menu déroulant pour le choix des pages -->
+                <div class="dropdown d-none d-md-block">
+                    <button class="rounded dropdown-toggle bouton-header custome-dropdown-toggle" type="button" id="menuDeroulantPage" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pages
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="menuDeroulantPage">
+                        <!-- Accueil visible seulement sur écrans sm et moins -->
+                        <li><a class="dropdown-item d-md-none" href="#">Accueil</a></li>
+                        <li><a class="dropdown-item" href="#">Réservations</a></li>
+                        <li><a class="dropdown-item" href="#">Salles</a></li>
+                    </ul>
+                </div>
+
+                <!-- Boutons "Exporter" et "Utilisateurs" (visibles sur md et plus) -->
+                <button class="rounded bouton-header d-none d-md-block">
+                    Exporter
+                </button>
+                <button class="rounded bouton-header d-none d-md-block">
+                    Utilisateurs
+                </button>
+
+                <!-- Menu déroulant pour "Exporter" et "Utilisateurs" (visible sur sm et moins) -->
+                <div class="dropdown d-md-none">
+                    <button class="rounded dropdown-toggle bouton-header custome-dropdown-toggle" type="button" id="menuDeroulantOption" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-compass"></i>
+                        Naviguer
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="menuDeroulantOption">
+                        <li><a class="dropdown-item" href="#">Accueil</a></li>
+                        <li><a class="dropdown-item" href="#">Réservations</a></li>
+                        <li><a class="dropdown-item" href="#">Salles</a></li>
+                        <li><a class="dropdown-item" href="#">Exporter</a></li>
+                        <li><a class="dropdown-item" href="#">Utilisateurs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partie droite (Bouton Nom de l'Employé) -->
+        <div class="d-flex justify-content-end">
+            <div class="dropdown">
+                <button class="rounded dropdown-toggle bouton-header-employer custome-dropdown-toggle"
+                        type="button"
+                        id="menuDeroulantEmploye"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    Nom_De_Employer
+                    <i class="fas fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="menuDeroulantEmploye">
+                    <li><a class="dropdown-item" href="#">Déconnexion</a></li>
                 </ul>
             </div>
-            <!-- Bouton afin de gérer les employes -->
-            <a href="#" class="rounded">Gestion des employes</a>
-            <!-- Bouton afin de gérer les employes -->
-            <a href="#" class="rounded">Nouvelle réservation</a>
-            <!-- Bouton pour exporter les données -->
-            <a href="#" class="rounded">Exporter</a>
-        </div>
-    </div>
-
-    <!-- partie de droite -->
-    <div class="col-12 col-md-4 d-flex justify-content-end">
-        <div class="dropdown">
-            <button class="rounded dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Nom_De_Employer
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
-            </ul>
         </div>
     </div>
 </header>

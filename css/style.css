@@ -3,7 +3,10 @@ body {
     background-repeat: repeat;
     font-family: Arial, sans-serif;
     height: 100%;
-    padding-top: 120px;
+}
+
+.padding-header {
+    padding-top: 90px;
 }
 
 .auth-row {
@@ -47,9 +50,6 @@ button {
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
-
-    /* Ajout de la largeur */
-    width: 200px;
 }
 
 button:hover {

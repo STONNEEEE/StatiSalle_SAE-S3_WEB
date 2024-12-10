@@ -1,9 +1,9 @@
 <footer class="footer row">
     <div class="col-12 col-sm-6 col-md-4 d-flex flex-column gap-2 align-items-center align-items-sm-start justify-content-center mb-md-0 mb-3">
-        <button class="rounded">
+        <button class="rounded bouton-footer">
             Besoin d'aide ?
         </button>
-        <button class="rounded">
+        <button class="rounded bouton-footer">
             Contactez-nous
         </button>
     </div>

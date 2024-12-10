@@ -8,12 +8,11 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/commun.css">
-    <link rel="stylesheet" href="../css/accueil.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
 </head>
-<body>
+<body class="padding-header">
     <div class="container-fluid">
         <?php include '../fonction/header.php'; ?>
 
