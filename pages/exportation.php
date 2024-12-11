@@ -55,6 +55,12 @@
                 <!-- TODO Ecrire la date et heure du jour de chargement de la page -->
                 <a href="../img/LogoStatisalle.jpg" download="LogoStatisalle.jpg">activites 11_12_2024 13_40.csv</a>
             </p>
+            <!-- Bouton "Tout télécharger" -->
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary" id="download-all" onclick="downloadAllFiles()">
+                    <i class="fas fa-download"></i> Tout télécharger
+                </button>
+            </div>
         </div>
     </div>
     <!-- Footer de la page -->
