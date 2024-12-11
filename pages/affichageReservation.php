@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Salles</title>
+    <title>StatiSalle - Réservation</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -27,7 +27,7 @@
     <!-- 1ère ligne avec le bouton "Réserver" -->
     <div class="row mb-3">
         <div class="col-12 text-center text-md-end">
-            <button class="btn-filtrer rounded-2">
+            <button class="btn-ajouter rounded-2">
                 <i class="fa fa-calendar"></i>
                 Réserver
             </button>
@@ -98,18 +98,18 @@
         <div class="col-12">
             <table class="table table-striped">
                 <tr>
-                    <th scope="col">Identifiant</th>
-                    <th scope="col">Salle</th>
-                    <th scope="col">Employe</th>
-                    <th scope="col">Activite</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Heure debut</th>
-                    <th scope="col">Heure fin</th>
-                    <th scope="col">optionnel</th>
-                    <th scope="col">optionnel</th>
-                    <th scope="col">optionnel</th>
-                    <th scope="col">optionnel</th>
-                    <th scope="col">optionnel</th>
+                    <th>ID</th>
+                    <th>Salle</th>
+                    <th>Employe</th>
+                    <th>Activite</th>
+                    <th>Date</th>
+                    <th>Heure debut</th>
+                    <th>Heure fin</th>
+                    <th>optionnel</th>
+                    <th>optionnel</th>
+                    <th>optionnel</th>
+                    <th>optionnel</th>
+                    <th>optionnel</th>
                 </tr>
                 <tbody>
                 <tr>
