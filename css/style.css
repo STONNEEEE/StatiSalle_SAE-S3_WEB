@@ -38,23 +38,13 @@ body {
     margin-right: 25px;
 }
 
-.btn-ajouter{
+.btn-filtrer{
     margin-left : auto;
-    background-color: #60BAFA;
+    background-color: rgb(12, 127, 211);
 }
 
-.btn-suppr{
-    background-color: #FF0000;
-}
 
-.btn-modifier{
-    background-color: #60BAFA;
-}
 
-.btn-colonne{
-    width: 10%;
-    text-align: center; /* Centre les icônes */
-}
 
 /* From Uiverse.io */
 button {
