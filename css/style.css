@@ -5,9 +5,13 @@ body {
     height: 100%;
 }
 
+.full-screen {
+    margin-bottom: 100vh;
+}
+
 /* Ajoute un padding pour laisser le header en haut de page */
 .padding-header {
-    padding-top: 120px;
+    padding-top: 90px;
 }
 
 .auth-row {
@@ -31,30 +35,11 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* **************** Page affichageSalle **************** */
-.select-filtre{
-    border-radius: 7px;
-    height: 35px;
-    margin-right: 25px;
-}
 
-.btn-ajouter{
-    margin-left : auto;
-    background-color: #60BAFA;
-}
 
-.btn-suppr{
-    background-color: #FF0000;
-}
 
-.btn-modifier{
-    background-color: #60BAFA;
-}
 
-.btn-colonne{
-    width: 10%;
-    text-align: center; /* Centre les icônes */
-}
+
 
 /* From Uiverse.io */
 button {
