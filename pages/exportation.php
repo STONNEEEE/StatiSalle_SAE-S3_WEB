@@ -57,7 +57,7 @@
             </p>
             <!-- Bouton "Tout télécharger" -->
             <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-primary" id="download-all" onclick="downloadAllFiles()">
+                <button class="btn btn-primary" id="download-all" onclick="">
                     <i class="fas fa-download"></i> Tout télécharger
                 </button>
             </div>
