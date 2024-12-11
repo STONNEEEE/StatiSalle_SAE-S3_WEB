@@ -17,11 +17,11 @@
         <div class="container-fluid">
             <!-- Header de la page -->
             <?php include '../fonction/header.php'; ?>
-
+            <br>
+            <br>
             <div class="row text-center">
                 <h1>StatiSalle</h1>
             </div>
-            <br>
             <br>
             <br>
             <div class="row d-flex justify-content-center align-items-start w-100 acc-row">
