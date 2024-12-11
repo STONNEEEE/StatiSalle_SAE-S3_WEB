@@ -41,7 +41,7 @@
                 </select>
             </div>
             <!-- Bouton aligné à droite -->
-            <button class="btn-filtrer rounded-2"><span class="fa-plus">Ajouter</button>
+            <button class="btn-ajouter rounded-2"><span class="fa-plus">Ajouter</button>
         </div>
         <div>
             <table class="table table-striped">
