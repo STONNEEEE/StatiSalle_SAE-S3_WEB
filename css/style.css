@@ -11,7 +11,7 @@ body {
 
 /* Ajoute un padding pour laisser le header en haut de page */
 .padding-header {
-    padding-top: 90px;
+    padding-top: 120px;
 }
 
 .auth-row {
@@ -33,6 +33,17 @@ body {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.select-filtre{
+    border-radius: 7px;
+    height: 35px;
+    margin-right: 25px;
+}
+
+.btn-filtrer{
+    margin-left : auto;
+    background-color: rgb(12, 127, 211);
 }
 
 
