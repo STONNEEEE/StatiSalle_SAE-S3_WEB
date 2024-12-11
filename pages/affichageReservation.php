@@ -35,10 +35,7 @@
     </div>
 
     <div class="row mb-3">
-        <!-- Sur téléphone chaque filtre prend toute la largeur -->
-        <!-- Sur tablette chaque filtre prend 1/3 de la largeur -->
-        <!-- Sur grand écran chaque filtre prend 1/6 de la largeur -->
-        <div class="col-12 col-sm-4 col-md-2 mb-2">
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
             <select class="select-filtre w-100">
                 <option selected>Nom du filtre</option>
                 <option>Filtre 1</option>
@@ -47,7 +44,7 @@
             </select>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-2 mb-2">
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
             <select class="select-filtre w-100">
                 <option selected>Nom du filtre</option>
                 <option>Filtre 1</option>
@@ -56,7 +53,7 @@
             </select>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-2 mb-2">
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
             <select class="select-filtre w-100">
                 <option selected>Nom du filtre</option>
                 <option>Filtre 1</option>
@@ -65,7 +62,7 @@
             </select>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-2 mb-2">
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
             <select class="select-filtre w-100">
                 <option selected>Nom du filtre</option>
                 <option>Filtre 1</option>
@@ -74,7 +71,7 @@
             </select>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-2 mb-2">
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
             <select class="select-filtre w-100">
                 <option selected>Nom du filtre</option>
                 <option>Filtre 1</option>
@@ -83,13 +80,26 @@
             </select>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-2 mb-2">
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
             <select class="select-filtre w-100">
                 <option selected>Nom du filtre</option>
                 <option>Filtre 1</option>
                 <option>Filtre 2</option>
                 <option>Filtre 3</option>
             </select>
+        </div>
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
+            <select class="select-filtre w-100">
+                <option selected disabled>Nom du filtre</option>
+                <option>Filtre 1</option>
+                <option>Filtre 2</option>
+                <option>Filtre 3</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-4 col-md-1 mb-2">
+            <button class="btn-reset rounded-1 col-md-1">
+                Réinitialiser filtres
+            </button>
         </div>
     </div>
 
@@ -111,7 +121,6 @@
                     <th>optionnel</th>
                     <th>optionnel</th>
                 </tr>
-                <tbody>
                 <tr>
                     <td>1</td>
                     <td>Mark</td>
@@ -154,7 +163,6 @@
                     <td>@mdo</td>
                     <td>@mdo</td>
                 </tr>
-                </tbody>
             </table>
         </div>
     </div>

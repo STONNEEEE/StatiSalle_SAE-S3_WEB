@@ -31,11 +31,20 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* **************** Page affichageSalle **************** */
+/* **************** Pages d'affichage**************** */
 .select-filtre {
     border-radius: 7px;
     height: 35px;
     margin-right: 25px;
+}
+
+.btn-reset {
+    width: 150%; /* Rend le bouton aussi large que les filtres */
+    border-radius: 7px;
+    height: 40px;
+    text-align: center;
+    padding: 0;
+    background-color: rgb(12,127,211);
 }
 
 .btn-ajouter{
@@ -55,6 +64,15 @@ body {
     width: 10%;
     text-align: center; /* Centre les icônes */
 }
+
+
+
+
+
+/* ---------------------------------------------------------- */
+
+
+
 
 /* From Uiverse.io */
 button {
