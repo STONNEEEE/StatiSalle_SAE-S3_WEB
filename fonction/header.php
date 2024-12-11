@@ -4,7 +4,7 @@
         <!-- Partie gauche -->
         <div class="d-flex align-items-center gap-3">
             <!-- Logo cliquable pour revenir à l'accueil -->
-            <a href="#" title="Page d'accueil" class="d-flex align-items-center d-none d-sm-block">
+            <a href="accueil.php" title="Page d'accueil" class="d-flex align-items-center d-none d-sm-block">
                 <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
             </a>
 

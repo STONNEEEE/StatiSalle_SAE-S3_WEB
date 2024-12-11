@@ -33,17 +33,15 @@ body {
 
 /* **************** Page affichageSalle **************** */
 .select-filtre{
-    border-radius: 10px;
+    border-radius: 7px;
     height: 35px;
     margin-right: 25px;
 }
 
 .btn-filtrer{
     margin-left : auto;
-    color: black;
+    background-color: rgb(12, 127, 211);
 }
-
-
 
 
 
