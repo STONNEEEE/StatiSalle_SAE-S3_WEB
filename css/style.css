@@ -9,7 +9,7 @@ body {
     margin-bottom: 100vh;
 }
 
-/* Ajoute un padding pour laisser le header tranquil*/
+/* Ajoute un padding pour laisser le header en haut de page */
 .padding-header {
     padding-top: 90px;
 }
@@ -27,7 +27,6 @@ body {
 
 .acc-row {
     min-height: 70vh;
-    margin: 150px;
 }
 
 .acc-container {
@@ -36,12 +35,8 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-body {
-    background-image: url(../img/fond-neutral.png);
-    background-repeat: repeat;
-    font-family: Arial, sans-serif;
-    height: 100%;
-}
+
+
 
 
 
@@ -62,9 +57,6 @@ button {
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
-
-    /* Ajout de la largeur */
-    width: 200px;
 }
 
 button:hover {
