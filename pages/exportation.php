@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Exportation</title>
+    <title>StatiSalle - Réservation</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -19,7 +19,7 @@
     <br>
     <br>
     <div class="row text-center padding-header">
-        <h1>Exportation des données</h1>
+        <h1>Téléchargement des données</h1>
     </div>
     <br>
     <br>
@@ -29,7 +29,7 @@
             <!--      Ecrasé le csv déja contenu dans le site avec les informations actuelles de la BD -->
             <!--      Généré le CSV quand on arrive sur la page -->
             <p>
-                Veuillez cliquer sur les liens ci-dessous pour télécharger les fichiers CSV contenant les données exportées.
+                Texte qui dis qu'on peut télécharger les informations
             </p>
             <p>
                 <!-- Lien vers la page pour faire une réservation -->
@@ -55,14 +55,7 @@
                 <!-- TODO Ecrire la date et heure du jour de chargement de la page -->
                 <a href="../img/LogoStatisalle.jpg" download="LogoStatisalle.jpg">activites 11_12_2024 13_40.csv</a>
             </p>
-            <!-- Bouton "Tout télécharger" -->
-            <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-primary" id="download-all" onclick="//Mettre fonction pour tt download">
-                    <i class="fas fa-download"></i> Tout télécharger
-                </button>
-            </div>
         </div>
-
     </div>
     <!-- Footer de la page -->
     <?php include '../fonction/footer.php'; ?>
