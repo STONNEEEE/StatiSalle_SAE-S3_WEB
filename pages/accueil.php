@@ -23,9 +23,11 @@
 
             <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5">
                 <div class="acc-container p-4 w-50">
-                    <!-- TODO Ecrire le nom de l'utilisateur en fonction de celui qui est connecté-->
+                    <!-- TODO Écrire le nom de l'utilisateur en fonction de celui qui est connecté-->
                     <p>Bienvenue, [Nom de l'utilisateur] !</p>
-                    <p>Ce site vous permet de gérer facilement les réservations des salles partagées pour vos réunions, formations, et autres activités.</br>
+                    <p>
+                        Ce site vous permet de gérer facilement les réservations des salles partagées pour vos réunions, formations, et autres activités.
+                        <br>
                         Que voulez-vous faire ?
                     </p>
                     <p>

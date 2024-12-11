@@ -23,27 +23,33 @@
     <div class="col-12 d-flex justify-content-between align-items-center mb-3">
         <!-- Filtres alignés à gauche -->
         <div class="d-flex">
-            <select class="select-filtre me-2">
-                <option selected>Nom du filtre</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-            <select class="select-filtre me-2">
-                <option selected>Nom du filtre</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-            <select class="select-filtre me-2">
-                <option selected>Nom du filtre</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
+            <label>
+                <select class="select-filtre me-2">
+                    <option selected>Nom du filtre</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </label>
+            <label>
+                <select class="select-filtre me-2">
+                    <option selected>Nom du filtre</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </label>
+            <label>
+                <select class="select-filtre me-2">
+                    <option selected>Nom du filtre</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </label>
         </div>
         <!-- Bouton aligné à droite -->
-        <button class="btn-filtrer"><span class="fa-plus">Ajouter</button>
+        <button class="btn-filtrer"><span class="fa-plus"></span>Ajouter</button>
     </div>
     <div>
         <table class="table table-striped">

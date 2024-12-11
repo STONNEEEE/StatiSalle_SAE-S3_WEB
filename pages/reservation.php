@@ -77,14 +77,14 @@
             </select>
         </div>
         <div class="col-2">
-            <!--TODO Faire en sorte que ça s'affiche lorsque formation ou pret/louée est sélectionné pour l'activité -->
+            <!--TODO Faire en sorte que ça s'affiche lorsque formation ou prêt/louée est sélectionné pour l'activité -->
             <label for="autre" class="<?php //echo $classnoTel; ?>">Nom
                 formateur :</label>
             <input id="autre" name="autre" class="form-control"
                    placeholder="Décrivez votre activité">
         </div>
         <div class="col-2">
-            <!--TODO Faire en sorte que ça s'affiche lorsque formation ou pret/louée est sélectionné pour l'activité -->
+            <!--TODO Faire en sorte que ça s'affiche lorsque formation ou prêt/louée est sélectionné pour l'activité -->
             <label for="travaux" class="<?php //echo $classnoTel; ?>">Prénom
                 formateur :</label>
             <input type="text" class="form-control" name="travaux" id="travaux" required>
@@ -113,14 +113,13 @@
         </div>
         <div class="form-group col-1">
             <!-- TODO Faire en sorte que les horaires soit compris entre 7h et 20h maximum -->
-            <label for="heureFin">Heure fin :</label>
+            <label for="heureFin">Heure de fin :</label>
             <input type="time" id="heureFin" name="heureFin"
                    class="form-control" min="07:00" max="20:00" required>
         </div>
         <div class="form-group col-2">
             <!--TODO Faire en sorte que ça s'affiche lorsque réunion est sélectionné pour l'activité -->
-            <label for="sujetFormation" class="<?php //echo $classnoTel; ?>">Numéro
-                de téléphone :</label>
+            <label for="sujetFormation" class="<?php //echo $classnoTel; ?>">Numéro de téléphone :</label>
             <input type="text" class="form-control" name="sujetFormation"
                    id="sujetFormation" required>
         </div>
