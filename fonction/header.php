@@ -8,7 +8,6 @@
                 <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
             </a>
 
-
             <!-- Boutons principaux -->
             <div class="menu-pages d-flex flex-row gap-3 align-items-center">
                 <!-- Bouton Accueil (visible sur écrans md et plus) -->
