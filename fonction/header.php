@@ -33,10 +33,10 @@
                 </div>
 
                 <!-- Boutons "Exporter" et "Utilisateurs" (visibles sur md et plus) -->
-                <button class="rounded bouton-header d-none d-md-block" type="button">
+                <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='exportation.php';">
                     Exporter
                 </button>
-                <button class="rounded bouton-header d-none d-md-block" type="button">
+                <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='affichageEmploye.php';">
                     Utilisateurs
                 </button>
 
