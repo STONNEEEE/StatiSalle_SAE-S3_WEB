@@ -17,7 +17,7 @@
 
                 <!-- Menu déroulant pour le choix des pages -->
                 <div class="dropdown d-none d-md-block">
-                    <button class="rounded dropdown-toggle bouton-header custome-dropdown-toggle" type="button" id="menuDeroulantPage" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="rounded dropdown-toggle bouton-header custom-dropdown-toggle" type="button" id="menuDeroulantPage" data-bs-toggle="dropdown" aria-expanded="false">
                         Pages
                         <i class="fas fa-angle-down"></i>
                     </button>
@@ -39,7 +39,7 @@
 
                 <!-- Menu déroulant pour "Exporter" et "Utilisateurs" (visible sur sm et moins) -->
                 <div class="dropdown d-md-none">
-                    <button class="rounded dropdown-toggle bouton-header custome-dropdown-toggle" type="button" id="menuDeroulantOption" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="rounded dropdown-toggle bouton-header custom-dropdown-toggle" type="button" id="menuDeroulantOption" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-compass"></i>
                         Naviguer
                         <i class="fas fa-angle-down"></i>
@@ -58,7 +58,7 @@
         <!-- Partie droite (Bouton Nom de l'Employé) -->
         <div class="d-flex justify-content-end">
             <div class="dropdown">
-                <button class="rounded dropdown-toggle bouton-header-employer custome-dropdown-toggle"
+                <button class="rounded dropdown-toggle bouton-header-employer custom-dropdown-toggle"
                         type="button"
                         id="menuDeroulantEmploye"
                         data-bs-toggle="dropdown"

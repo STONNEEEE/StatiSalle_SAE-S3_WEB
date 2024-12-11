@@ -20,7 +20,7 @@
     width: 235px;
 }
 
-.custome-dropdown-toggle::after {
+.custom-dropdown-toggle::after {
     display: none; /* Supprime la flèche par défaut de Bootstrap */
 }
 

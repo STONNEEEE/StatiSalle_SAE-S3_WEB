@@ -16,14 +16,12 @@
         <div class="container-fluid">
             <!-- Header de la page -->
             <?php include '../fonction/header.php'; ?>
-            <br>
-            <br>
-            <div class="row text-center">
+
+            <div class="row text-center padding-header">
                 <h1>StatiSalle</h1>
             </div>
-            <br>
-            <br>
-            <div class="row d-flex justify-content-center align-items-start w-100 acc-row">
+
+            <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5">
                 <div class="acc-container p-4 w-50">
                     <!-- TODO Ecrire le nom de l'utilisateur en fonction de celui qui est connecté-->
                     <p>Bienvenue, [Nom de l'utilisateur] !</p>

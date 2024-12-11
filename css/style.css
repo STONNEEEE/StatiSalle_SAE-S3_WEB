@@ -5,13 +5,9 @@ body {
     height: 100%;
 }
 
-.full-screen {
-    margin-bottom: 100vh;
-}
-
 /* Ajoute un padding pour laisser le header en haut de page */
 .padding-header {
-    padding-top: 90px;
+    padding-top: 120px;
 }
 
 .auth-row {
