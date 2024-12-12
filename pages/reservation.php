@@ -96,9 +96,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-4"> <!-- deuxieme colonne -->
+        <div class="form-group col-md-4"> <!-- Informations supplémentaires -->
             <br>
-            <div class="row"> <!-- Informations supplémentaires -->
+            <div class="row"> <!-- Objet de l'activité sélectionné -->
                 <div class="form-group col-md-6">
                     <!-- TODO Faire en sorte que ça s'affiche lorsque réunion est sélectionné pour l'activité -->
                     <!-- objet de la réunion-->
@@ -118,7 +118,7 @@
                 </div>
             </div>
             <br>
-            <div class="row">
+            <div class="row"> <!-- Nom formateur ou interlocuteur -->
                 <div class="col-md-6">
                     <div class="row">
                         <div class="form-group col-12">
@@ -127,8 +127,9 @@
                             <input id="autre" name="autre" class="form-control" placeholder="Décrivez votre activité">
                         </div>
                     </div>
+                    <br>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6"> <!-- Prénom formateur ou interlocuteur -->
                     <div class="row">
                         <div class="form-group col-12">
                             <!--TODO Faire en sorte que ça s'affiche lorsque formation ou prêt/louée est sélectionné pour l'activité -->
@@ -139,7 +140,7 @@
                 </div>
             </div>
             <br>
-            <div class="row">
+            <div class="row"> <!-- Numéro de téléphone formateur ou interlocuteur -->
                 <div class="form-group col-md-6">
                     <div class="row">
                         <div class="form-group col-12">
@@ -151,7 +152,7 @@
                     <br>
                 </div>
                 <div class="form-group col-md-6">
-                    <div class="row">
+                    <div class="row"> <!-- Précision sur l'activité -->
                         <div class="form-group col-12">
                             <!--TODO Faire en sorte que ça s'affiche lorsque travaux/entretien est sélectionné pour l'activité -->
                             <label for="precisActivite" class="<?php //echo $classnoTel; ?>">Précision sur activité :</label>
