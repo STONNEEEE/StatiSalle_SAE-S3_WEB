@@ -35,57 +35,73 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <select class="select-filtre w-100">
-                    <option selected disabled>Nom du filtre</option>
+        <div class="row g-1 justify-content-start"> <!-- Grande row des filtres avec espacement réduit -->
+            <!-- Nom des salles -->
+            <div class="col-12 col-sm-4 col-md-2 mb-1">
+                <select class="form-select select-nom">
+                    <option selected>Tous les ...</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <select class="select-filtre w-100">
-                    <option selected disabled>Nom du filtre</option>
+            <!-- Nom des employés -->
+            <div class="col-12 col-sm-4 col-md-2 mb-1">
+                <select class="form-select select-nom">
+                    <option selected>Tous les ...</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <select class="select-filtre w-100">
-                    <option selected disabled>Nom du filtre</option>
+            <!-- Nom des activités -->
+            <div class="col-12 col-sm-4 col-md-2 mb-1">
+                <select class="form-select select-nom">
+                    <option selected>Tous les ...</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <select class="select-filtre w-100">
-                    <option selected disabled>Nom du filtre</option>
+            <!-- Date de début -->
+            <div class="col-12 col-sm-4 col-md-1 mb-1">
+                <select class="form-select select-time">
+                    <option selected>Tous les ...</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <select class="select-filtre w-100">
-                    <option selected disabled>Nom du filtre</option>
+            <!-- Date de fin -->
+            <div class="col-12 col-sm-4 col-md-1 mb-1">
+                <select class="form-select select-time">
+                    <option selected>Tous les ...</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <select class="select-filtre w-100">
-                    <option selected disabled>Nom du filtre</option>
+            <!-- Heure de début -->
+            <div class="col-12 col-sm-4 col-md-1 mb-1">
+                <select class="form-select select-time">
+                    <option selected>Tous les ...</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-4 col-md-1 mb-2">
-                <button class="btn-reset rounded-1 col-md-1">
+            <!-- Heure de fin -->
+            <div class="col-12 col-sm-4 col-md-1 mb-1">
+                <select class="form-select select-time">
+                    <option selected>Tous les ...</option>
+                    <option>10/12/2024</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </div>
+            <!-- Bouton de réinitialisation des filtres -->
+            <div class="col-6 col-sm-6 col-md-1 mb-1">
+                <button class="btn-reset rounded-1 col-md-12">
                     Réinitialiser filtres
                 </button>
             </div>
@@ -153,7 +169,7 @@
                         </td >
                     </tr>
                 </table>
-                <br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br>
             </div>
         </div>
         <?php include '../fonction/footer.php'; ?>

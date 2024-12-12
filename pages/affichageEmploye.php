@@ -24,47 +24,46 @@
 
 
     <!-- Bouton aligné à droite -->
-    <div class="row">
-        <div class="col-3 offset-10 col-md-5">
+    <div class="row mb-3">
+        <div class="col-12 text-center text-md-end">
             <button class="btn-ajouter rounded-2">
                 <span class="fa-plus"></span> Ajouter
             </button>
         </div>
     </div>
-    <!-- Filtre -->
-    <div class="row"> <!-- Grande row -->
-        <div class="form-group col-md-2 mb-2"> <!-- Filtre 1 -->
-            <select class="form-select" name="filtre1" id="filtre1" required>
-                <option value="" disabled selected>Nom du filtre</option>
-                <option value="filtre1-1">Filtre 1</option>
-                <option value="filtre1-2">Filtre 2</option>
-                <option value="filtre1-3">Filtre 3</option>
+    <!-- Filtres et bouton "réinitialiser filtres" -->
+    <div class="row">
+        <div class="col-12 col-md-2 mb-1">
+            <select class="form-select">
+                <option selected>Tous les ...</option>
+                <option>Filtre 1</option>
+                <option>Filtre 2</option>
+                <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="form-group col-md-2 mb-2"> <!-- Filtre 2 -->
-            <select class="form-select" name="filtre2" id="filtre2" required>
-                <option value="" disabled selected>Nom du filtre</option>
-                <option value="filtre2-1">Filtre 1</option>
-                <option value="filtre2-2">Filtre 2</option>
-                <option value="filtre2-3">Filtre 3</option>
+        <div class="col-12 col-md-2 mb-1">
+            <select class="form-select">
+                <option selected>Tous les ...</option>
+                <option>Filtre 1</option>
+                <option>Filtre 2</option>
+                <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="form-group col-md-2 mb-2"> <!-- Filtre 3 -->
-            <select class="form-select" name="filtre3" id="filtre3" required>
-                <option value="" disabled selected>Nom du filtre</option>
-                <option value="filtre3-1">Filtre 1</option>
-                <option value="filtre3-2">Filtre 2</option>
-                <option value="filtre3-3">Filtre 3</option>
+        <div class="col-12 col-md-2 mb-1">
+            <select class="form-select">
+                <option selected>Tous les ...</option>
+                <option>Filtre 1</option>
+                <option>Filtre 2</option>
+                <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="col-3 col-md-5"> <!-- Bouton Réinitialisé -->
-            <button class="btn-ajouter rounded-2">
-                <span class="fa-mountain-sun"></span> Réinitialiser filtres
+        <!-- Bouton de réinitialisation des filtres -->
+        <div class="col-6 col-sm-6 col-md-1 mb-1">
+            <button class="btn-reset rounded-1 col-md-12">
+                Réinitialiser filtres
             </button>
         </div>
+    </div>
     </div>
 
     <div>
