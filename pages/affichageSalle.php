@@ -15,69 +15,166 @@
 <body>
     <div class="container-fluid">
         <?php include '../fonction/header.php'; ?>
-        <div class="padding-header">
-            <h1>Liste des Salles</h1>
-        </div>
-        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
-            <!-- Filtres alignés à gauche -->
-            <div class="d-flex">
-                <label>
-                    <select class="select-filtre me-2">
-                        <option>Filtre 1</option>
-                        <option>Filtre 2</option>
-                        <option>Filtre 3</option>
-                    </select>
-                </label>
-                <label>
-                    <select class="select-filtre me-2">
-                        <option>Filtre 1</option>
-                        <option>Filtre 2</option>
-                        <option>Filtre 3</option>
-                    </select>
-                </label>
-                <label>
-                    <select class="select-filtre me-2">
-                        <option>Filtre 1</option>
-                        <option>Filtre 2</option>
-                        <option>Filtre 3</option>
-                    </select>
-                </label>
+
+        <!-- Titre de la page -->
+        <div class="padding-header row">
+            <div class="col-12">
+                <h1 class="text-center">Liste des Salles</h1>
             </div>
-            <!-- Bouton aligné à droite -->
-            <button class="btn-filtrer rounded-2"><span class="fa-plus"></span>Ajouter</button>
+            <br><br><br>
         </div>
-        <div>
-            <table class="table table-striped">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </table>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
+
+        <!-- 1ère ligne avec le bouton "Ajouter" -->
+        <div class="row mb-3">
+            <div class="col-12 text-center text-md-end">
+                <button class="btn-ajouter rounded-2">
+                    <span class="fa-plus">
+                     Ajouter
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-1 justify-content-start"> <!-- Grande row des filtres avec espacement réduit -->
+            <!-- Nom des salles -->
+            <div class="col-12 col-md-2 mb-1 col-reduit-salle ">
+                <select class="form-select select-nom">
+                    <option selected>Nom</option>
+                    <option>Filtre 1</option>
+                    <option>Salle Picasso</option>
+                    <option>Salle brisbane</option>
+                </select>
+            </div>
+            <!-- Capacité -->
+            <div class="col-12 col-md-1 mb-1">
+                <select class="form-select select-nom">
+                    <option selected>Capacité</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </div>
+            <!-- Vidéo projecteur -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
+                <select class="form-select select-nom">
+                    <option selected>Vidéo proj</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </div>
+            <!-- Grand écran -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
+                <select class="form-select select-time">
+                    <option selected>Grand écran</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </div>
+            <!-- Nombre ordinateur -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
+                <select class="form-select select-time">
+                    <option selected>Nbr ordi</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </div>
+            <!-- Logiciel -->
+            <div class="col-12 col-md-3 mb-1">
+                <select class="form-select select-time">
+                    <option selected>Logiciel</option>
+                    <option>"bureautique,java,intellij,photoshop"</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
+            </div>
+            <!-- Imprimante -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
+                <select class="form-select select-time">
+                    <option selected>Imprimante</option>
+                    <option>Indéfini</option>
+                    <option>Oui</option>
+                    <option>Non</option>
+                </select>
+            </div>
+            <!-- Bouton de réinitialisation des filtres -->
+            <div class="col-6 col-sm-6 col-md-1 mb-1">
+                <button class="btn-reset rounded-1 col-md-12">
+                    Réinitialiser filtres
+                </button>
+            </div>
+        </div>
+
+        <!-- Tableau des données -->
+        <div class="row mt-3">
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Capacite</th>
+                        <th>Video Projecteur</th>
+                        <th>ecran XXL</th>
+                        <th>Ordinateur</th>
+                        <th>Type</th>
+                        <th>Logiciels</th>
+                        <th>Imprimante</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td class="btn-colonne">
+                            <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
+                            <button class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
+                        </td >
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td class="btn-colonne">
+                            <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
+                            <button class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
+                        </td >
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td class="btn-colonne">
+                            <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
+                            <button class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
+                        </td >
+                    </tr>
+                </table>
+                <br><br><br><br><br><br><br><br><br><br>
+            </div>
         </div>
         <?php include '../fonction/footer.php'; ?>
     </div>
-</body>
-<!-- Bootstrap JS -->
+<!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
