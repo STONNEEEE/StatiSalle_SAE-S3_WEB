@@ -37,66 +37,66 @@
 
         <div class="row g-1 justify-content-start"> <!-- Grande row des filtres avec espacement réduit -->
             <!-- Nom des salles -->
-            <div class="col-12 col-sm-4 col-md-2 mb-1">
+            <div class="col-12 col-md-2 mb-1 col-reduit-salle ">
                 <select class="form-select select-nom">
-                    <option selected>Tous les ...</option>
+                    <option selected>Nom</option>
                     <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <option>Salle Picasso</option>
+                    <option>Salle brisbane</option>
                 </select>
             </div>
-            <!-- Nom des employés -->
-            <div class="col-12 col-sm-4 col-md-2 mb-1">
+            <!-- Capacité -->
+            <div class="col-12 col-md-1 mb-1">
                 <select class="form-select select-nom">
-                    <option selected>Tous les ...</option>
+                    <option selected>Capacité</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <!-- Nom des activités -->
-            <div class="col-12 col-sm-4 col-md-2 mb-1">
+            <!-- Vidéo projecteur -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
                 <select class="form-select select-nom">
-                    <option selected>Tous les ...</option>
+                    <option selected>Vidéo proj</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <!-- Date de début -->
-            <div class="col-12 col-sm-4 col-md-1 mb-1">
+            <!-- Grand écran -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
                 <select class="form-select select-time">
-                    <option selected>Tous les ...</option>
+                    <option selected>Grand écran</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <!-- Date de fin -->
-            <div class="col-12 col-sm-4 col-md-1 mb-1">
+            <!-- Nombre ordinateur -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
                 <select class="form-select select-time">
-                    <option selected>Tous les ...</option>
+                    <option selected>Nbr ordi</option>
                     <option>Filtre 1</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <!-- Heure de début -->
-            <div class="col-12 col-sm-4 col-md-1 mb-1">
+            <!-- Logiciel -->
+            <div class="col-12 col-md-3 mb-1">
                 <select class="form-select select-time">
-                    <option selected>Tous les ...</option>
-                    <option>Filtre 1</option>
+                    <option selected>Logiciel</option>
+                    <option>"bureautique,java,intellij,photoshop"</option>
                     <option>Filtre 2</option>
                     <option>Filtre 3</option>
                 </select>
             </div>
-            <!-- Heure de fin -->
-            <div class="col-12 col-sm-4 col-md-1 mb-1">
+            <!-- Imprimante -->
+            <div class="col-12 col-md-1 mb-1 col-grand-salle ">
                 <select class="form-select select-time">
-                    <option selected>Tous les ...</option>
-                    <option>10/12/2024</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <option selected>Imprimante</option>
+                    <option>Indéfini</option>
+                    <option>Oui</option>
+                    <option>Non</option>
                 </select>
             </div>
             <!-- Bouton de réinitialisation des filtres -->
@@ -109,8 +109,8 @@
 
         <!-- Tableau des données -->
         <div class="row mt-3">
-            <div class="col-12">
-                <table class="table table-striped">
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>
@@ -121,7 +121,7 @@
                         <th>Type</th>
                         <th>Logiciels</th>
                         <th>Imprimante</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                     <tr>
                         <td>1</td>

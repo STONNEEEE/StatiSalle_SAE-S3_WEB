@@ -25,7 +25,7 @@
     </div>
 
     <!-- 1ère ligne avec le bouton "Réserver" -->
-    <div class="row mb-3">
+    <div class="row mb-3 ">
         <div class="col-12 text-center text-md-end">
             <button class="btn-ajouter rounded-2">
                 <i class="fa fa-calendar"></i>
@@ -34,79 +34,82 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected>Nom du filtre</option>
+    <div class="row g-1 justify-content-start">
+        <!-- Nom des employés -->
+        <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
+            <select class="form-select">
+                <option selected>Employé</option>
+                <option>Legrand Jean-Pierre</option>
+                <option>Filtre 2</option>
+                <option>Filtre 3</option>
+            </select>
+        </div>
+        <!-- Nom des salles -->
+        <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
+            <select class="form-select">
+                <option selected>Salle</option>
                 <option>Filtre 1</option>
+                <option>Filtre 2</option>
+                <option>Filtre 3</option>
+            </select>
+        </div>
+        <!-- Nom des activités -->
+        <div class="col-12 col-md-1 mb-1 col-grand-reservation">
+            <select class="form-select">
+                <option selected>Activités</option>
+                <option>Formation</option>
                 <option>Filtre 2</option>
                 <option>Filtre 3</option>
             </select>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected>Nom du filtre</option>
+        <!-- Date début -->
+        <div class=" col-grand-reservation col-12 col-md-1 mb-1">
+            <select class="form-select">
+                <option selected>Date Début</option>
                 <option>Filtre 1</option>
                 <option>Filtre 2</option>
                 <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected>Nom du filtre</option>
+        <!-- Date fin -->
+        <div class="col-grand-reservation col-12 col-md-1 mb-1">
+            <select class="form-select">
+                <option selected>Date Fin</option>
                 <option>Filtre 1</option>
                 <option>Filtre 2</option>
                 <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected>Nom du filtre</option>
+        <!-- Heure début -->
+        <div class="col-grand-reservation col-12 col-md-1 mb-1">
+            <select class="form-select">
+                <option selected>Heure début</option>
                 <option>Filtre 1</option>
                 <option>Filtre 2</option>
                 <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected>Nom du filtre</option>
+        <!-- Date début -->
+        <div class="col-grand-reservation col-12 col-md-1 mb-1">
+            <select class="form-select">
+                <option selected>Heure fin</option>
                 <option>Filtre 1</option>
                 <option>Filtre 2</option>
                 <option>Filtre 3</option>
             </select>
         </div>
-
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected>Nom du filtre</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-        </div>
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <select class="select-filtre w-100">
-                <option selected disabled>Nom du filtre</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-        </div>
-        <div class="col-12 col-sm-4 col-md-1 mb-2">
-            <button class="btn-reset rounded-1 col-md-1">
+        <!-- Bouton de réinitialisation des filtres -->
+        <div class="col-6 col-sm-6 col-md-1 mb-1">
+            <button class="btn-reset rounded-1 col-md-12">
                 Réinitialiser filtres
             </button>
         </div>
     </div>
-
     <!-- Tableau des données -->
     <div class="row mt-3">
-        <div class="col-12">
-            <table class="table table-striped">
+        <div class="table-responsive">
+            <table class="table table-striped text-center">
                 <tr>
                     <th>ID</th>
                     <th>Salle</th>

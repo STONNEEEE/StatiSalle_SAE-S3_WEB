@@ -39,21 +39,28 @@ body {
 }
 
 .btn-reset {
-    width: 150%; /* Rend le bouton aussi large que les filtres */
+    width: 200%; /* Rend le bouton aussi large que les filtres */
     border-radius: 7px;
-    height: 40px;
     text-align: center;
     padding: 0;
     background-color: rgb(12,127,211);
+    height: 37.6px;
 }
 
 .btn-ajouter{
     margin-left : auto;
     background-color: rgb(12,127,211);
+    height: 37.6px;
 }
 
 .btn-suppr{
     background-color: #da3636;
+    border-color: #da3636;
+}
+
+.btn-suppr:hover {
+    background-color: #da3636;
+    box-shadow: 0 0 30px 5px #da3636;
 }
 
 .btn-modifier{
@@ -65,13 +72,29 @@ body {
     text-align: center; /* Centre les icônes */
 }
 
+@media (min-width: 992px) {
+    .col-grand-reservation{
+        flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
+        width: 145px; /* Largeur personnalisée */
+    }
 
+    .col-grand-salle {
+        flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
+        width: 140px; /* Largeur personnalisée */
+    }
 
+    .col-reduit-reservation {
+        flex: 0 0 auto;
+        width: 200px; /* Largeur réduite des colonnes sur grands écrans */
+    }
 
+    .col-reduit-salle {
+        flex: 0 0 auto;
+        width: 175px; /* Largeur réduite des colonnes sur grands écrans */
+    }
+}
 
 /* ---------------------------------------------------------- */
-
-
 
 
 /* From Uiverse.io */
