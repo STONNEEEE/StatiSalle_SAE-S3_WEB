@@ -31,17 +31,58 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* **************** Page affichageSalle **************** */
-.select-filtre{
+/* **************** Pages d'affichage**************** */
+.select-filtre {
     border-radius: 7px;
     height: 35px;
     margin-right: 25px;
 }
 
-.btn-filtrer{
-    margin-left : auto;
-    background-color: rgb(12, 127, 211);
+.btn-reset {
+    width: 200%; /* Rend le bouton aussi large que les filtres */
+    border-radius: 7px;
+    text-align: center;
+    padding: 0;
+    background-color: rgb(12,127,211);
+    height: 37.6px;
 }
+
+.btn-ajouter{
+    margin-left : auto;
+    background-color: rgb(12,127,211);
+    height: 37.6px;
+}
+
+.btn-suppr{
+    background-color: #da3636;
+}
+
+.btn-modifier{
+    background-color: rgb(12,127,211);
+}
+
+.btn-colonne{
+    width: 10%;
+    text-align: center; /* Centre les icônes */
+}
+
+.col-grand{
+    flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
+    width: 150px; /* Largeur personnalisée */
+}
+
+/* Appliquer une largeur personnalisée uniquement aux trois premières colonnes */
+.col-reduit {
+    flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
+    width: 200px; /* Largeur personnalisée */
+}
+
+
+
+
+
+
+/* ---------------------------------------------------------- */
 
 
 
