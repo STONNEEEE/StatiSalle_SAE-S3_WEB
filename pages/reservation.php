@@ -11,10 +11,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <style>
-        .row {
-        }
-    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -34,7 +30,7 @@
             <div class="row"> <!-- Salle -->
                 <div class="form-group col-md-12">
                     <!--TODO Faire une liste déroulante avec une fonction php qui récupère les salles correspondantes -->
-                    <label for="salle-select" class="<?php //echo $classnoTel; ?>"><a title="Champ Obligatoire">Nom de la salle : *</a></label>
+                    <label for="salle-select" class="<?php //echo $classnoTel; // Pour mettre ne rouge?>"><a title="Champ Obligatoire">Nom de la salle : *</a></label>
                     <select class="form-select" name="nomSalle" id="salle-select" required>
                         <option value="" disabled selected>Choisir la salle</option>
                         <option value="salle1">salle1</option>
@@ -68,8 +64,9 @@
                     <div class="row">
                         <div class="form-group col-12">
                             <!-- TODO Faire un calendrier avec impossibilité de sélectionné des jours avent aujourd'hui -->
+                            <!-- TODO A créer le css pour "petite-taille" -->
                             <!--      Impossible de réserver une salle le dimanche et seulement entre 7h et 20h -->
-                            <label for="date"><a title="Champ Obligatoire">Date : *</a></label>
+                            <label for="date" class="petite-taille"><a title="Champ Obligatoire">Date : *</a></label>
                             <input type="date" id="date" name="date" placeholder="Choisir la date de votre réservation" class="form-control" value="" min="" required>
                         </div>
                     </div>
