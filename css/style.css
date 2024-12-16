@@ -173,3 +173,7 @@ button:active {
 input[type="text"]::placeholder {
     text-align: center;
 }
+
+.petite-taille{
+    font-size: 15px;
+}

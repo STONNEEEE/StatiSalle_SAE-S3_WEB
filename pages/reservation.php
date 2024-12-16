@@ -124,7 +124,6 @@
                             <input id="autre" name="autre" class="form-control" placeholder="Décrivez votre activité">
                         </div>
                     </div>
-                    <br>
                 </div>
                 <div class="col-md-6"> <!-- Prénom formateur ou interlocuteur -->
                     <div class="row">
