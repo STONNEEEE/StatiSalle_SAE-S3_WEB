@@ -1,28 +1,37 @@
 <?php
     function verif_utilisateur($pdo, $identifiant)
     {
-        $requete = "SELECT id_login, login, mdp
+        try {
+            $requete = "SELECT id_login, login, mdp
                         FROM login 
                         WHERE login = :identifiant";
-        $resultat = $pdo->prepare($requete);
-        $resultat->bindParam(':identifiant', $identifiant);
-        $resultat->execute();
-        return $resultat->fetch();
+            $resultat = $pdo->prepare($requete);
+            $resultat->bindParam(':identifiant', $identifiant);
+            $resultat->execute();
+            return $resultat->fetch();
+        }catch(PDOException $e){
+            echo 'Erreur : '.$e->getMessage();
+        }
     }
 
     function verif_mdp($pdo, $mdp)
     {
-        $requete = "SELECT id_login, login, mdp
-                            FROM login 
-                            WHERE mdp = :mdp";
-        $resultat = $pdo->prepare($requete);
-        $resultat->bindParam(':mdp', $mdp);
-        $resultat->execute();
-        return $resultat->fetch();
+        try {
+            $requete = "SELECT id_login, login, mdp
+                                FROM login 
+                                WHERE mdp = :mdp";
+            $resultat = $pdo->prepare($requete);
+            $resultat->bindParam(':mdp', $mdp);
+            $resultat->execute();
+            return $resultat->fetch();
+        }catch(PDOException $e){
+            echo 'Erreur : '.$e->getMessage();
+        }
     }
 
     function type_utilisateur($pdo, $identifiant, $mdp)
     {
+        try {
         $requete = "SELECT nom_type 
                         FROM type_utilisateur 
                         JOIN login 
@@ -34,6 +43,9 @@
         $resultat->bindParam(':mdp', $mdp);
         $resultat->execute();
         return $resultat->fetch();
+        }catch(PDOException $e){
+            echo 'Erreur : '.$e->getMessage();
+        }
     }
 
     function verif_session() {
