@@ -1,6 +1,6 @@
 <?php
     function connecteBD(){
-        $host = 'localhost';
+        $host = 'www.statisalle.fr';
         $db = 'StatsalleBD';
         $user = 'admin';
         $pass = 'admin';

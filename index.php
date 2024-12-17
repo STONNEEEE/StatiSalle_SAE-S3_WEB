@@ -1,3 +1,28 @@
+<?php
+    session_start();
+    require('fonction/liaisonBD.php');
+    $pdo = connecteBD();
+
+    $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
+    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+
+    $utilisateurOk = verif_connexion($pdo, $identifiant, $mdp);
+
+    $typeUtilisateur = type_utilisateur($pdo, $identifiant, $mdp);
+
+    if($typeUtilisateur != null){
+        $_SESSION['typeUtilisateur'] = $typeUtilisateur;
+    }
+
+    if($identifiant != "" && $mdp != ""){
+        if($utilisateurOk){
+            $_SESSION['login'] = $identifiant;
+            $_SESSION['mdp'] = $mdp;
+            header('Location: pages/accueil.php');
+            exit;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
