@@ -1,6 +1,9 @@
 <?php
     session_start();
+
     require('fonction/liaisonBD.php');
+    require('fonction/connexion.php');
+
     $pdo = connecteBD();
 
     $erreur = false;
@@ -14,7 +17,8 @@
     $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
     $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-    $utilisateurOk = verif_connexion($pdo, $identifiant, $mdp);
+    $utilisateurOk = verif_utilisateur($pdo, $identifiant);
+    $mdpOk = verif_mdp($pdo, $mdp);
 
     $typeUtilisateur = type_utilisateur($pdo, $identifiant, $mdp);
 
