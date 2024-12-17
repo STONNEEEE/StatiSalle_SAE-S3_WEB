@@ -22,14 +22,16 @@
         $_SESSION['typeUtilisateur'] = $typeUtilisateur;
     }
 
-    if($utilisateurOk && $identifiant != "" && $mdp != ""){
-        $_SESSION['id'] = $utilisateurOk['id_login'];
-        $_SESSION['login'] = $utilisateurOk['login'];
-        $_SESSION['mdp'] = $utilisateurOk['mdp'];
-        header('Location: pages/accueil.php');
-        exit;
-    } else {
-        $erreur = true;
+    if($identifiant != "" && $mdp != ""){
+        if($utilisateurOk){
+            $_SESSION['id'] = $utilisateurOk['id_login'];
+            $_SESSION['login'] = $utilisateurOk['login'];
+            $_SESSION['mdp'] = $utilisateurOk['mdp'];
+            header('Location: pages/accueil.php');
+            exit;
+        } else {
+            $erreur = true;
+        }
     }
 ?>
 <!DOCTYPE html>
