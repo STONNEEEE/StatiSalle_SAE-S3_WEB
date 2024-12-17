@@ -1,16 +1,43 @@
 <?php
 
     // session_start();
+    // require(..\fonction\fonction.php);
 
     // Vérification des variables issues du formulaire
-    $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : null;
-    $capacite =         isset($_POST['capacite']) ? $_POST['capacite'] : null;
-    $videoProjecteur =  isset($_POST['videoProjecteur']) ? $_POST['videoProjecteur'] : null;
-    $ordinateurXXL =    isset($_POST['ordinateurXXL']) ? $_POST['ordinateurXXL'] : null;
-    $nbrOrdi =          isset($_POST['nbrOrdi']) ? $_POST['nbrOrdi'] : null;
-    $typeMateriel =     isset($_POST['typeMateriel']) ? $_POST['typeMateriel'] : null;
-    $logiciel =         isset($_POST['logiciel']) ? $_POST['logiciel'] : null;
-    $imprimante =       isset($_POST['imprimante']) ? $_POST['imprimante'] : null;
+    $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
+    $capacite =         isset($_POST['capacite']) ? $_POST['capacite'] : '';
+    $videoProjecteur =  isset($_POST['videoProjecteur']) ? $_POST['videoProjecteur'] : '';
+    $ordinateurXXL =    isset($_POST['ordinateurXXL']) ? $_POST['ordinateurXXL'] : '';
+    $nbrOrdi =          isset($_POST['nbrOrdi']) ? $_POST['nbrOrdi'] : '';
+    $typeMateriel =     isset($_POST['typeMateriel']) ? $_POST['typeMateriel'] : '';
+    $logiciel =         isset($_POST['logiciel']) ? $_POST['logiciel'] : '';
+    $imprimante =       isset($_POST['imprimante']) ? $_POST['imprimante'] : '';
+
+    // Tableau pour stocker les erreurs
+    $erreurs = [];
+
+    // Vérification des champs obligatoires
+    if (empty($nomSalle)) {
+        $erreurs['nomSalle'] = "Le nom de la salle est obligatoire.";
+    }
+    if (empty($capacite)) {
+        $erreurs['capacite'] = "La capacité est obligatoire.";
+    }
+    if (empty($videoProjecteur)) {
+        $erreurs['videoProjecteur'] = "Le choix pour le vidéo projecteur est obligatoire.";
+    }
+    if (empty($ordinateurXXL)) {
+        $erreurs['ordinateurXXL'] = "Le choix pour l'ordinateur XXL est obligatoire.";
+    }
+
+    // TODO Insertion de la Salle avec tous les paramètres
+    // Rajouter une condition de si les données sont bien rentré pour permettre l'insertion
+    // Faire que $pdo soit une variable globale dans le fichier des fonctions
+    // creationSalle($pdo, $nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
+
+//    if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL'])){
+//        creationSalle( $nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
+//    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -44,14 +71,14 @@
             <br>
             <div class="row"> <!-- Nom de la salle -->
                 <div class="form-group col-12">
-                    <label for="nomSalle" class="<?= isset($tabErreurs['nomSalle']) ? 'enRouge' : '' ?>"><a title="Champ Obligatoire">Nom de la salle : *</a></label>
+                    <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'enRouge' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
                     <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
                 </div>
             </div>
             <br>
             <div class="row"> <!-- Capacité -->
                 <div class="form-group col-12">
-                    <label for="capacite" class="<?= isset($tabErreurs['capacite']) ? 'enRouge' : '' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
+                    <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
                     <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" >
                 </div>
             </div>
@@ -59,7 +86,7 @@
             <br>
             <div class="row"> <!-- Vidéo projecteur -->
                 <div class="form-group col-12">
-                    <label for="videoProjecteur" class="<?= isset($tabErreurs['videoProjecteur']) ? 'enRouge' : '' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
+                    <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
                     <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> >
                     <label class="form-check-label" for="OUI">Oui</label>
                     <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> >
@@ -70,7 +97,7 @@
             <br>
             <div class="row"> <!-- Ordinateur XXL -->
                 <div class="form-group col-md-12">
-                    <label for="ordinateurXXL" class="<?= isset($tabErreurs['ordinateurXXL']) ? 'enRouge' : '' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
+                    <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
                     <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> >
                     <label class="form-check-label" for="OUI">Oui</label>
                     <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> >
@@ -82,28 +109,28 @@
             <br>
             <div class="row"> <!-- Nombre d'ordinateurs -->
                 <div class="form-group col-12">
-                    <label for="nbrOrdi" class="<?php //echo $classnoTel; ?>">Nombre d'ordinateur : </label>
+                    <label for="nbrOrdi">Nombre d'ordinateur : </label>
                     <input type="number" class="form-control" name="nbrOrdi" id="nbrOrdi" min="0" >
                 </div>
             </div>
             <br>
             <div class="row"> <!-- Type matériel -->
                 <div class="form-group col-12">
-                    <label for="typeMateriel" class="<?php //echo $classnoTel; ?>">Type de matériel :</label>
+                    <label for="typeMateriel">Type de matériel :</label>
                     <input type="text" class="form-control" name="typeMateriel" id="typeMateriel">
                 </div>
             </div>
             <br>
             <div class="row"> <!-- Logiciels installés  -->
                 <div class="form-group col-md-12">
-                    <label for="logiciel" class="<?php //echo $classnoTel; ?>">Logiciels installés :</label>
+                    <label for="logiciel">Logiciels installés :</label>
                     <input type="text" class="form-control" name="logiciel" id="logiciel" placeholder="Exemple à suivre : bureautique, java, intellij, photoshop">
                 </div>
             </div>
             <br>
             <div class="row"> <!-- Imprimante -->
                 <div class="form-group col-md-12">
-                    <label for="imprimante" class="<?php //echo $classnoTel; ?>">Imprimante : </label>
+                    <label for="imprimante">Imprimante : </label>
                     <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="OUI">
                     <label class="form-check-label" for="OUI">Oui</label>
                     <input type="radio" class="form-check-input" id="NON" name="imprimante" value="NON">
@@ -114,12 +141,11 @@
     </div>
     <br>
     <div class="row">
-        <!-- TODO Faire en sorte que le bouton soit cliquable quand les infos obligatoires sont rentrées -->
         <div class="col-3 text-center w-100 ">
             <button type="submit" class="btn-ajouter rounded" id="submit">
                 Créer la salle
             </button>
-            <br><br><br><br><br><br><br><br>
+            <br><br>
         </div>
     </div>
     </form>
