@@ -1,12 +1,21 @@
 <?php
-    function verif_connexion($pdo, $identifiant, $mdp)
+    function verif_utilisateur($pdo, $identifiant)
     {
         $requete = "SELECT id_login, login, mdp
                         FROM login 
-                        WHERE login = :identifiant 
-                        AND mdp = :mdp";
+                        WHERE login = :identifiant";
         $resultat = $pdo->prepare($requete);
         $resultat->bindParam(':identifiant', $identifiant);
+        $resultat->execute();
+        return $resultat->fetch();
+    }
+
+    function verif_mdp($pdo, $mdp)
+    {
+        $requete = "SELECT id_login, login, mdp
+                            FROM login 
+                            WHERE mdp = :mdp";
+        $resultat = $pdo->prepare($requete);
         $resultat->bindParam(':mdp', $mdp);
         $resultat->execute();
         return $resultat->fetch();

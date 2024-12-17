@@ -23,7 +23,7 @@
     }
 
     if($identifiant != "" && $mdp != ""){
-        if($utilisateurOk){
+        if($utilisateurOk && $mdpOk){
             $_SESSION['id'] = $utilisateurOk['id_login'];
             $_SESSION['login'] = $utilisateurOk['login'];
             $_SESSION['mdp'] = $utilisateurOk['mdp'];
@@ -67,7 +67,12 @@
                     <h3 class="mb-4">
                         <?php
                             if($erreur){
-                                echo "<span class='erreur'>Erreur : veuillez entrer des identifiants et mot de passe valide</span>";
+                                if(!$utilisateurOk){
+                                    echo "<span class='erreur'>Erreur : Veuillez entrer un identifiant valide</span>";
+                                }
+                                if(!$mdpOk){
+                                    echo "<span class='erreur'>Erreur : Veuillez entrer un mot de passe valide</span>";
+                                }
                             } else {
                                 echo "Authentification";
                             }
