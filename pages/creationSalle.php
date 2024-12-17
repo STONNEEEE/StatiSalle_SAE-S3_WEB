@@ -1,7 +1,7 @@
 <?php
 
     // session_start();
-    // require(..\fonction\fonction.php);
+    require("../fonction/fonction_insertion_Salle.php");
 
     // Vérification des variables issues du formulaire
     $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
@@ -30,14 +30,17 @@
         $erreurs['ordinateurXXL'] = "Le choix pour l'ordinateur XXL est obligatoire.";
     }
 
-    // TODO Insertion de la Salle avec tous les paramètres
-    // Rajouter une condition de si les données sont bien rentré pour permettre l'insertion
-    // Faire que $pdo soit une variable globale dans le fichier des fonctions
-    // creationSalle($pdo, $nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
-
-//    if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL'])){
-//        creationSalle( $nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
-//    }
+    // FIXME la salle est bien insérer mais n'ai pas affiché dans la BD donc voir si elle existe vraiment
+    if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL'])){
+        try {
+            creationSalle($nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
+            echo "<div class='alert alert-success'>Les données ont été insérées avec succès.</div>";
+        } catch (PDOException $e) {
+            //Il y a eu une erreur
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
+            echo "<div class='alert alert-danger'>Erreur lors de l'insertion : " . $e->getMessage() . "</div>";
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
