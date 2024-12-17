@@ -27,7 +27,7 @@
     <!-- 1ère ligne avec le bouton "Réserver" -->
     <div class="row mb-3 ">
         <div class="col-12 text-center text-md-end">
-            <button class="btn-ajouter rounded-2">
+            <button class="btn-ajouter rounded-2" onclick="window.location.href='reservation.php';">
                 <i class="fa fa-calendar"></i>
                 Réserver
             </button>
