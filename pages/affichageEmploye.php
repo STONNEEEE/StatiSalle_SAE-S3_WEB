@@ -28,8 +28,9 @@
     <!-- Bouton aligné à droite -->
     <div class="row mb-3">
         <div class="col-12 text-center text-md-end">
-            <button class="btn-ajouter rounded-2">
-                <span class="fa-plus"></span> Ajouter
+            <button class="btn-ajouter rounded-2" onclick="window.location.href='creationEmploye.php';">
+                <span class="fa-plus"></span>
+                Ajouter
             </button>
         </div>
     </div>
