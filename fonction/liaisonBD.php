@@ -1,36 +1,28 @@
 <?php
-    function connecteBD() {
-        // TODO Vérification si le script est appelé localement ou via le domaine
-
-        $host = 'statisalle.fr';
-        $db = 'sc1vosi2297_StatisalleBD';
-        $user = 'sc1vosi2297_application';
-        $pass = '@ppl1cat1on123';
+    function connecteBD(){
+        $host = 'www.statisalle.fr';
+        $db = 'StatisalleBD';
+        $user = 'admin';
+        $pass = 'admin';
         $charset = 'utf8mb4';
-        $port = 3306;
+        $port = 33306;
 
         // Constitution variable DSN
         $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
 
         // Réglage des options
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,    // Active les exceptions en cas d'erreur
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, // Récupère les résultats sous forme d'objets
-            PDO::ATTR_EMULATE_PREPARES => false             // Désactive l'émulation des requêtes préparées
-        ];
+        $options=[
+            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES=>false];
 
-        // Bloc pour gérer les erreurs
-        try {
-            return new PDO($dsn, $user, $pass, $options);
-        } catch (PDOException $e) {
-            // En cas d'erreur, on affiche des informations précises pour le débogage
-            echo "Erreur de connexion à la base de données : " . $e->getMessage() . "<br>";
-            echo "Code d'erreur : " . $e->getCode() . "<br>";
-            echo "Hôte : $host<br>";
-            echo "Port : $port<br>";
-            echo "Utilisateur : $user<br>";
-            exit;
+        try{
+            // Bloc try bd injoignable ou si erreur SQL
+            $pdo = new PDO($dsn,$user,$pass,$options);
+            return $pdo;
+        }catch(PDOException $e){
+            //Il y a eu une erreur
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
     }
-
 ?>
