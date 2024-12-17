@@ -1,3 +1,21 @@
+<?php
+include '../fonction/employer.php';
+
+$message = '';
+
+if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
+    $id_employe = $_POST['id_employe'];
+
+    // Appeler la fonction de suppression
+    try {
+        supprimerEmploye($id_employe);
+        $_SESSION['message'] = 'Employé supprimé avec succès !';
+    } catch (Exception $e) {
+        $_SESSION['message'] = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,104 +35,130 @@
     <!-- Header de la page -->
     <?php include '../fonction/header.php'; ?>
 
-    <!-- Titre de la page -->
-    <div class="padding-header row">
-        <div class="col-12">
-            <h1 class="text-center">Liste des Employés</h1>
+    <!-- Contenu de la page -->
+    <div class="full-screen padding-header">
+        <!-- Titre de la page -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Liste des Employés</h1>
+            </div>
+            <br><br><br>
         </div>
-        <br><br><br>
+
+        <!-- Message de confirmation ou d'erreur -->
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="alert alert-info text-center" role="alert">
+                <?php
+                echo htmlspecialchars($_SESSION['message']);
+                unset($_SESSION['message']); // Effacer le message après l'affichage
+                ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Bouton aligné à droite -->
+        <div class="row mb-3">
+            <div class="col-12 text-center text-md-end">
+                <button class="btn-ajouter rounded-2" type="button" onclick="window.location.href='creationEmploye.php';">
+                    <span class="fa-plus"></span> Ajouter
+                </button>
+            </div>
+        </div>
+
+        <!-- Nom employe -->
+        <div class="row g-1 justify-content-start">
+            <div class="col-12 col-md-2 mb-1">
+                <label>
+                    <select class="form-select">
+                        <option selected>Nom</option>
+                        <option>Filtre 1</option>
+                        <option>Filtre 2</option>
+                        <option>Filtre 3</option>
+                    </select>
+                </label>
+            </div>
+            <!-- Prénom employe -->
+            <div class="col-12 col-md-2 mb-1">
+                <label>
+                    <select class="form-select">
+                        <option selected>Prenom</option>
+                        <option>Filtre 1</option>
+                        <option>Filtre 2</option>
+                        <option>Filtre 3</option>
+                    </select>
+                </label>
+            </div>
+            <!-- Numéro de téléphone employe -->
+            <div class="col-12 col-md-2 mb-1">
+                <label>
+                    <select class="form-select">
+                        <option selected>Numéro de téléphone</option>
+                        <option>Filtre 1</option>
+                        <option>Filtre 2</option>
+                        <option>Filtre 3</option>
+                    </select>
+                </label>
+            </div>
+            <!-- Bouton de réinitialisation des filtres -->
+            <div class="col-6 col-sm-6 col-md-1 mb-1">
+                <button class="btn-reset rounded-1 col-md-12">
+                    Réinitialiser filtres
+                </button>
+            </div>
+        </div>
+        <!-- Tableau des données -->
+        <div class="row mt-3">
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>NumeroTel</th>
+                        <th>Actions</th>
+                    </tr>
+                    <?php
+                    try {
+                        $employes = renvoyerEmployes();
+                    } catch (Exception $e) {
+                        echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
+                    }
+
+                    // Vérifier si le tableau est vide
+                    if (empty($employes)) {
+                        echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
+                    } else {
+                        // Afficher les employés
+                        foreach ($employes as $employe) {
+                            echo '<tr>';
+                            echo '<td>' . $employe->id_employe . '</td>';
+                            echo '<td>' . $employe->nom . '</td>';
+                            echo '<td>' . $employe->prenom . '</td>';
+                            echo '<td>' . $employe->telephone . '</td>';
+                            echo '<td class="btn-colonne">';
+                            echo '<div class="d-flex justify-content-center gap-1">';
+                            echo '    <form method="POST">';
+                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
+                            echo '        <input type="hidden" name="supprimer" value="true">';
+                            echo '        <button type="submit" class="btn btn-suppr rounded-2">';
+                            echo '             <span class="fa-solid fa-trash"></span>';
+                            echo '        </button>';
+                            echo '    </form>';
+
+                            echo '    <button class="btn btn-warning btn-modif rounded-2">';
+                            echo '        <span class="fa-regular fa-pen-to-square"></span>';
+                            echo '    </button>';
+                            echo '</div>';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+                    }
+                    ?>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <!-- Bouton aligné à droite -->
-    <div class="row mb-3">
-        <div class="col-12 text-center text-md-end">
-            <button class="btn-ajouter rounded-2" onclick="window.location.href='creationEmploye.php';">
-                <span class="fa-plus"></span>
-                Ajouter
-            </button>
-        </div>
-    </div>
-
-    <!-- Nom employe -->
-    <div class="row g-1 justify-content-start">
-        <div class="col-12 col-md-2 mb-1">
-            <select class="form-select">
-                <option selected>Nom</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-        </div>
-        <!-- Prénom employe -->
-        <div class="col-12 col-md-2 mb-1">
-            <select class="form-select">
-                <option selected>Prenom</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-        </div>
-        <!-- Numéro de téléphone employe -->
-        <div class="col-12 col-md-2 mb-1">
-            <select class="form-select">
-                <option selected>Numéro de téléphone</option>
-                <option>Filtre 1</option>
-                <option>Filtre 2</option>
-                <option>Filtre 3</option>
-            </select>
-        </div>
-        <!-- Bouton de réinitialisation des filtres -->
-        <div class="col-6 col-sm-6 col-md-1 mb-1">
-            <button class="btn-reset rounded-1 col-md-12">
-                Réinitialiser filtres
-            </button>
-        </div>
-    </div>
-    <!-- Tableau des données -->
-    <div class="row mt-3">
-        <div class="table-responsive">
-            <table class="table table-striped text-center">
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>NumeroTel</th>
-                    <th>Actions</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td class="btn-colonne">
-                        <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
-                        <button class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
-                    </td >
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td class="btn-colonne">
-                        <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
-                        <button class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td class="btn-colonne">
-                        <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
-                        <button class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
     <?php include '../fonction/footer.php'; ?>
 </div>
 </body>

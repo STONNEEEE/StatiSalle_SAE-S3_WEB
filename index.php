@@ -70,12 +70,12 @@
                 <div class="auth-container text-center p-4 w-50">
                     <h3 class="mb-4">
                         <?php
-                            if($erreur){
-                                if(!$utilisateurOk){
-                                    echo "<span class='erreur'>Erreur : Veuillez entrer un identifiant valide</span>";
+                            if ($erreur) {
+                                if (!$utilisateurOk) {
+                                    echo "<span class='erreur'>Erreur : Veuillez entrer un identifiant valide.</span>";
                                 }
-                                if(!$mdpOk){
-                                    echo "<span class='erreur'>Erreur : Veuillez entrer un mot de passe valide</span>";
+                                if (!$mdpOk) {
+                                    echo "<span class='erreur'>Erreur : Veuillez entrer un mot de passe valide.</span>";
                                 }
                             } else {
                                 echo "Authentification";
@@ -114,9 +114,6 @@
                         </div>
                         <button type="submit" class="btn btn-info w-100">Se connecter</button>
                     </form>
-
-                    <!-- Bouton -->
-
                 </div>
             </div>
 

@@ -1,3 +1,71 @@
+<?php
+include '../fonction/employer.php';
+
+// Initialisation des variables et messages d'erreur
+$nom = $prenom = $numTel = $id = $mdp = $cmdp = "";
+$erreurs = [];
+$messageSucces = "";
+
+// Vérification si le formulaire a été soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupération des données du formulaire
+    $nom = $_POST['nom'] ?? '';
+    $prenom = $_POST['prenom'] ?? '';
+    $numTel = $_POST['numTel'] ?? '';
+    $id = $_POST['id'] ?? '';
+    $mdp = $_POST['mdp'] ?? '';
+    $cmdp = $_POST['cmdp'] ?? '';
+    $admin = isset($_POST['admin']) ? 1 : 2;
+
+    // Vérification des champs requis
+    if (!isset($nom) || $nom === '') $erreurs['nom'] = "Le nom est requis.";
+    if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
+    if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
+    if (!isset($id) || $id === '') $erreurs['id'] = "L'identifiant est requis.";
+    if (!isset($mdp) || $mdp === '') $erreurs['mdp'] = "Le mot de passe est requis.";
+    if (!isset($cmdp) || $cmdp === '') $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
+
+    // Vérification des longueurs des champs
+    if (strlen($id) !== 7) {
+        $erreurs['id'] = "L'identifiant doit faire exactement 7 caractères.";
+    }
+    if (strlen($numTel) < 4 || strlen($numTel) > 10) {
+        $erreurs['numTel'] = "Le numéro de téléphone doit contenir entre 4 et 10 caractères.";
+    }
+    if (strlen($nom) < 1 || strlen($nom) > 50) {
+        $erreurs['nom'] = "Le nom doit contenir entre 1 et 50 caractères.";
+    }
+    if (strlen($prenom) < 1 || strlen($prenom) > 50) {
+        $erreurs['prenom'] = "Le prénom doit contenir entre 1 et 50 caractères.";
+    }
+
+    // Vérification que le numéro de téléphone contient uniquement des chiffres
+    if (!ctype_digit($numTel)) {
+        $erreurs['numTel'] = "Le numéro de téléphone doit contenir uniquement des chiffres.";
+    }
+
+    // Vérification que le mot de passe et sa confirmation sont identiques
+    if ($mdp !== $cmdp) {
+        $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
+    }
+
+    // Vérification que l'id est bien unique dans la base de données
+    if (verifIdEmploye($id)) {
+        $erreurs['id'] = "L'identifiant est déjà pris. Veuillez en choisir un autre.";
+    }
+
+    // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
+    if (empty($erreurs)) {
+        try {
+            ajouterEmploye($id, $nom, $prenom, $numTel, $mdp, $admin);
+            $messageSucces = "Employé ajouté avec succès !";
+        } catch (PDOException $e) {
+            $erreurs[] = "Impossible d'ajouter l'employé a la base de donnée : " . $e->getMessage();
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,58 +85,120 @@
     <!-- Header de la page -->
     <?php include '../fonction/header.php'; ?>
 
-    <!-- Titre de la page -->
-    <div class="padding-header row">
-        <div class="text-center">
-            <h1>Création d'un employé</h1>
+    <div class="full-screen">
+        <!-- Titre de la page -->
+        <div class="padding-header row">
+            <div class="text-center">
+                <br>
+                <h1>Création d'un employé</h1>
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <form>
-            <div class="row">
-                <div class="col-md-3 offset-md-3">
-                    <label for="nom"></label>
-                    <input class="form-text form-control" type="text" placeholder="nom" id="nom" name="nom" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="prenom"></label>
-                    <input class="form-text form-control" type="text" placeholder="prenom" id="prenom" name="prenom" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="numTel"></label>
-                    <input class="form-text form-control" type="text" placeholder="numTel" id="numTel" name="numTel" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="id"></label>
-                    <input class="form-text form-control" type="text" placeholder="identifiant" id="id" name="id" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="mdp"></label>
-                    <input class="form-text form-control" type="text" placeholder="Mot de passe" id="mdp" name="mdp" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="cmdp"></label>
-                    <input class="form-text form-control" type="text" placeholder="Confirmez le mot de passe" id="cmdp" name="cmdp" required>
-                </div>
-            </div>
-            <br>
-            <div class="row full-screen">
-                <div class="col-md-6 offset-md-3">
-                    <button type="submit" class="btn-ajouter rounded w-100">Créer le compte</button>
-                </div>
-            </div>
 
-        </form>
-        <br>
+        <!-- Affichage des erreurs globales seulement après soumission -->
+        <?php if (!empty($erreurs)): ?>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($erreurs as $erreur): ?>
+                                <li><?= $erreur ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <!-- Affichage du message de succès -->
+        <?php if ($messageSucces): ?>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert alert-success">
+                        <?= $messageSucces ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <!-- Contenu de la page -->
+        <div class="container">
+            <form method="POST" action="creationEmploye.php">
+                <!-- Nom et prénom -->
+                <div class="row">
+                    <div class="col-md-3 offset-md-3">
+                        <label for="nom"></label><input class="form-text form-control" type="text" placeholder="Nom" id="nom" name="nom" value="<?= htmlspecialchars($nom) ?>" required>
+                        <?php if (isset($erreurs['nom'])): ?>
+                            <small class="text-danger"><?= $erreurs['nom'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="prenom"></label><input class="form-text form-control" type="text" placeholder="Prénom" id="prenom" name="prenom" value="<?= htmlspecialchars($prenom) ?>" required>
+                        <?php if (isset($erreurs['prenom'])): ?>
+                            <small class="text-danger"><?= $erreurs['prenom'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Numéro de tel -->
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="numTel"></label><input class="form-text form-control" type="text" placeholder="Numéro de téléphone" id="numTel" name="numTel" value="<?= htmlspecialchars($numTel) ?>" required>
+                        <?php if (isset($erreurs['numTel'])): ?>
+                            <small class="text-danger"><?= $erreurs['numTel'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- id dans la bd (7 caractères obligatoire) -->
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="id"></label><input class="form-text form-control" type="text" placeholder="Identifiant (7 caractères) : E000009" id="id" name="id" value="<?= htmlspecialchars($id) ?>" required>
+                        <?php if (isset($erreurs['id'])): ?>
+                            <small class="text-danger"><?= $erreurs['id'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Mdp -->
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="mdp"></label><input class="form-text form-control" type="password" placeholder="Mot de passe" id="mdp" name="mdp" value="<?= htmlspecialchars($mdp) ?>" required>
+                        <?php if (isset($erreurs['mdp'])): ?>
+                            <small class="text-danger"><?= $erreurs['mdp'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Confirmation mot de passe -->
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="cmdp"></label><input class="form-text form-control" type="password" placeholder="Confirmez le mot de passe" id="cmdp" name="cmdp" value="<?= htmlspecialchars($cmdp) ?>" required>
+                        <?php if (isset($erreurs['cmdp'])): ?>
+                            <small class="text-danger"><?= $erreurs['cmdp'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Case à cocher pour les permissions administratives -->
+                <div class="row mt-3">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="admin">Permissions administratives</label>
+                        <input type="checkbox" id="admin" name="admin" value="1" <?= isset($_POST['admin']) ? 'checked' : '' ?>>
+                        <small class="text-muted">Cochez cette case si l'employé a des permissions administratives.</small>
+                    </div>
+                </div>
+
+                <!-- Boutton envoyer le formulaire -->
+                <div class="row mt-4">
+                    <div class="col-md-6 offset-md-3">
+                        <button type="submit" class="btn-ajouter rounded w-100">Créer le compte</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br><br>
     </div>
+
     <?php include '../fonction/footer.php'; ?>
 </div>
 </body>

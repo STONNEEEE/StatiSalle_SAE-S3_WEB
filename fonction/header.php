@@ -4,7 +4,7 @@
         <!-- Partie gauche -->
         <div class="d-flex align-items-center gap-3">
             <!-- Logo cliquable pour revenir à l'accueil -->
-            <a href="accueil.php" title="Page d'accueil" class="d-flex align-items-center d-none d-sm-block">
+            <a href="../pages/accueil.php" title="Page d'accueil" class="d-flex align-items-center d-none d-sm-block">
                 <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
             </a>
 
@@ -26,9 +26,9 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="menuDeroulantPage">
                         <!-- Accueil visible seulement sur écrans sm et moins -->
-                        <li><a class="dropdown-item d-md-none" href="accueil.php">Accueil</a></li>
-                        <li><a class="dropdown-item" href="affichageReservation.php">Réservations</a></li>
-                        <li><a class="dropdown-item" href="affichageSalle.php">Salles</a></li>
+                        <li><a class="dropdown-item d-md-none" href="../pages/accueil.php">Accueil</a></li>
+                        <li><a class="dropdown-item" href="../pages/affichageReservation.php">Réservations</a></li>
+                        <li><a class="dropdown-item" href="../pages/affichageSalle.php">Salles</a></li>
                     </ul>
                 </div>
 
@@ -49,9 +49,9 @@
                         <i class="fas fa-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="menuDeroulantOption">
-                        <li><a class="dropdown-item" href="accueil.php">Accueil</a></li>
-                        <li><a class="dropdown-item" href="affichageReservation.php">Réservations</a></li>
-                        <li><a class="dropdown-item" href="affichageSalle.php">Salles</a></li>
+                        <li><a class="dropdown-item" href="../pages/accueil.php">Accueil</a></li>
+                        <li><a class="dropdown-item" href="../pages/affichageReservation.php">Réservations</a></li>
+                        <li><a class="dropdown-item" href="../pages/affichageSalle.php">Salles</a></li>
                         <li><a class="dropdown-item" href="#">Exporter</a></li>
                         <li><a class="dropdown-item" href="#">Utilisateurs</a></li>
                     </ul>
@@ -67,7 +67,10 @@
                         id="menuDeroulantEmployer"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
-                    <?php echo $_SESSION['login']?>
+                        <?php
+                        //echo $_SESSION['login'];
+                        echo "Non connecté";
+                        ?>
                     <i class="fas fa-angle-down"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="menuDeroulantEmployer">

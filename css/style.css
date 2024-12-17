@@ -5,14 +5,19 @@ body {
     height: 100%;
 }
 
-/* Ajoute un padding pour laisser le header en haut de page */
+/* Ajoute un padding entre le header et le contenu de page */
 .padding-header {
     padding-top: 120px;
 }
 
+.full-screen {
+    min-height: 100vh;
+}
+
+/* **************** Pages d'authentification **************** */
 .auth-row {
-    min-height: 70vh;
-    margin: 150px;
+    min-height: 60vh;
+    margin: 30vh;
 }
 
 .auth-container {
@@ -21,8 +26,9 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* **************** Pages autre **************** */
 .acc-row {
-    min-height: 70vh;
+    min-height: 60vh;
 }
 
 .acc-container {
@@ -53,27 +59,39 @@ body {
     height: 37.6px;
 }
 
-.btn-suppr{
+/* Bouton de suppression */
+.btn-suppr {
     background-color: #da3636;
     border-color: #da3636;
 }
-
 .btn-suppr:hover {
     background-color: #da3636;
     box-shadow: 0 0 30px 5px #da3636;
 }
 
-.btn-modifier{
+/* Bouton de modification */
+.btn-modif {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.btn-modif:hover {
+    background-color: #ffc107;
+    box-shadow: 0 0 30px 5px #ffc107;
+}
+
+
+
+.btn-modifier {
     background-color: rgb(12,127,211);
 }
 
-.btn-colonne{
+.btn-colonne {
     width: 10%;
     text-align: center; /* Centre les icônes */
 }
 
 @media (min-width: 992px) {
-    .col-grand-reservation{
+    .col-grand-reservation {
         flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
         width: 145px; /* Largeur personnalisée */
     }
