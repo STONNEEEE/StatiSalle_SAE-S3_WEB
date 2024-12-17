@@ -67,11 +67,11 @@
                         id="menuDeroulantEmployer"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
-                    Nom_De_Employer
+                    <?php echo $_SESSION['login']?>
                     <i class="fas fa-angle-down"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="menuDeroulantEmployer">
-                    <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                    <li><a class="dropdown-item" href="../fonction/deconnexion.php">Déconnexion</a></li>
                 </ul>
             </div>
         </div>

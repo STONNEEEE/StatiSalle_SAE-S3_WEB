@@ -1,13 +1,14 @@
 <?php
     function connecteBD(){
         $host = 'www.statisalle.fr';
-        $db = 'StatsalleBD';
+        $db = 'StatisalleBD';
         $user = 'admin';
         $pass = 'admin';
         $charset = 'utf8mb4';
+        $port = 33306;
 
         // Constitution variable DSN
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
 
         // Réglage des options
         $options=[

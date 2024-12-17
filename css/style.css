@@ -195,3 +195,7 @@ button:active {
 .petite-taille{
     font-size: 15px;
 }
+
+.erreur{
+    color: #da3636;
+}

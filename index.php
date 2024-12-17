@@ -3,6 +3,14 @@
     require('fonction/liaisonBD.php');
     $pdo = connecteBD();
 
+    $erreur = false;
+
+    // Si l'utilisateur est déjà connecté, redirige vers accueil.php
+    if (isset($_SESSION['id'])) {
+        header('Location: pages/accueil.php');
+        exit;
+    }
+
     $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
     $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
@@ -14,13 +22,14 @@
         $_SESSION['typeUtilisateur'] = $typeUtilisateur;
     }
 
-    if($identifiant != "" && $mdp != ""){
-        if($utilisateurOk){
-            $_SESSION['login'] = $identifiant;
-            $_SESSION['mdp'] = $mdp;
-            header('Location: pages/accueil.php');
-            exit;
-        }
+    if($utilisateurOk && $identifiant != "" && $mdp != ""){
+        $_SESSION['id'] = $utilisateurOk['id_login'];
+        $_SESSION['login'] = $utilisateurOk['login'];
+        $_SESSION['mdp'] = $utilisateurOk['mdp'];
+        header('Location: pages/accueil.php');
+        exit;
+    } else {
+        $erreur = true;
     }
 ?>
 <!DOCTYPE html>
@@ -54,41 +63,49 @@
             <div class="row d-flex justify-content-center align-items-center w-100 auth-row">
                 <div class="auth-container text-center p-4 w-50">
                     <h3 class="mb-4">
-                        Authentification
+                        <?php
+                            if($erreur){
+                                echo "<span class='erreur'>Erreur : veuillez entrer des identifiants et mot de passe valide</span>";
+                            } else {
+                                echo "Authentification";
+                            }
+                        ?>
                         <a href="#" target="_blank" class="ms-2" title="Page d'aide">
                             <i class="fa fa-question-circle fs-5 text-black"></i>
                         </a>
                     </h3>
-
-                    <!-- Champ Identifiant -->
-                    <div class="mb-3">
-                        <div class="d-flex flex-column flex-sm-row justify-content-between">
-                            <label for="identifiant" class="form-label mb-1 mb-sm-0">Identifiant</label>
-                            <small class="form-text text-sm-start text-md-end">
-                                <a href="#" target="_blank" class="text-danger text-decoration-none" title="Identifiant oublié">
-                                    Identifiant oublié ?
-                                </a>
-                            </small>
+                    <form action="" method="post">
+                        <!-- Champ Identifiant -->
+                        <div class="mb-3">
+                            <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                <label for="identifiant" class="form-label mb-1 mb-sm-0">Identifiant</label>
+                                <small class="form-text text-sm-start text-md-end">
+                                    <a href="#" target="_blank" class="text-danger text-decoration-none" title="Identifiant oublié">
+                                        Identifiant oublié ?
+                                    </a>
+                                </small>
+                            </div>
+                            <input type="text" class="form-control mt-2 mt-sm-0" name="identifiant" id="identifiant" placeholder="Entrez votre identifiant">
                         </div>
-                        <input type="text" class="form-control mt-2 mt-sm-0" id="identifiant" placeholder="Entrez votre identifiant">
-                    </div>
 
-                    <!-- Champ Mot de passe -->
-                    <div class="mb-3">
-                        <!-- Container pour label et small -->
-                        <div class="d-flex flex-column flex-sm-row justify-content-between">
-                            <label for="mdp" class="form-label mb-1 mb-sm-0">Mot de passe</label>
-                            <small class="form-text text-sm-start text-md-end">
-                                <a href="#" target="_blank" class="text-danger text-decoration-none" title="Mot de passe oublié">
-                                    Mot de passe oublié ?
-                                </a>
-                            </small>
+                        <!-- Champ Mot de passe -->
+                        <div class="mb-3">
+                            <!-- Container pour label et small -->
+                            <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                <label for="mdp" class="form-label mb-1 mb-sm-0">Mot de passe</label>
+                                <small class="form-text text-sm-start text-md-end">
+                                    <a href="#" target="_blank" class="text-danger text-decoration-none" title="Mot de passe oublié">
+                                        Mot de passe oublié ?
+                                    </a>
+                                </small>
+                            </div>
+                            <input type="password" class="form-control mt-2 mt-sm-0" name="mdp" id="mdp" placeholder="Entrez votre mot de passe">
                         </div>
-                        <input type="password" class="form-control mt-2 mt-sm-0" id="mdp" placeholder="Entrez votre mot de passe">
-                    </div>
+                        <button type="submit" class="btn btn-info w-100">Se connecter</button>
+                    </form>
 
                     <!-- Bouton -->
-                    <button type="submit" class="btn btn-info w-100">Se connecter</button>
+
                 </div>
             </div>
 
