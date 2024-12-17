@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Création Employés</title>
+    <title>StatiSalle - Modification Employés</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -20,7 +20,7 @@
     <!-- Titre de la page -->
     <div class="padding-header row">
         <div class="text-center">
-            <h1>Création d'un employé</h1>
+            <h1>Modification d'un employé</h1>
         </div>
     </div>
     <div class="container">
@@ -62,10 +62,9 @@
             <br>
             <div class="row full-screen">
                 <div class="col-md-6 offset-md-3">
-                    <button type="submit" class="btn-ajouter rounded w-100">Créer le compte</button>
+                    <button type="submit" class="btn-ajouter rounded w-100">Appliquer les modifications</button>
                 </div>
             </div>
-
         </form>
         <br>
     </div>

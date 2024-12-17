@@ -128,7 +128,9 @@ button:active {
 }
 
 /* ---------------------------------------------------------- */
+
 /* Page Contactez-nous */
+
 .contactezNous-bordure {
     border: 2px solid #e0e0e0;
     border-radius: 15px;
@@ -155,20 +157,6 @@ button:active {
     margin-right: 25px;
 }
 
-.envoyer:hover{
-    background-color: #60BAFA; /* Devient noir au survol */
-    color: white; /* Assure que le texte reste lisible */
-}
-
-.envoyer{
-    background-color: transparent; /* Transparent par défaut */
-    color: black; /* Couleur du texte */
-    border: 2px solid black; /* Bordure noire */
-    padding: 10px 20px; /* Espacement interne */
-    font-size: 16px; /* Taille du texte */
-    cursor: pointer; /* Change le curseur en main */
-    transition: background-color 0.3s, color 0.3s; /* Animation fluide */
-}
 
 input[type="text"]::placeholder {
     text-align: center;
