@@ -15,22 +15,22 @@
     <body>
         <div class="container-fluid">
             <!-- Header de la page -->
-            <?php include '../fonction/header.php'; ?>
+            <?php include '../include/header.php'; ?>
 
-            <br>
-            <div class="row text-center padding-header">
-                <h1>Erreur de la base de données</h1>
-            </div>
+            <div class="full-screen">
+                <div class="row text-center padding-header">
+                    <h1>Erreur de la base de données</h1>
+                </div>
 
-            <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5 " >
-                <div class="acc-container p-4 w-50 "  style="background-color : #82231d;">
-                    <h3> Une erreur est survenu lors du chargement de la base de données</h3>
+                <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5 " >
+                    <div class="acc-container p-4 w-50 ">
+                        <h3> Une erreur est survenu lors du chargement de la base de données</h3>
+                    </div>
                 </div>
             </div>
+
             <!-- Footer de la page -->
-            <?php include '../fonction/footer.php'; ?>
+            <?php include '../include/footer.php'; ?>
         </div>
     </body>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

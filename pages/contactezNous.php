@@ -15,29 +15,28 @@
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php include '../fonction/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
-    <div>
-        <br>
-        <br>
-        <br>
-        <!-- TODO A FINIR -->
-    </div>
+    <div class="full-screen">
+        <div class="padding-header">
+            <!-- TODO A FINIR -->
+            test
+        </div>
 
-    <div class="container">
-        <div class="contact-card">
-            <div class="contact-title">Contactez-nous</div>
-            <p>
-                Pour nous contacter, veuillez envoyer un courriel à l'adresse suivante :
-                <a href="mailto:contact@statisalle.fr" class="contact-email">contact@statisalle.fr</a>
-            </p>
-            <p>Nous vous répondrons dans les plus brefs délais.</p>
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-title">Contactez-nous</div>
+                <p>
+                    Pour nous contacter, veuillez envoyer un courriel à l'adresse suivante :
+                    <a href="mailto:contact@statisalle.fr" class="contact-email">contact@statisalle.fr</a>
+                </p>
+                <p>Nous vous répondrons dans les plus brefs délais.</p>
+            </div>
         </div>
     </div>
+
     <!-- Footer de la page -->
-    <?php include '../fonction/footer.php'; ?>
+    <?php include '../include/footer.php'; ?>
 </div>
 </body>
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 </html>

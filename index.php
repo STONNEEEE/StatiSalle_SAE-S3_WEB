@@ -22,15 +22,15 @@
 
     $typeUtilisateur = type_utilisateur($pdo, $identifiant, $mdp);
 
-    if($typeUtilisateur != null){
+    if ($typeUtilisateur != null) {
         $_SESSION['typeUtilisateur'] = $typeUtilisateur;
     }
 
-    if($identifiant != "" && $mdp != ""){
-        if($utilisateurOk && $mdpOk){
-            $_SESSION['id'] = $utilisateurOk['id_login'];
-            $_SESSION['login'] = $utilisateurOk['login'];
-            $_SESSION['mdp'] = $utilisateurOk['mdp'];
+    if ($identifiant != "" && $mdp != "") {
+        if ($utilisateurOk && $mdpOk) {
+            $_SESSION['id'] = $utilisateurOk->id_login;
+            $_SESSION['login'] = $utilisateurOk->login;
+            $_SESSION['mdp'] = $utilisateurOk->mdp;
             header('Location: pages/accueil.php');
             exit;
         } else {
@@ -117,9 +117,7 @@
                 </div>
             </div>
 
-            <?php include 'fonction/footer.php'; ?>
+            <?php include 'include/footer.php'; ?>
         </div>
     </body>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

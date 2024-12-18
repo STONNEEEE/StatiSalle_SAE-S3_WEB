@@ -1,3 +1,8 @@
+/* ---------------------------------------------------------- */
+/*                          COMMUN                            */
+/*                                                            */
+/* ---------------------------------------------------------- */
+
 body {
     background-image: url(../img/fond-neutral.png);
     background-repeat: repeat;
@@ -5,14 +10,27 @@ body {
     height: 100%;
 }
 
-/* Ajoute un padding pour laisser le header en haut de page */
+.erreur {
+    color: #da3636;
+}
+
+/* Ajoute un padding entre le header et le contenu de page */
 .padding-header {
     padding-top: 120px;
 }
 
+.full-screen {
+    min-height: 100vh;
+}
+
+/* ---------------------------------------------------------- */
+/*                 Pages d'authentification                   */
+/*                                                            */
+/* ---------------------------------------------------------- */
+
 .auth-row {
-    min-height: 70vh;
-    margin: 150px;
+    min-height: 60vh;
+    margin: 30vh;
 }
 
 .auth-container {
@@ -21,8 +39,13 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* ---------------------------------------------------------- */
+/*                      Pages d'accueil                       */
+/*                                                            */
+/* ---------------------------------------------------------- */
+
 .acc-row {
-    min-height: 70vh;
+    min-height: 60vh;
 }
 
 .acc-container {
@@ -31,12 +54,10 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* **************** Pages d'affichage**************** */
-.select-filtre {
-    border-radius: 7px;
-    height: 35px;
-    margin-right: 25px;
-}
+/* ---------------------------------------------------------- */
+/*                          BOUTONS                           */
+/*                      Tous les boutons                      */
+/* ---------------------------------------------------------- */
 
 .btn-reset {
     width: 200%; /* Rend le bouton aussi large que les filtres */
@@ -44,60 +65,75 @@ body {
     text-align: center;
     padding: 0;
     background-color: rgb(12,127,211);
-    height: 37.6px;
+    height: 38px;
 }
 
-.btn-ajouter{
+.btn-bleu {
     margin-left : auto;
     background-color: rgb(12,127,211);
-    height: 37.6px;
+    height: 38px;
 }
 
-.btn-suppr{
+.btn-modifier {
+    background-color: rgb(12,127,211);
+}
+
+/* Bouton de suppression */
+.btn-suppr {
     background-color: #da3636;
     border-color: #da3636;
 }
-
 .btn-suppr:hover {
     background-color: #da3636;
     box-shadow: 0 0 30px 5px #da3636;
 }
 
-.btn-modifier{
-    background-color: rgb(12,127,211);
-}
-
-.btn-colonne{
+.btn-colonne {
     width: 10%;
     text-align: center; /* Centre les icônes */
 }
 
+/* ---------------------------------------------------------- */
+/*                      Pages d'affichage                     */
+/*                 Media queries pour les filtres             */
+/* ---------------------------------------------------------- */
+
 @media (min-width: 992px) {
-    .col-grand-reservation{
+    .col-grand-reservation {
         flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
-        width: 145px; /* Largeur personnalisée */
+        width: 145px;   /* Largeur personnalisée */
     }
 
     .col-grand-salle {
         flex: 0 0 auto; /* Permet de limiter la largeur de la colonne */
-        width: 140px; /* Largeur personnalisée */
+        width: 140px;   /* Largeur personnalisée */
     }
 
     .col-reduit-reservation {
         flex: 0 0 auto;
-        width: 200px; /* Largeur réduite des colonnes sur grands écrans */
+        width: 200px;   /* Largeur réduite des colonnes sur grands écrans */
     }
 
     .col-reduit-salle {
         flex: 0 0 auto;
-        width: 175px; /* Largeur réduite des colonnes sur grands écrans */
+        width: 175px;   /* Largeur réduite des colonnes sur grands écrans */
     }
 }
 
 /* ---------------------------------------------------------- */
+/*                       CREER RESERVATION                    */
+/*                                                            */
+/* ---------------------------------------------------------- */
 
+.petite-taille {
+    font-size: 15px;
+}
 
-/* From Uiverse.io */
+/* ---------------------------------------------------------- */
+/*                        IMPORTÉ                             */
+/*                     From Uiverse.io                        */
+/* ---------------------------------------------------------- */
+
 button {
     position: relative;
     padding: 10px 20px;
@@ -166,36 +202,4 @@ button:active {
     -webkit-transition: box-shadow 0.2s ease-in;
     -moz-transition: box-shadow 0.2s ease-in;
     transition: box-shadow 0.2s ease-in;
-}
-
-/* ---------------------------------------------------------- */
-/* Page Contactez-nous */
-.contactezNous-bordure {
-    border: 2px solid #e0e0e0;
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    max-width: 500px;
-    margin: 50px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.contactezNous-titre {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.contactezNous-email {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.petite-taille{
-    font-size: 15px;
-}
-
-.enRouge{
-    color: red;
 }

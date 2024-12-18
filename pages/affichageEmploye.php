@@ -33,7 +33,7 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php include '../fonction/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
     <!-- Contenu de la page -->
     <div class="full-screen padding-header">
@@ -58,53 +58,48 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         <!-- Bouton aligné à droite -->
         <div class="row mb-3">
             <div class="col-12 text-center text-md-end">
-                <button class="btn-ajouter rounded-2" type="button" onclick="window.location.href='creationEmploye.php';">
+                <button class="btn-bleu rounded-2" type="button" onclick="window.location.href='creationEmploye.php';">
                     <span class="fa-plus"></span> Ajouter
                 </button>
             </div>
         </div>
 
-        <!-- Nom employe -->
         <div class="row g-1 justify-content-start">
+            <!-- Nom employe -->
             <div class="col-12 col-md-2 mb-1">
-                <label>
-                    <select class="form-select">
-                        <option selected>Nom</option>
-                        <option>Filtre 1</option>
-                        <option>Filtre 2</option>
-                        <option>Filtre 3</option>
-                    </select>
-                </label>
+                <select class="form-select">
+                    <option selected>Nom</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
             </div>
             <!-- Prénom employe -->
             <div class="col-12 col-md-2 mb-1">
-                <label>
-                    <select class="form-select">
-                        <option selected>Prenom</option>
-                        <option>Filtre 1</option>
-                        <option>Filtre 2</option>
-                        <option>Filtre 3</option>
-                    </select>
-                </label>
+                <select class="form-select">
+                    <option selected>Prenom</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
             </div>
             <!-- Numéro de téléphone employe -->
             <div class="col-12 col-md-2 mb-1">
-                <label>
-                    <select class="form-select">
-                        <option selected>Numéro de téléphone</option>
-                        <option>Filtre 1</option>
-                        <option>Filtre 2</option>
-                        <option>Filtre 3</option>
-                    </select>
-                </label>
+                <select class="form-select">
+                    <option selected>Numéro de téléphone</option>
+                    <option>Filtre 1</option>
+                    <option>Filtre 2</option>
+                    <option>Filtre 3</option>
+                </select>
             </div>
             <!-- Bouton de réinitialisation des filtres -->
-            <div class="col-6 col-sm-6 col-md-1 mb-1">
-                <button class="btn-reset rounded-1 col-md-12">
+            <div class="col-12 col-md-2 mb-1">
+                <button class="btn-reset rounded-1 w-100">
                     Réinitialiser filtres
                 </button>
             </div>
         </div>
+
         <!-- Tableau des données -->
         <div class="row mt-3">
             <div class="table-responsive">
@@ -140,12 +135,12 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                             echo '    <form method="POST">';
                             echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
                             echo '        <input type="hidden" name="supprimer" value="true">';
-                            echo '        <button type="submit" class="btn btn-suppr rounded-2">';
+                            echo '        <button type="submit" class="btn-suppr rounded-2">';
                             echo '             <span class="fa-solid fa-trash"></span>';
                             echo '        </button>';
                             echo '    </form>';
 
-                            echo '    <button class="btn btn-warning btn-modif rounded-2">';
+                            echo '    <button class="btn-modifier rounded-2">';
                             echo '        <span class="fa-regular fa-pen-to-square"></span>';
                             echo '    </button>';
                             echo '</div>';
@@ -159,9 +154,7 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         </div>
     </div>
 
-    <?php include '../fonction/footer.php'; ?>
+    <?php include '../include/footer.php'; ?>
 </div>
 </body>
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

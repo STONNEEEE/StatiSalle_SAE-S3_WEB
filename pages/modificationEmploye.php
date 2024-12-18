@@ -15,62 +15,62 @@
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php include '../fonction/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
-    <!-- Titre de la page -->
-    <div class="padding-header row">
-        <div class="text-center">
-            <h1>Modification d'un employé</h1>
+    <div class="full-screen">
+        <!-- Titre de la page -->
+        <div class="padding-header row">
+            <div class="text-center">
+                <h1>Modification d'un employé</h1>
+            </div>
+        </div>
+        <div class="container">
+            <form>
+                <div class="row">
+                    <div class="col-md-3 offset-md-3">
+                        <label for="nom"></label>
+                        <input class="form-text form-control" type="text" placeholder="nom" id="nom" name="nom" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="prenom"></label>
+                        <input class="form-text form-control" type="text" placeholder="prenom" id="prenom" name="prenom" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="numTel"></label>
+                        <input class="form-text form-control" type="text" placeholder="numTel" id="numTel" name="numTel" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="id"></label>
+                        <input class="form-text form-control" type="text" placeholder="identifiant" id="id" name="id" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="mdp"></label>
+                        <input class="form-text form-control" type="text" placeholder="Mot de passe" id="mdp" name="mdp" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="cmdp"></label>
+                        <input class="form-text form-control" type="text" placeholder="Confirmez le mot de passe" id="cmdp" name="cmdp" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <button type="submit" class="btn-bleu rounded w-100">Appliquer les modifications</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="container">
-        <form>
-            <div class="row">
-                <div class="col-md-3 offset-md-3">
-                    <label for="nom"></label>
-                    <input class="form-text form-control" type="text" placeholder="nom" id="nom" name="nom" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="prenom"></label>
-                    <input class="form-text form-control" type="text" placeholder="prenom" id="prenom" name="prenom" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="numTel"></label>
-                    <input class="form-text form-control" type="text" placeholder="numTel" id="numTel" name="numTel" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="id"></label>
-                    <input class="form-text form-control" type="text" placeholder="identifiant" id="id" name="id" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="mdp"></label>
-                    <input class="form-text form-control" type="text" placeholder="Mot de passe" id="mdp" name="mdp" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <label for="cmdp"></label>
-                    <input class="form-text form-control" type="text" placeholder="Confirmez le mot de passe" id="cmdp" name="cmdp" required>
-                </div>
-            </div>
-            <br>
-            <div class="row full-screen">
-                <div class="col-md-6 offset-md-3">
-                    <button type="submit" class="btn-ajouter rounded w-100">Appliquer les modifications</button>
-                </div>
-            </div>
-        </form>
-        <br>
-    </div>
-    <?php include '../fonction/footer.php'; ?>
+
+    <?php include '../include/footer.php'; ?>
 </div>
 </body>
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

@@ -68,8 +68,8 @@
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <?php
-                        //echo $_SESSION['login'];
-                        echo "Non connecté";
+                        //echo $_SESSION['login']; STUB
+                        echo "Non connecté"; // TODO enlever le STUB
                         ?>
                     <i class="fas fa-angle-down"></i>
                 </button>

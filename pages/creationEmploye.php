@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php include '../fonction/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
     <div class="full-screen">
         <!-- Titre de la page -->
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Boutton envoyer le formulaire -->
                 <div class="row mt-4">
                     <div class="col-md-6 offset-md-3">
-                        <button type="submit" class="btn-ajouter rounded w-100">Créer le compte</button>
+                        <button type="submit" class="btn-bleu rounded w-100">Créer le compte</button>
                     </div>
                 </div>
             </form>
@@ -199,9 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br><br>
     </div>
 
-    <?php include '../fonction/footer.php'; ?>
+    <?php include '../include/footer.php'; ?>
 </div>
 </body>
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

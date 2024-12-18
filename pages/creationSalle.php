@@ -59,103 +59,104 @@
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php include '../fonction/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
-    <!-- Contenu de la page -->
-    <div class="row text-center padding-header">
-        <br><br>
-        <h1>Création d'une salle</h1>
-    </div>
-    <br>
-    <form method="post" action="creationSalle.php">
-    <div class="row"> <!-- Grande row -->
-        <div class="form-group offset-md-2 col-md-4"> <!-- first colonne -->
-            <!-- TODO Mettre le nom des champs obligatoires en rouge -->
-            <br>
-            <div class="row"> <!-- Nom de la salle -->
-                <div class="form-group col-12">
-                    <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'enRouge' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
-                    <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
-                </div>
-            </div>
-            <br>
-            <div class="row"> <!-- Capacité -->
-                <div class="form-group col-12">
-                    <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
-                    <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" >
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row"> <!-- Vidéo projecteur -->
-                <div class="form-group col-12">
-                    <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
-                    <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> >
-                    <label class="form-check-label" for="OUI">Oui</label>
-                    <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> >
-                    <label class="form-check-label" for="NON">Non</label>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row"> <!-- Ordinateur XXL -->
-                <div class="form-group col-md-12">
-                    <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
-                    <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> >
-                    <label class="form-check-label" for="OUI">Oui</label>
-                    <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> >
-                    <label class="form-check-label" for="NON">Non</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-4"> <!-- Informations supplémentaires -->
-            <br>
-            <div class="row"> <!-- Nombre d'ordinateurs -->
-                <div class="form-group col-12">
-                    <label for="nbrOrdi">Nombre d'ordinateur : </label>
-                    <input type="number" class="form-control" name="nbrOrdi" id="nbrOrdi" min="0" >
-                </div>
-            </div>
-            <br>
-            <div class="row"> <!-- Type matériel -->
-                <div class="form-group col-12">
-                    <label for="typeMateriel">Type de matériel :</label>
-                    <input type="text" class="form-control" name="typeMateriel" id="typeMateriel">
-                </div>
-            </div>
-            <br>
-            <div class="row"> <!-- Logiciels installés  -->
-                <div class="form-group col-md-12">
-                    <label for="logiciel">Logiciels installés :</label>
-                    <input type="text" class="form-control" name="logiciel" id="logiciel" placeholder="Exemple à suivre : bureautique, java, intellij, photoshop">
-                </div>
-            </div>
-            <br>
-            <div class="row"> <!-- Imprimante -->
-                <div class="form-group col-md-12">
-                    <label for="imprimante">Imprimante : </label>
-                    <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="OUI">
-                    <label class="form-check-label" for="OUI">Oui</label>
-                    <input type="radio" class="form-check-input" id="NON" name="imprimante" value="NON">
-                    <label class="form-check-label" for="NON">Non</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-3 text-center w-100 ">
-            <button type="submit" class="btn-ajouter rounded" id="submit">
-                Créer la salle
-            </button>
+    <div class="full-screen">
+        <!-- Contenu de la page -->
+        <div class="row text-center padding-header">
             <br><br>
+            <h1>Création d'une salle</h1>
         </div>
+        <br>
+        <form method="post" action="creationSalle.php">
+            <div class="row"> <!-- Grande row -->
+                <div class="form-group offset-md-2 col-md-4"> <!-- first colonne -->
+                    <!-- TODO Mettre le nom des champs obligatoires en rouge -->
+                    <br>
+                    <div class="row"> <!-- Nom de la salle -->
+                        <div class="form-group col-12">
+                            <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'enRouge' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
+                            <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row"> <!-- Capacité -->
+                        <div class="form-group col-12">
+                            <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
+                            <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" >
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row"> <!-- Vidéo projecteur -->
+                        <div class="form-group col-12">
+                            <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
+                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> >
+                            <label class="form-check-label" for="OUI">Oui</label>
+                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> >
+                            <label class="form-check-label" for="NON">Non</label>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row"> <!-- Ordinateur XXL -->
+                        <div class="form-group col-md-12">
+                            <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
+                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> >
+                            <label class="form-check-label" for="OUI">Oui</label>
+                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> >
+                            <label class="form-check-label" for="NON">Non</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4"> <!-- Informations supplémentaires -->
+                    <br>
+                    <div class="row"> <!-- Nombre d'ordinateurs -->
+                        <div class="form-group col-12">
+                            <label for="nbrOrdi">Nombre d'ordinateur : </label>
+                            <input type="number" class="form-control" name="nbrOrdi" id="nbrOrdi" min="0" >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row"> <!-- Type matériel -->
+                        <div class="form-group col-12">
+                            <label for="typeMateriel">Type de matériel :</label>
+                            <input type="text" class="form-control" name="typeMateriel" id="typeMateriel">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row"> <!-- Logiciels installés  -->
+                        <div class="form-group col-md-12">
+                            <label for="logiciel">Logiciels installés :</label>
+                            <input type="text" class="form-control" name="logiciel" id="logiciel" placeholder="Exemple à suivre : bureautique, java, intellij, photoshop">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row"> <!-- Imprimante -->
+                        <div class="form-group col-md-12">
+                            <label for="imprimante">Imprimante : </label>
+                            <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="OUI">
+                            <label class="form-check-label" for="OUI">Oui</label>
+                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="NON">
+                            <label class="form-check-label" for="NON">Non</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3 text-center w-100 ">
+                    <button type="submit" class="btn-bleu rounded" id="submit">
+                        Créer la salle
+                    </button>
+                    <br><br>
+                </div>
+            </div>
+        </form>
     </div>
-    </form>
+
     <!-- Footer de la page -->
-    <?php include '../fonction/footer.php'; ?>
+    <?php include '../include/footer.php'; ?>
 </div>
 </body>
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
