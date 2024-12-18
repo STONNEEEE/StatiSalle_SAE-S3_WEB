@@ -34,7 +34,6 @@
     if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL'])){
         try {
             creationSalle($nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
-            echo "<div class='alert alert-success'>Les données ont été insérées avec succès.</div>";
         } catch (PDOException $e) {
             //Il y a eu une erreur
             throw new PDOException($e->getMessage(), (int)$e->getCode());
@@ -58,31 +57,30 @@
 </head>
 <body>
 <div class="container-fluid">
+
     <!-- Header de la page -->
     <?php include '../include/header.php'; ?>
 
     <div class="full-screen">
         <!-- Contenu de la page -->
         <div class="row text-center padding-header">
-            <br><br>
             <h1>Création d'une salle</h1>
         </div>
         <br>
         <form method="post" action="creationSalle.php">
             <div class="row"> <!-- Grande row -->
                 <div class="form-group offset-md-2 col-md-4"> <!-- first colonne -->
-                    <!-- TODO Mettre le nom des champs obligatoires en rouge -->
                     <br>
                     <div class="row"> <!-- Nom de la salle -->
                         <div class="form-group col-12">
-                            <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'enRouge' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
+                            <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'erreur' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
                             <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
                         </div>
                     </div>
                     <br>
                     <div class="row"> <!-- Capacité -->
                         <div class="form-group col-12">
-                            <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
+                            <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
                             <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" >
                         </div>
                     </div>
@@ -90,7 +88,7 @@
                     <br>
                     <div class="row"> <!-- Vidéo projecteur -->
                         <div class="form-group col-12">
-                            <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
+                            <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
                             <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> >
                             <label class="form-check-label" for="OUI">Oui</label>
                             <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> >
@@ -101,7 +99,7 @@
                     <br>
                     <div class="row"> <!-- Ordinateur XXL -->
                         <div class="form-group col-md-12">
-                            <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
+                            <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
                             <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> >
                             <label class="form-check-label" for="OUI">Oui</label>
                             <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> >
