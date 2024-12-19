@@ -1,15 +1,33 @@
 <?php
     require '../fonction/fonctionAffichageSalle.php';
 
-    $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
-    $id_salle = $_POST['idSalle'];
+    // On démarre la session
+    session_start();
 
-    // Supprimer la salle si nécessaire
+    $message = '';
+
+    $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
+    $id_salle = $_POST['idSalle'] ?? null;
+
     if ($supprimer == "true" && $id_salle) {
-        if (salleAvecReservation($id_salle)) {
-            $error_message = "Cette salle ne peut pas être supprimée car elle est liée à une réservation.";
-        } else {
-            supprimerSalle($id_salle);
+        try {
+            // Vérifier si la salle a des réservations
+            $reservations = verifierReservations($id_salle);
+
+            if (count($reservations) > 0) {
+                // Si des réservations existent, afficher un message d'erreur
+                $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                                        <span class="erreur">Impossible de supprimer cette salle. 
+                                        Des réservations y sont associées.</span>
+                                        <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
+            } else {
+                // Si pas de réservations, supprimer la salle
+                supprimerSalle($id_salle);
+                $_SESSION['message'] = 'Salle supprimée avec succès !';
+            }
+        } catch (Exception $e) {
+            $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                                    <span class="erreur">Une erreur est survenue : ' . htmlspecialchars($e->getMessage()) . '</span>';
         }
     }
 
@@ -47,6 +65,16 @@
                 </div>
                 <br><br><br>
             </div>
+
+            <!-- Message de confirmation ou d'erreur -->
+            <?php if (isset($_SESSION['message'])): ?>
+                <div class="alert alert-info text-center" role="alert">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']); // Effacer le message après l'affichage
+                    ?>
+                </div>
+            <?php endif; ?>
 
             <!-- 1ère ligne avec le bouton "Ajouter" -->
             <div class="row mb-3">
@@ -93,7 +121,7 @@
                 <!-- Grand écran -->
                 <div class="col-12 col-md-1 mb-1 col-grand-salle ">
                     <select class="form-select select-nom" id="grandEcran">
-                        <option value="" selected>Grand écran</option>
+                        <option value="" selected>Écran XXL</option>
                         <option value ="oui">Oui</option>
                         <option value ="non">Non</option>
                     </select>
@@ -101,7 +129,7 @@
                 <!-- Nombre ordinateur -->
                 <div class="col-12 col-md-1 mb-1 col-grand-salle ">
                     <select class="form-select select-nom" id="nbrOrdi">
-                        <option value="" selected>Nombre ordinateur</option>
+                        <option value="" selected>Ordinateur</option>
                         <?php
                         foreach ($tabOrdinateur as $nbrOrdi) { // On boucle sur le nombre d'ordinateur contenus dans le tableau
                             echo "<option value=".$nbrOrdi.">".$nbrOrdi."</option>";
@@ -182,14 +210,6 @@
                                 <!-- Paramètre envoyé pour modifier la salle -->
                                 <form  method="post" action="modificationSalle.php">
                                     <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
-                                    <input name="nomSalle" type="hidden" value="<?php echo $salle['nom']; ?>">
-                                    <input name="capacite" type="hidden" value="<?php echo $salle['capacite']; ?>">
-                                    <input name="videoProjecteur" type="hidden" value="<?php echo $salle['videoproj']; ?>">
-                                    <input name="ordinateurXXL" type="hidden" value="<?php echo $salle['ecran_xxl'];?>">
-                                    <input name="nbrOrdi" type="hidden" value="<?php echo $salle['ordinateur']; ?>">
-                                    <input name="typeMateriel" type="hidden" value="<?php echo $salle['type'];?>">
-                                    <input name="logiciel" type="hidden" value="<?php echo $salle['logiciels'];?>">
-                                    <input name="imprimante" type="hidden" value="<?php echo $salle['imprimante'];?>">
                                     <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
                                 </form>
                             <?php
