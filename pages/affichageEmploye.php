@@ -1,5 +1,6 @@
 <?php
 include '../fonction/employer.php';
+session_start();
 
 $message = '';
 
@@ -11,7 +12,14 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         supprimerEmploye($id_employe);
         $_SESSION['message'] = 'Employé supprimé avec succès !';
     } catch (Exception $e) {
-        $_SESSION['message'] = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
+        if ($e->getCode() == '23000') { // Code SQLSTATE pour contrainte de clé étrangère
+            $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                                    <span class="erreur">Impossible de supprimer cet employé : 
+                                    veuillez supprimer la réservation qui lui est attribuée.</span>
+                                    <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
+        } else {
+            $_SESSION['message'] = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
+        }
     }
 }
 ?>
@@ -49,7 +57,7 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         <?php if (isset($_SESSION['message'])): ?>
             <div class="alert alert-info text-center" role="alert">
                 <?php
-                echo htmlspecialchars($_SESSION['message']);
+                echo $_SESSION['message'];
                 unset($_SESSION['message']); // Effacer le message après l'affichage
                 ?>
             </div>
@@ -133,12 +141,12 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                             if ($employe->type_utilisateur === 'admin') {
                                 echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
                             }
-                            echo $employe->id_compte . '</td>';
+                            echo $employe->id_compte. '</td>';
                             echo '<td>' . $employe->telephone . '</td>';
                             echo '<td class="btn-colonne">';
                             echo '<div class="d-flex justify-content-center gap-1">';
                             echo '    <form method="POST">';
-                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_compte . '">';
+                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
                             echo '        <input type="hidden" name="supprimer" value="true">';
                             echo '        <button type="submit" class="btn-suppr rounded-2">';
                             echo '             <span class="fa-solid fa-trash"></span>';
@@ -152,7 +160,6 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                             echo '</td>';
                             echo '</tr>';
                         }
-
                     }
                     ?>
                 </table>
