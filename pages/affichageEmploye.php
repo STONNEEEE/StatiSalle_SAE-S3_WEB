@@ -106,10 +106,10 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                 <table class="table table-striped text-center">
 
                     <tr>
-                        <th>ID</th>
                         <th>Nom</th>
                         <th>Prenom</th>
-                        <th>NumeroTel</th>
+                        <th>Identifiant compte</th>
+                        <th>Numéro de téléphone</th>
                         <th>Actions</th>
                     </tr>
                     <?php
@@ -126,14 +126,19 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                         // Afficher les employés
                         foreach ($employes as $employe) {
                             echo '<tr>';
-                            echo '<td>' . $employe->id_employe . '</td>';
                             echo '<td>' . $employe->nom . '</td>';
                             echo '<td>' . $employe->prenom . '</td>';
+                            echo '<td>';
+                            // Ajouter une icône si l'utilisateur est un admin
+                            if ($employe->type_utilisateur === 'admin') {
+                                echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
+                            }
+                            echo $employe->id_compte . '</td>';
                             echo '<td>' . $employe->telephone . '</td>';
                             echo '<td class="btn-colonne">';
                             echo '<div class="d-flex justify-content-center gap-1">';
                             echo '    <form method="POST">';
-                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
+                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_compte . '">';
                             echo '        <input type="hidden" name="supprimer" value="true">';
                             echo '        <button type="submit" class="btn-suppr rounded-2">';
                             echo '             <span class="fa-solid fa-trash"></span>';
@@ -147,6 +152,7 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                             echo '</td>';
                             echo '</tr>';
                         }
+
                     }
                     ?>
                 </table>

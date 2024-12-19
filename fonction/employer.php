@@ -5,7 +5,12 @@ $pdo = connecteBD();
 function renvoyerEmployes(): array {
     global $pdo;
 
-    $requete = "SELECT id_employe, nom, prenom, telephone FROM employe";
+    $requete = "SELECT nom, prenom, login.login AS id_compte, telephone, type_utilisateur.nom_type AS type_utilisateur
+                FROM employe
+                JOIN login
+                ON login.id_employe = employe.id_employe
+                JOIN type_utilisateur
+                ON type_utilisateur.id_type = login.id_type";
     $stmt = $pdo->query($requete);
     return $stmt->fetchAll();
 }
@@ -60,6 +65,10 @@ function ajouterEmploye($id, $nom, $prenom, $telephone, $mdp, $id_type) {
         // Si le type d'utilisateur n'existe pas, lancer une exception
         throw new Exception('Le type d\'utilisateur n\'existe pas dans la table type_utilisateur.');
     }
+}
+
+function modifierEmploye(){
+
 }
 
 function verifIdType($id_type) {
