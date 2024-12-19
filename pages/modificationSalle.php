@@ -1,23 +1,28 @@
 <?php
 
     // session_start();
-    require("../fonction/fonction_update_Salle.php");
+    require("../fonction/fonction_insert_update_Salle.php");
 
-    // Vérification des variables issues du formulaire
-    $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
-    $capacite =         isset($_POST['capacite']) ? $_POST['capacite'] : '';
-    $videoProjecteur =  isset($_POST['videoProjecteur']) ? $_POST['videoProjecteur'] : '';
-    $ordinateurXXL =    isset($_POST['ordinateurXXL']) ? $_POST['ordinateurXXL'] : '';
-    $nbrOrdi =          isset($_POST['nbrOrdi']) ? $_POST['nbrOrdi'] : '';
-    $typeMateriel =     isset($_POST['typeMateriel']) ? $_POST['typeMateriel'] : '';
-    $logiciel =         isset($_POST['logiciel']) ? $_POST['logiciel'] : '';
-    $imprimante =       isset($_POST['imprimante']) ? $_POST['imprimante'] : '';
+    $idSalle = isset($_POST['idSalle']) ?? $_POST['idSalle'];
+    $mettreAJour = isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];;
+    $tabAttribut = recupAttributSalle($idSalle);
 
-    $videoProjecteur == 1 ? "OUI" : "NON";
-    // Ecran XXL : Condition pour afficher Oui/Non
-    $ordinateurXXL == 1 ? "OUI" : "NON";
-    // Imprimante : Condition pour afficher Oui/Non
-    ($imprimante == 1) ? "OUI" : "NON";
+    // Tableau de correspondance entre les noms des champs de formulaire et les colonnes de la base de données
+    $mapChamps = [
+        'nomSalle' => 'nom',
+        'capacite' => 'capacite',
+        'videoProjecteur' => 'videoproj',
+        'ordinateurXXL' => 'ecran_xxl',
+        'nbrOrdi' => 'ordinateur',
+        'typeMateriel' => 'type',
+        'logiciel' => 'logiciels',
+        'imprimante' => 'imprimante'
+    ];
+
+    // Initialisation des variables
+    foreach ($mapChamps as $champFormulaire => $champBD) {
+        $$champFormulaire = isset($_POST[$champFormulaire]) ? $_POST[$champFormulaire] : (isset($tabAttribut[$champBD]) ? $tabAttribut[$champBD] : '');
+    }
 
     // Tableau pour stocker les erreurs
     $erreurs = [];
@@ -39,18 +44,16 @@
     }
 
     // Vérification que l'id est bien unique dans la base de données
-    if (verifNomSalle($nomSalle)) {
+    if ($mettreAJour == 1 && verifNomSalle($nomSalle, $idSalle)) {
         $messageErreur = "Erreur : Ce nom de salle existe déjà. Veuillez en choisir un autre.";
         $nomSalle = '';
     }
 
-    if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL']) && $messageErreur == ""){
+    if (empty($erreurs) && $messageErreur == "" && $mettreAJour == 1) {
         try {
-            mettreAJourSalle($nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
-            $messageSucces = "Salle ajoutée avec succès !";
+            mettreAJourSalle(intval($idSalle), $nomSalle, intval($capacite), $videoProjecteur, $ordinateurXXL, intval($nbrOrdi), $typeMateriel, $logiciel, $imprimante);
+            $messageSucces = "Salle mise à jour avec succès !";
         } catch (PDOException $e) {
-            //Il y a eu une erreur
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
             $messageErreur = "Une erreur est survenue lors de l'accès à la base de données. Veuillez réessayer plus tard ou contacter l'administrateur si le problème persiste.";
         }
     }
@@ -59,7 +62,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Création Salle</title>
+    <title>StatiSalle - Modification Salle</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -78,7 +81,7 @@
     <div class="full-screen">
         <!-- Contenu de la page -->
         <div class="row text-center padding-header">
-            <h1>Création d'une salle</h1>
+            <h1>Modification d'une salle</h1>
         </div>
         <br>
         <!-- Affichage du message d'erreur -->
@@ -103,14 +106,17 @@
             </div>
         <?php endif; ?>
         <br>
-        <form method="post" action="creationSalle.php">
+        <form method="post" action="modificationSalle.php">
             <div class="row"> <!-- Grande row -->
                 <div class="form-group offset-md-2 col-md-4"> <!-- first colonne -->
                     <br>
                     <div class="row"> <!-- Nom de la salle -->
                         <div class="form-group col-12">
+                            <!-- Passage de l'id de la salle en paramètre caché -->
+                            <input name="idSalle" type="hidden" value="<?php echo $idSalle; ?>">
+                            <input name="mettreAJour" type="hidden" value="1">
                             <label for="nomSalle"><a title="Champ Obligatoire">Nom de la salle : *</a></label>
-                            <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
+                            <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Salle Picasso" required>
                         </div>
                     </div>
                     <br>
@@ -125,9 +131,9 @@
                     <div class="row"> <!-- Vidéo projecteur -->
                         <div class="form-group col-12">
                             <label for="videoProjecteur"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="1" <?= $videoProjecteur == '1' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="0" <?= $videoProjecteur == '0' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -136,9 +142,9 @@
                     <div class="row"> <!-- Ordinateur XXL -->
                         <div class="form-group col-md-12">
                             <label for="ordinateurXXL" ><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="1" <?= $ordinateurXXL == '1' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> required >
+                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="0" <?= $ordinateurXXL == '0' ? 'checked' : '' ?> required >
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -169,9 +175,9 @@
                     <div class="row"> <!-- Imprimante -->
                         <div class="form-group col-md-12">
                             <label for="imprimante">Imprimante : </label>
-                            <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="OUI" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?>>
+                            <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="1" <?= $imprimante == '1' ? 'checked' : '' ?>>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?>>
+                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="0" <?= $imprimante == '0' ? 'checked' : '' ?>>
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -181,7 +187,7 @@
             <div class="row">
                 <div class="col-3 text-center w-100 ">
                     <button type="submit" class="btn-bleu rounded" id="submit">
-                        Créer la salle
+                        Mise à jour de la salle
                     </button>
                     <br><br>
                 </div>
