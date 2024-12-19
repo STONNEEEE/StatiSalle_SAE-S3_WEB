@@ -1,9 +1,10 @@
 <?php
 
     // session_start();
-    require("../fonction/fonction_insertion_Salle.php");
+    require("../fonction/fonction_insert_update_Salle.php");
 
     // Vérification des variables issues du formulaire
+    $idSalle =          "";
     $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
     $capacite =         isset($_POST['capacite']) ? $_POST['capacite'] : '';
     $videoProjecteur =  isset($_POST['videoProjecteur']) ? $_POST['videoProjecteur'] : '';
@@ -19,21 +20,21 @@
     $messageErreur = "";
 
     // Vérification des champs obligatoires
-    if (empty($nomSalle)) {
+    if ($nomSalle == '') {
         $erreurs['nomSalle'] = "Le nom de la salle est obligatoire.";
     }
-    if (empty($capacite)) {
+    if ($capacite == '') {
         $erreurs['capacite'] = "La capacité est obligatoire.";
     }
-    if (empty($videoProjecteur)) {
+    if ($videoProjecteur == '') {
         $erreurs['videoProjecteur'] = "Le choix pour le vidéo projecteur est obligatoire.";
     }
-    if (empty($ordinateurXXL)) {
+    if ($ordinateurXXL == '') {
         $erreurs['ordinateurXXL'] = "Le choix pour l'ordinateur XXL est obligatoire.";
     }
 
     // Vérification que l'id est bien unique dans la base de données
-    if (verifNomSalle($nomSalle)) {
+    if (verifNomSalle($nomSalle, $idSalle)) {
         $messageErreur = "Erreur : Ce nom de salle existe déjà. Veuillez en choisir un autre.";
         $nomSalle = '';
     }
@@ -104,7 +105,7 @@
                     <div class="row"> <!-- Nom de la salle -->
                         <div class="form-group col-12">
                             <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'erreur' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
-                            <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
+                            <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Salle Picasso" required>
                         </div>
                     </div>
                     <br>
@@ -119,9 +120,9 @@
                     <div class="row"> <!-- Vidéo projecteur -->
                         <div class="form-group col-12">
                             <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="1" <?= $videoProjecteur == '1' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="0" <?= $videoProjecteur == '0' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -130,9 +131,9 @@
                     <div class="row"> <!-- Ordinateur XXL -->
                         <div class="form-group col-md-12">
                             <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="1" <?= $ordinateurXXL == '1' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> required >
+                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="0" <?= $ordinateurXXL == '0' ? 'checked' : '' ?> required >
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -163,9 +164,9 @@
                     <div class="row"> <!-- Imprimante -->
                         <div class="form-group col-md-12">
                             <label for="imprimante">Imprimante : </label>
-                            <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="OUI">
+                            <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="1">
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="NON">
+                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="0">
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
