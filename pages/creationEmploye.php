@@ -2,6 +2,11 @@
 include '../fonction/employe.php';
 session_start();
 
+require("../fonction/connexion.php");
+session_start();
+verif_session();
+
+
 // Initialisation des variables et messages d'erreur
 $nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
 $erreurs = [];

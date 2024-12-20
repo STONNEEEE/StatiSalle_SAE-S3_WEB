@@ -1,17 +1,30 @@
 <?php
+
+
+    require("../fonction/connexion.php");
+    session_start();
+    verif_session();
+
     require '../fonction/fonctionAffichageSalle.php';
 
+    $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
+    $id_salle = isset($_POST['idSalle']) ? $_POST['idSalle'] : 'false';
+
+    // Supprimer la salle si nécessaire
+    if ($supprimer == "true" && $id_salle) {
+        if (salleAvecReservation($id_salle)) {
+            $error_message = "Cette salle ne peut pas être supprimée car elle est liée à une réservation.";
+        } else {
+            supprimerSalle($id_salle);
+        }
+    }
+
+    // Chargement des donnnées
     $listeSalles = listeDesSalles();
     $tabNoms = listeDesNoms();
     $tabCapacite = listeDesCapacites();
     $tabOrdinateur = listeDesOrdinateurs();
     $tabLogiciels = listeDesLogiciels();
-    $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
-    $id_salle = $_POST['idSalle'];
-
-    if ($supprimer) {
-        supprimerSalle($id_salle);
-    }
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +45,7 @@
     <div class="container-fluid">
         <?php include '../include/header.php'; ?>
 
-        <div class="full-screen">
+            <div class="full-screen">
             <!-- Titre de la page -->
             <div class="padding-header row">
                 <div class="col-12">
@@ -174,6 +187,7 @@
 
                                 <!-- Paramètre envoyé pour modifier la salle -->
                                 <form  method="post" action="modificationSalle.php">
+                                    <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
                                     <input name="nomSalle" type="hidden" value="<?php echo $salle['nom']; ?>">
                                     <input name="capacite" type="hidden" value="<?php echo $salle['capacite']; ?>">
                                     <input name="videoProjecteur" type="hidden" value="<?php echo $salle['videoproj']; ?>">
@@ -197,6 +211,7 @@
 
         <?php include '../include/footer.php'; ?>
     </div>
+    <!-- JavaScript pour les filtres -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Récupération des éléments <select>
@@ -230,12 +245,20 @@
 
                     const visible = Object.keys(filters).every(key => {
                         const filterValue = filters[key].value.trim().toLowerCase();
+
+                        // Comparaison stricte pour les nombres
+                        if (key === "capacite" || key === "ordinateur") {
+                            return filterValue === "" || parseInt(values[key]) === parseInt(filterValue);
+                        }
+
+                        // Comparaison pour les autres champs
                         return filterValue === "" || values[key].includes(filterValue);
                     });
 
                     row.style.display = visible ? "" : "none";
                 });
             }
+
             // Ajout des écouteurs d'événements
             Object.values(filters).forEach(filter => {
                 filter.addEventListener("change", filterTable);
