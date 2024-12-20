@@ -30,7 +30,7 @@
 
     function type_utilisateur($pdo, $identifiant, $mdp) {
         try {
-        $requete = "SELECT nom_type 
+        $requete = "SELECT type_utilisateur.id_type, type_utilisateur.nom_type
                     FROM type_utilisateur 
                     JOIN login 
                     ON type_utilisateur.id_type = login.id_type 

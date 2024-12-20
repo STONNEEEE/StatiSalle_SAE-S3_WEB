@@ -17,13 +17,15 @@
     $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
     $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
+    //vérification de l'éxistence de l'identifiant de l'utilisateur
     $utilisateurOk = verif_utilisateur($pdo, $identifiant);
+    //vérification de l'éxistence du mot de passe de l'utilisateur
     $mdpOk = verif_mdp($pdo, $mdp);
 
     $typeUtilisateur = type_utilisateur($pdo, $identifiant, $mdp);
 
     if ($typeUtilisateur != null) {
-        $_SESSION['typeUtilisateur'] = $typeUtilisateur;
+        $_SESSION['typeUtilisateur'] = $typeUtilisateur->id_type;
     }
 
     if ($identifiant != "" && $mdp != "") {
