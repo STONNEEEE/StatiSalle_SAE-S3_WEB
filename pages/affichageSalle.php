@@ -1,6 +1,4 @@
 <?php
-
-
     require("../fonction/connexion.php");
     session_start();
     verif_session();
@@ -12,7 +10,7 @@
 
     // Supprimer la salle si nécessaire
     if ($supprimer == "true" && $id_salle) {
-        if (salleAvecReservation($id_salle)) {
+        if (verifierReservations($id_salle)) {
             $error_message = "Cette salle ne peut pas être supprimée car elle est liée à une réservation.";
         } else {
             supprimerSalle($id_salle);
