@@ -109,7 +109,7 @@ function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type): void
         }
 
         // Hashage du mot de passe
-        $mdpHash = password_hash($mdp, PASSWORD_BCRYPT);
+        $mdpHash = sha1($mdp);
 
         // Insérer dans la table login
         $requeteLogin = "INSERT INTO login (login, mdp, id_type, id_employe) 
