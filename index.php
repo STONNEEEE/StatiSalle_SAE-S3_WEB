@@ -20,12 +20,7 @@
     }
 
     $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
-    print(password_hash('admin', PASSWORD_BCRYPT)); echo "<br>";
-    print(password_hash($_POST['mdp'], PASSWORD_BCRYPT)); echo "<br>";
-    print();
-    print($_POST['mdp']);
-    $mdp = isset($_POST['mdp']) ? password_hash($_POST['mdp'], PASSWORD_BCRYPT) : '';
-
+    $mdp = isset($_POST['mdp']) ? sha1($_POST['mdp']) : '';
 
     // vérification de l'éxistence de l'identifiant de l'utilisateur
     $utilisateurOk = verif_utilisateur($pdo, $identifiant);
