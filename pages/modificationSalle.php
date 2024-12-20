@@ -1,5 +1,7 @@
 <?php
-
+    require("../fonction/connexion.php");
+    session_start();
+    verif_session();
     // session_start();
     require("../fonction/fonction_insert_update_Salle.php");
 

@@ -1,8 +1,14 @@
 <?php
+
+
+    require("../fonction/connexion.php");
+    session_start();
+    verif_session();
+
     require '../fonction/fonctionAffichageSalle.php';
 
     $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
-    $id_salle = $_POST['idSalle'];
+    $id_salle = isset($_POST['idSalle']) ? $_POST['idSalle'] : 'false';
 
     // Supprimer la salle si nécessaire
     if ($supprimer == "true" && $id_salle) {

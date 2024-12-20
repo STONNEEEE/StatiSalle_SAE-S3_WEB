@@ -4,7 +4,12 @@
     require('fonction/liaisonBD.php');
     require('fonction/connexion.php');
 
-    $pdo = connecteBD();
+    try {
+        $pdo = connecteBD();
+    } catch(Exception $e){
+        header('Location: erreurBD.php');
+        exit();
+    }
 
     $erreur = false;
 

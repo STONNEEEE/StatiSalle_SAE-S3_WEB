@@ -1,6 +1,9 @@
 <?php
+
+require("../fonction/connexion.php");
 include '../fonction/employer.php';
 session_start();
+verif_session();
 
 $message = '';
 
