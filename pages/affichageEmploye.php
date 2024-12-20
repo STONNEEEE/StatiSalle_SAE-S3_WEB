@@ -1,5 +1,5 @@
 <?php
-include '../fonction/employer.php';
+include '../fonction/employe.php';
 session_start();
 
 $message = '';
@@ -72,39 +72,27 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
             </div>
         </div>
 
+        <!-- Champs de filtres -->
         <div class="row g-1 justify-content-start">
-            <!-- Nom employe -->
+            <!-- Nom employé -->
             <div class="col-12 col-md-2 mb-1">
-                <select class="form-select">
-                    <option selected>Nom</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
-                </select>
+                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
             </div>
-            <!-- Prénom employe -->
+            <!-- Prénom employé -->
             <div class="col-12 col-md-2 mb-1">
-                <select class="form-select">
-                    <option selected>Prenom</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
-                </select>
+                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
             </div>
-            <!-- Numéro de téléphone employe -->
+            <!-- ID compte employé -->
             <div class="col-12 col-md-2 mb-1">
-                <select class="form-select">
-                    <option selected>Numéro de téléphone</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
-                </select>
+                <input type="text" class="form-control" id="compte" name="compte" placeholder="Compte employé">
             </div>
-            <!-- Bouton de réinitialisation des filtres -->
+            <!-- Numéro de téléphone employé -->
             <div class="col-12 col-md-2 mb-1">
-                <button class="btn-reset rounded-1 w-100">
-                    Réinitialiser filtres
-                </button>
+                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Numéro de téléphone">
+            </div>
+            <!-- Bouton de soumission -->
+            <div class="col-12 col-md-2 mb-1">
+                <button class="btn-reset rounded-1 w-100" type="submit">Réinitialiser filtres</button>
             </div>
         </div>
 
@@ -112,56 +100,59 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         <div class="row mt-3">
             <div class="table-responsive">
                 <table class="table table-striped text-center">
-
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Identifiant compte</th>
-                        <th>Numéro de téléphone</th>
-                        <th>Actions</th>
-                    </tr>
-                    <?php
-                    try {
-                        $employes = renvoyerEmployes();
-                    } catch (Exception $e) {
-                        echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
-                    }
-
-                    // Vérifier si le tableau est vide
-                    if (empty($employes)) {
-                        echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
-                    } else {
-                        // Afficher les employés
-                        foreach ($employes as $employe) {
-                            echo '<tr>';
-                            echo '<td>' . $employe->nom . '</td>';
-                            echo '<td>' . $employe->prenom . '</td>';
-                            echo '<td>';
-                            // Ajouter une icône si l'utilisateur est un admin
-                            if ($employe->type_utilisateur === 'admin') {
-                                echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
-                            }
-                            echo $employe->id_compte. '</td>';
-                            echo '<td>' . $employe->telephone . '</td>';
-                            echo '<td class="btn-colonne">';
-                            echo '<div class="d-flex justify-content-center gap-1">';
-                            echo '    <form method="POST">';
-                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
-                            echo '        <input type="hidden" name="supprimer" value="true">';
-                            echo '        <button type="submit" class="btn-suppr rounded-2">';
-                            echo '             <span class="fa-solid fa-trash"></span>';
-                            echo '        </button>';
-                            echo '    </form>';
-
-                            echo '    <button class="btn-modifier rounded-2">';
-                            echo '        <span class="fa-regular fa-pen-to-square"></span>';
-                            echo '    </button>';
-                            echo '</div>';
-                            echo '</td>';
-                            echo '</tr>';
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Identifiant compte</th>
+                            <th>Numéro de téléphone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        try {
+                            $employes = renvoyerEmployes();
+                        } catch (Exception $e) {
+                            echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
                         }
-                    }
-                    ?>
+
+                        // Vérifier si le tableau est vide
+                        if (empty($employes)) {
+                            echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
+                        } else {
+                            // Afficher les employés
+                            foreach ($employes as $employe) {
+                                echo '<tr>';
+                                echo '<td>' . $employe->nom . '</td>';
+                                echo '<td>' . $employe->prenom . '</td>';
+                                echo '<td>';
+                                // Ajouter une icône si l'utilisateur est un admin
+                                if ($employe->type_utilisateur === 'admin') {
+                                    echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
+                                }
+                                echo $employe->id_compte. '</td>';
+                                echo '<td>' . $employe->telephone . '</td>';
+                                echo '<td class="btn-colonne">';
+                                echo '<div class="d-flex justify-content-center gap-1">';
+                                echo '<form method="POST">';
+                                echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
+                                echo '    <input type="hidden" name="supprimer" value="true">';
+                                echo '    <button type="submit" class="btn-suppr rounded-2">';
+                                echo '        <span class="fa-solid fa-trash"></span>';
+                                echo '    </button>';
+                                echo '</form>';
+
+                                echo '<button class="btn-modifier rounded-2">';
+                                echo '    <span class="fa-regular fa-pen-to-square"></span>';
+                                echo '</button>';
+                                echo '</div>';
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -170,4 +161,57 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
     <?php include '../include/footer.php'; ?>
 </div>
 </body>
+<!-- JavaScript pour les filtres -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Récupération des champs de filtre
+        const filters = {
+            nom: document.getElementById("nom"),
+            prenom: document.getElementById("prenom"),
+            compte: document.getElementById("compte"),
+            telephone: document.getElementById("telephone")
+        };
+
+        // Récupération des lignes du tableau
+        const rows = document.querySelectorAll("table.table-striped tbody tr");
+
+        // Fonction de filtrage
+        function filterTable() {
+            rows.forEach(row => {
+                const columns = row.getElementsByTagName("td");
+                const values = {
+                    nom: columns[0]?.textContent.toLowerCase() || "",
+                    prenom: columns[1]?.textContent.toLowerCase() || "",
+                    compte: columns[2]?.textContent.toLowerCase() || "",
+                    telephone: columns[3]?.textContent.toLowerCase() || ""
+                };
+
+                // Vérifie si toutes les conditions de filtre sont remplies
+                const visible = Object.keys(filters).every(key => {
+                    const filterValue = filters[key].value.trim().toLowerCase();
+                    return filterValue === "" || values[key].includes(filterValue);
+                });
+
+                row.style.display = visible ? "" : "none";
+            });
+        }
+
+        // Ajout d'écouteurs d'événements pour chaque filtre
+        Object.values(filters).forEach(filter => {
+            filter.addEventListener("input", filterTable);
+        });
+
+        // Bouton de réinitialisation
+        const resetButton = document.querySelector('.btn-reset');
+        if (resetButton) {
+            resetButton.addEventListener('click', function () {
+                // Réinitialisation des champs de filtre
+                Object.values(filters).forEach(filter => {
+                    filter.value = "";
+                });
+                filterTable(); // Met à jour l'affichage du tableau
+            });
+        }
+    });
+</script>
 </html>

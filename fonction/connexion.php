@@ -16,6 +16,7 @@
 
     function verif_mdp($pdo, $mdp) {
         try {
+            //$mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
             $requete = "SELECT id_login, login, mdp
                         FROM login 
                         WHERE mdp = :mdp";

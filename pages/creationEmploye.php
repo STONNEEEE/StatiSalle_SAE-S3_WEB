@@ -1,8 +1,9 @@
 <?php
-include '../fonction/employer.php';
+include '../fonction/employe.php';
+session_start();
 
 // Initialisation des variables et messages d'erreur
-$nom = $prenom = $numTel = $id = $mdp = $cmdp = "";
+$nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
 $erreurs = [];
 $messageSucces = "";
 
@@ -12,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = $_POST['nom'] ?? '';
     $prenom = $_POST['prenom'] ?? '';
     $numTel = $_POST['numTel'] ?? '';
-    $id = $_POST['id'] ?? '';
+    $login = $_POST['login'] ?? '';
     $mdp = $_POST['mdp'] ?? '';
     $cmdp = $_POST['cmdp'] ?? '';
     $admin = isset($_POST['admin']) ? 1 : 2;
@@ -21,14 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($nom) || $nom === '') $erreurs['nom'] = "Le nom est requis.";
     if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
     if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
-    if (!isset($id) || $id === '') $erreurs['id'] = "L'identifiant est requis.";
+    if (!isset($login) || $login === '') $erreurs['id'] = "Le login est requis.";
     if (!isset($mdp) || $mdp === '') $erreurs['mdp'] = "Le mot de passe est requis.";
     if (!isset($cmdp) || $cmdp === '') $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
 
     // Vérification des longueurs des champs
-    if (strlen($id) !== 7) {
-        $erreurs['id'] = "L'identifiant doit faire exactement 7 caractères.";
-    }
     if (strlen($numTel) < 4 || strlen($numTel) > 10) {
         $erreurs['numTel'] = "Le numéro de téléphone doit contenir entre 4 et 10 caractères.";
     }
@@ -49,15 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
     }
 
-    // Vérification que l'id est bien unique dans la base de données
-    if (verifIdEmploye($id)) {
-        $erreurs['id'] = "L'identifiant est déjà pris. Veuillez en choisir un autre.";
-    }
-
     // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
     if (empty($erreurs)) {
         try {
-            ajouterEmploye($id, $nom, $prenom, $numTel, $mdp, $admin);
+            ajouterEmploye($nom, $prenom, $login, $numTel, $mdp, $admin);
             $messageSucces = "Employé ajouté avec succès !";
         } catch (PDOException $e) {
             $erreurs[] = "Impossible d'ajouter l'employé a la base de donnée : " . $e->getMessage();
@@ -149,12 +142,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
-                <!-- id dans la bd (7 caractères obligatoire) -->
+                <!-- login -->
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <label for="id"></label><input class="form-text form-control" type="text" placeholder="Identifiant (7 caractères) : E000009" id="id" name="id" value="<?= htmlspecialchars($id) ?>" required>
-                        <?php if (isset($erreurs['id'])): ?>
-                            <small class="text-danger"><?= $erreurs['id'] ?></small>
+                        <label for="login"></label><input class="form-text form-control" type="text" placeholder="Compte utilisateur" id="login" name="login" value="<?= htmlspecialchars($login) ?>" required>
+                        <?php if (isset($erreurs['login'])): ?>
+                            <small class="text-danger"><?= $erreurs['login'] ?></small>
                         <?php endif; ?>
                     </div>
                 </div>
