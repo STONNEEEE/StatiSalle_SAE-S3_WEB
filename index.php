@@ -6,7 +6,7 @@
 
     try {
         $pdo = connecteBD();
-    } catch(Exception $e){
+    } catch (Exception $e) {
         header('Location: erreurBD.php');
         exit();
     }
@@ -20,11 +20,16 @@
     }
 
     $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
-    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+    print(password_hash('admin', PASSWORD_BCRYPT)); echo "<br>";
+    print(password_hash($_POST['mdp'], PASSWORD_BCRYPT)); echo "<br>";
+    print();
+    print($_POST['mdp']);
+    $mdp = isset($_POST['mdp']) ? password_hash($_POST['mdp'], PASSWORD_BCRYPT) : '';
 
-    //vérification de l'éxistence de l'identifiant de l'utilisateur
+
+    // vérification de l'éxistence de l'identifiant de l'utilisateur
     $utilisateurOk = verif_utilisateur($pdo, $identifiant);
-    //vérification de l'éxistence du mot de passe de l'utilisateur
+    // vérification de l'éxistence du mot de passe de l'utilisateur
     $mdpOk = verif_mdp($pdo, $mdp);
 
     $typeUtilisateur = type_utilisateur($pdo, $identifiant, $mdp);
