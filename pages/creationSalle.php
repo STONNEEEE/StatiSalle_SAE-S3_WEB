@@ -15,6 +15,8 @@
 
     // Tableau pour stocker les erreurs
     $erreurs = [];
+    $messageSucces = "";
+    $messageErreur = "";
 
     // Vérification des champs obligatoires
     if (empty($nomSalle)) {
@@ -30,15 +32,20 @@
         $erreurs['ordinateurXXL'] = "Le choix pour l'ordinateur XXL est obligatoire.";
     }
 
-    // FIXME la salle est bien insérer mais n'ai pas affiché dans la BD donc voir si elle existe vraiment
-    if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL'])){
+    // Vérification que l'id est bien unique dans la base de données
+    if (verifNomSalle($nomSalle)) {
+        $messageErreur = "Erreur : Ce nom de salle existe déjà. Veuillez en choisir un autre.";
+        $nomSalle = '';
+    }
+
+    if (!isset($erreurs['nomSalle']) && !isset($erreurs['capacite']) && !isset($erreurs['videoProjecteur']) && !isset($erreurs['ordinateurXXL']) && $messageErreur == ""){
         try {
             creationSalle($nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
-            echo "<div class='alert alert-success'>Les données ont été insérées avec succès.</div>";
+            $messageSucces = "Salle ajoutée avec succès !";
         } catch (PDOException $e) {
             //Il y a eu une erreur
             throw new PDOException($e->getMessage(), (int)$e->getCode());
-            echo "<div class='alert alert-danger'>Erreur lors de l'insertion : " . $e->getMessage() . "</div>";
+            $messageErreur = "Une erreur est survenue lors de l'accès à la base de données. Veuillez réessayer plus tard ou contacter l'administrateur si le problème persiste.";
         }
     }
 ?>
@@ -58,42 +65,63 @@
 </head>
 <body>
 <div class="container-fluid">
+
     <!-- Header de la page -->
     <?php include '../include/header.php'; ?>
 
     <div class="full-screen">
         <!-- Contenu de la page -->
         <div class="row text-center padding-header">
-            <br><br>
             <h1>Création d'une salle</h1>
         </div>
+        <br>
+        <!-- Affichage du message d'erreur -->
+        <?php if ($messageErreur): ?>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert alert-danger">
+                        <?= $messageErreur ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <!-- Affichage du message de succès -->
+        <?php if ($messageSucces): ?>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert alert-success">
+                        <?= $messageSucces ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <br>
         <form method="post" action="creationSalle.php">
             <div class="row"> <!-- Grande row -->
                 <div class="form-group offset-md-2 col-md-4"> <!-- first colonne -->
-                    <!-- TODO Mettre le nom des champs obligatoires en rouge -->
                     <br>
                     <div class="row"> <!-- Nom de la salle -->
                         <div class="form-group col-12">
-                            <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'enRouge' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
+                            <label for="nomSalle" class="<?= isset($erreurs['nomSalle']) ? 'erreur' : '' ;?>" ><a title="Champ Obligatoire">Nom de la salle : *</a></label>
                             <input type="text" class="form-control" name="nomSalle" id="nomSalle" value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" placeholder="Exemple : Picasso" required>
                         </div>
                     </div>
                     <br>
                     <div class="row"> <!-- Capacité -->
                         <div class="form-group col-12">
-                            <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
-                            <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" >
+                            <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
+                            <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" required>
                         </div>
                     </div>
                     <br>
                     <br>
                     <div class="row"> <!-- Vidéo projecteur -->
                         <div class="form-group col-12">
-                            <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> >
+                            <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
+                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="OUI" <?= $videoProjecteur == 'OUI' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> >
+                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="NON" <?= $videoProjecteur == 'NON' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -101,10 +129,10 @@
                     <br>
                     <div class="row"> <!-- Ordinateur XXL -->
                         <div class="form-group col-md-12">
-                            <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'enRouge' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> >
+                            <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
+                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="OUI" <?= $ordinateurXXL == 'OUI' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> >
+                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="NON" <?= $ordinateurXXL == 'NON' ? 'checked' : '' ?> required >
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
