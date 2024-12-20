@@ -5,23 +5,45 @@ $pdo = connecteBD();
 function renvoyerEmployes(): array {
     global $pdo;
 
-    $requete = "SELECT id_employe, nom, prenom, telephone FROM employe";
+    $requete = "SELECT nom, prenom, login.login AS id_compte, 
+                       telephone, type_utilisateur.nom_type AS type_utilisateur, 
+                       employe.id_employe
+                FROM employe
+                JOIN login
+                ON login.id_employe = employe.id_employe
+                JOIN type_utilisateur
+                ON type_utilisateur.id_type = login.id_type";
     $stmt = $pdo->query($requete);
     return $stmt->fetchAll();
 }
 
-function supprimerEmploye($id_employe) {
+function supprimerEmploye($id_employe): void {
     global $pdo;
 
-    // Requête SQL pour supprimer l'employé
-    $requete = "DELETE FROM employe WHERE id_employe = :id_employe";
-    $stmt = $pdo->prepare($requete);
-    $stmt->execute(['id_employe' => $id_employe]);
+    try {
+        // Démarrage de la transaction
+        $pdo->beginTransaction();
 
-    // Requête SQL pour supprimer le login
-    // TODO
+        // Requête SQL pour supprimer le login
+        $requeteLogin = "DELETE FROM login WHERE id_employe = :id_employe";
+        $stmtLogin = $pdo->prepare($requeteLogin);
+        $stmtLogin->bindParam(':id_employe', $id_employe);
+        $stmtLogin->execute();
+
+        // Requête SQL pour supprimer l'employé
+        $requeteEmploye = "DELETE FROM employe WHERE id_employe = :id_employe";
+        $stmtEmployer = $pdo->prepare($requeteEmploye);
+        $stmtEmployer->bindParam(':id_employe', $id_employe);
+        $stmtEmployer->execute();
+
+        // Validation de la transaction
+        $pdo->commit();
+    } catch (Exception $e) {
+        // Annulation de la transaction en cas d'erreur
+        $pdo->rollBack();
+        throw new Exception($e->getMessage(), $e->getCode());
+    }
 }
-
 function verifIdEmploye($id) {
     global $pdo;
 
@@ -60,6 +82,10 @@ function ajouterEmploye($id, $nom, $prenom, $telephone, $mdp, $id_type) {
         // Si le type d'utilisateur n'existe pas, lancer une exception
         throw new Exception('Le type d\'utilisateur n\'existe pas dans la table type_utilisateur.');
     }
+}
+
+function modifierEmploye(){
+
 }
 
 function verifIdType($id_type) {

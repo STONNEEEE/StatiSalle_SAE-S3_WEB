@@ -36,9 +36,14 @@
                 <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='exportation.php';">
                     Exporter
                 </button>
-                <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='affichageEmploye.php';">
-                    Utilisateurs
-                </button>
+                <?php
+                    if($_SESSION['typeUtilisateur'] === 1){
+                        echo '<button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href="affichageEmploye.php";">
+                                  Utilisateurs
+                              </button>';
+                    }
+                ?>
+
 
                 <!-- Menu déroulant pour "Exporter" et "Utilisateurs" (visible sur sm et moins) -->
                 <div class="dropdown d-md-none">
@@ -52,8 +57,6 @@
                         <li><a class="dropdown-item" href="../pages/accueil.php">Accueil</a></li>
                         <li><a class="dropdown-item" href="../pages/affichageReservation.php">Réservations</a></li>
                         <li><a class="dropdown-item" href="../pages/affichageSalle.php">Salles</a></li>
-                        <li><a class="dropdown-item" href="#">Exporter</a></li>
-                        <li><a class="dropdown-item" href="#">Utilisateurs</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,8 +71,7 @@
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <?php
-                        //echo $_SESSION['login']; STUB
-                        echo "Non connecté"; // TODO enlever le STUB
+                        echo $_SESSION['login'];
                         ?>
                     <i class="fas fa-angle-down"></i>
                 </button>

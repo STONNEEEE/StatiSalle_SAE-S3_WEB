@@ -29,8 +29,9 @@
 
                 <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5">
                     <div class="acc-container p-4 w-50">
-                        <!-- TODO Écrire le nom de l'utilisateur en fonction de celui qui est connecté-->
-                        <p>Bienvenue, [Nom de l'utilisateur] !</p>
+                        <?php
+                            echo "<p>Bienvenue, " . $_SESSION['login'] . " !</p>"
+                        ?>
                         <p>
                             Ce site vous permet de gérer facilement les réservations des salles partagées pour vos réunions, formations, et autres activités.
                             <br>
@@ -54,9 +55,12 @@
                             <a href="exportation.php" target="blank" class="text-decoration-none">📊 Exporter des données.</a>
                         </p>
                         <p>
-                            <!-- TODO Faire en sorte que cela s'affiche que pour les admins -->
-                            <!-- Lien vers la page de gestion des employés -->
-                            <a href="affichageEmploye.php" target="blank" class="text-decoration-none">👥 Gérer les employés.</a>
+                            <?php
+                                //si l'utilisateur est un admin alors, il peut accéder à la liste des employés
+                                if($_SESSION['typeUtilisateur'] === 1){
+                                echo '<a href="affichageEmploye.php" target="blank" class="text-decoration-none">👥 Gérer les employés.</a>';
+                                }
+                            ?>
                         </p>
                     </div>
                 </div>
