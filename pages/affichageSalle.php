@@ -198,7 +198,10 @@ $tabLogiciels = listeDesLogiciels();
                         echo "<td>".$salle['logiciels']."</td>";
                         // Imprimante : Condition pour afficher Oui/Non
                         echo "<td>".($salle['imprimante'] == 1 ? "Oui" : "Non")."</td>";
-                        echo "<td>"
+
+                        // Mise en forme (boutons alignés verticalement
+                        echo '<td class="btn-colonne">';
+                        echo '<div class="d-flex justify-content-center gap-1">';
                         ?>
                         <!-- Paramètre envoyé pour supprimer la salle -->
                         <form  method="post" action="">
@@ -213,6 +216,7 @@ $tabLogiciels = listeDesLogiciels();
                             <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
                         </form>
                         <?php
+                        echo '</div>';
                         echo "</td>";
                         echo "</tr>";
                     }
