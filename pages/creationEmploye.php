@@ -1,7 +1,5 @@
 <?php
 include '../fonction/employe.php';
-session_start();
-
 require("../fonction/connexion.php");
 session_start();
 verif_session();
@@ -15,12 +13,12 @@ $messageSucces = "";
 // Vérification si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération des données du formulaire
-    $nom = $_POST['nom'] ?? '';
-    $prenom = $_POST['prenom'] ?? '';
-    $numTel = $_POST['numTel'] ?? '';
-    $login = $_POST['login'] ?? '';
-    $mdp = $_POST['mdp'] ?? '';
-    $cmdp = $_POST['cmdp'] ?? '';
+    $nom = htmlspecialchars($_POST['nom'])?? '';
+    $prenom = htmlspecialchars($_POST['prenom']) ?? '';
+    $numTel = htmlspecialchars($_POST['numTel']) ?? '';
+    $login = htmlspecialchars($_POST['login']) ?? '';
+    $mdp = htmlspecialchars($_POST['mdp']) ?? '';
+    $cmdp = htmlspecialchars($_POST['cmdp']) ?? '';
     $admin = isset($_POST['admin']) ? 1 : 2;
 
     // Vérification des champs requis
