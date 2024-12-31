@@ -1,11 +1,12 @@
 <?php
     require("../fonction/connexion.php");
+
     session_start();
     verif_session();
-    // session_start();
+
     require("../fonction/fonction_insert_update_Salle.php");
 
-    $idSalle = isset($_POST['idSalle']) ?? $_POST['idSalle'];
+    $idSalle = $_POST['idSalle'] ?? null;
     $mettreAJour = isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];;
     $tabAttribut = recupAttributSalle($idSalle);
 
@@ -32,16 +33,16 @@
     $messageErreur = "";
 
     // Vérification des champs obligatoires
-    if (empty($nomSalle)) {
+    if (!isset($nomSalle) || $nomSalle === '') {
         $erreurs['nomSalle'] = "Le nom de la salle est obligatoire.";
     }
-    if (empty($capacite)) {
+    if (!isset($capacite) || $capacite === '') {
         $erreurs['capacite'] = "La capacité est obligatoire.";
     }
-    if (empty($videoProjecteur)) {
+    if (!isset($videoProjecteur)) {
         $erreurs['videoProjecteur'] = "Le choix pour le vidéo projecteur est obligatoire.";
     }
-    if (empty($ordinateurXXL)) {
+    if (!isset($ordinateurXXL)) {
         $erreurs['ordinateurXXL'] = "Le choix pour l'ordinateur XXL est obligatoire.";
     }
 
@@ -179,7 +180,7 @@
                             <label for="imprimante">Imprimante : </label>
                             <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="1" <?= $imprimante == '1' ? 'checked' : '' ?>>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="0" <?= $imprimante == '0' ? 'checked' : '' ?>>
+                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="0" <?= $imprimante == '0' || $imprimante == NULL ? 'checked' : '' ?>>
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
