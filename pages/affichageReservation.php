@@ -1,7 +1,8 @@
 <?php
     require("../fonction/connexion.php");
-    session_start();
-    verif_session();
+    //session_start();
+    //verif_session();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -124,54 +125,31 @@
                         <th>Date</th>
                         <th>Heure debut</th>
                         <th>Heure fin</th>
-                        <th>optionnel</th>
-                        <th>optionnel</th>
-                        <th>optionnel</th>
-                        <th>optionnel</th>
-                        <th>optionnel</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>fsiuh</td>
-                        <td>fjkfhn</td>
-                        <td>zoi</td>
-                        <td>zsoio</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>fjkfhn</td>
-                        <td>zoi</td>
-                        <td>zsoio</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry</td>
-                        <td>the     Bird</td>
-                        <td>@twitter</td>
-                        <td>fjkfhn</td>
-                        <td>zoi</td>
-                        <td>zsoio</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr>
+                    <?php
+                        include '../fonction/fonctionAffichageReservation.php';
+                        try {
+                            $listeReservation = affichageReservation();
+                        } catch (PDOException $e) {
+                            echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
+                        }
+
+                        if (empty($listeReservation)) {
+                            echo '<tr><td colspan="5" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
+                        } else {
+                            foreach ($listeReservation as $ligne) {
+                                echo '<tr>';
+                                    echo '<td>' . $ligne['id_reservation'] . '</td>';
+                                    echo '<td>' . $ligne['nom_salle'] . '</td>';
+                                    echo '<td>' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
+                                    echo '<td>' . $ligne['nom_activite'] . '</td>';
+                                    echo '<td>' . $ligne['date'] . '</td>';
+                                    echo '<td>' . $ligne['heure_debut'] . '</td>';
+                                    echo '<td>' . $ligne['heure_fin'] . '</td>';
+                                echo '</tr>';
+                            }
+                        }
+                    ?>
                 </table>
             </div>
         </div>
