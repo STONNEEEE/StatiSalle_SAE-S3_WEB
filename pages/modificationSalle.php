@@ -196,6 +196,14 @@
                 </div>
             </div>
         </form>
+        <div class ="row offset-md-2">
+            <div>
+                <button class="btn-suppr rounded-2" type="button"
+                        onclick="window.location.href='affichageSalle.php'">
+                    Retour
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Footer de la page -->
