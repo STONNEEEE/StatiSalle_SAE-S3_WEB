@@ -135,7 +135,7 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                                 echo '<td>' . $employe->telephone . '</td>';
                                 echo '<td class="btn-colonne">';
                                 echo '<div class="d-flex justify-content-center gap-1">';
-                                echo '<form method="POST">';
+                                echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
                                 echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
                                 echo '    <input type="hidden" name="supprimer" value="true">';
                                 echo '    <button type="submit" class="btn-suppr rounded-2">';
