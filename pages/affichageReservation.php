@@ -154,7 +154,7 @@
                                                     echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger les informations sur le type de reservation</td></tr>';
                                                 }
 
-                                                if (isset($listeType) && !empty($listeType)) {
+                                                if (!empty($listeType)) {
                                                     // Filtrer les valeurs non vides
                                                     $listeSansVide = array_filter($listeType, function($valeur) {
                                                         return !empty($valeur);
