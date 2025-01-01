@@ -125,6 +125,7 @@
                         <th>Date</th>
                         <th>Heure debut</th>
                         <th>Heure fin</th>
+                        <th></th>
                     </tr>
                     <?php
                         include '../fonction/fonctionAffichageReservation.php';
@@ -142,10 +143,60 @@
                                     echo '<td>' . $ligne['id_reservation'] . '</td>';
                                     echo '<td>' . $ligne['nom_salle'] . '</td>';
                                     echo '<td>' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
-                                    echo '<td>' . $ligne['nom_activite'] . '</td>';
+                                    echo '<td>';
+                                        echo $ligne['nom_activite'];
+                                        echo '<span class="fa-solid fa-circle-info info-icon">';
+                                        echo '<span class="tooltip">';
+                                            echo '<table class="table table-striped">';
+                                                try {
+                                                    $listeType = affichageTypeReservation($ligne['id_reservation']);
+                                                } catch (PDOException $e) {
+                                                    echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger les informations sur le type de reservation</td></tr>';
+                                                }
+
+                                                if (isset($listeType) && !empty($listeType)) {
+                                                    // Filtrer les valeurs non vides
+                                                    $listeSansVide = array_filter($listeType, function($valeur) {
+                                                        return !empty($valeur);
+                                                    });
+
+                                                    if (!empty($listeSansVide)) {
+                                                        echo "<tr>";
+                                                        foreach ($listeSansVide as $key => $valeur) {
+                                                            echo "<td>" . $valeur . "</td>";
+                                                        }
+                                                        echo "</tr>";
+                                                    } else {
+                                                        echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
+                                                    }
+                                                } else {
+                                                    echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
+                                                }
+                                            echo ' </table>';
+                                        echo '</span>';
+                                        echo '</span>';
+                                    echo '</td>';
                                     echo '<td>' . $ligne['date'] . '</td>';
                                     echo '<td>' . $ligne['heure_debut'] . '</td>';
                                     echo '<td>' . $ligne['heure_fin'] . '</td>';
+
+                                    echo '<td class="btn-colonne">';
+                                    echo '<div class="d-flex justify-content-center gap-1">';
+                                    echo '<form method="POST">';
+                                    echo '    <input type="hidden" name="supprimer" value="true">';
+                                    echo '    <button type="submit" class="btn-suppr rounded-2">';
+                                    echo '        <span class="fa-solid fa-trash"></span>';
+                                    echo '    </button>';
+                                    echo '</form>';
+                                    echo '<form method="POST" action="#">
+                                              <button type="submit" class="btn-modifier rounded-2">
+                                                  <span class="fa-regular fa-pen-to-square"></span>
+                                              </button>
+                                          </form>
+                                          '; //TODO à completer pour la suppression et la modification
+                                    echo '</button>';
+                                    echo '</div>';
+                                    echo '</td>';
                                 echo '</tr>';
                             }
                         }

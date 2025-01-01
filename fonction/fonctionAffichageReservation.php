@@ -19,3 +19,35 @@ function affichageReservation()
     $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;
 }
+
+function affichageTypeReservation($idReservation){
+    global $pdo;
+    $requete = "SELECT reservation_entretien.*, 
+                       reservation_formation.*, 
+                       reservation_pret_louer.*, 
+                       reservation_autre.*, 
+                       reservation_reunion.*
+                FROM reservation
+                LEFT JOIN reservation_entretien
+                ON reservation.id_reservation = reservation_entretien.id_reservation
+                LEFT JOIN reservation_formation
+                ON reservation.id_reservation = reservation_formation.id_reservation
+                LEFT JOIN reservation_pret_louer
+                ON reservation.id_reservation = reservation_pret_louer.id_reservation
+                LEFT JOIN reservation_autre
+                ON reservation.id_reservation = reservation_autre.id_reservation
+                LEFT JOIN reservation_reunion
+                ON reservation.id_reservation = reservation_reunion.id_reservation
+                WHERE reservation.id_reservation = :id_reservation";
+    $requete = $pdo->prepare($requete);
+
+    // On lie le paramètre :id_reservation une seule fois
+    $requete->bindParam(':id_reservation', $idReservation, PDO::PARAM_STR);
+
+    // On exécute la requête après avoir lié le paramètre
+    $requete->execute();
+
+    // On récupère le résultat
+    $resultat = $requete->fetch(PDO::FETCH_ASSOC);
+    return $resultat;
+}
