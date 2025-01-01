@@ -132,8 +132,66 @@ function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type): void
     }
 }
 
-function modifierEmploye() {
+function recupAttributLogin($idEmploye) {
+    global $pdo;
+    try{
+        // Récupérer les informations de la table salle
+        $stmt = $pdo->prepare("SELECT login, mdp, id_type
+                                     FROM login 
+                                     WHERE id_employe = :id_employe");
+        $stmt->bindParam(':id_employe', $idEmploye, PDO::PARAM_INT);
+        $stmt->execute();
+        $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultat;
+    }catch(Exception $e){
+        // Gestion des erreurs
+        echo "Erreur lors de la récupération des attributs des logins : " . $e->getMessage();
+        return null;
+    }
+}
 
+function recupAttributEmploye($idEmploye) {
+    global $pdo;
+    try {
+        // Récupérer les informations de la table employe
+        $stmt = $pdo->prepare("SELECT nom, prenom, telephone
+                                      FROM employe
+                                      WHERE id_employe = :id_employe");
+        $stmt->bindParam(':id_employe', $idEmploye, PDO::PARAM_INT);
+        $stmt->execute();
+        $resultat = $stmt->fetch(PDO::FETCH_ASSOC); // Une seule ligne attendue
+
+        // Retourner les résultats combinés
+        return $resultat;
+
+    } catch (PDOException $e) {
+        // Gestion des erreurs
+        echo "Erreur lors de la récupération des attributs des employés : " . $e->getMessage();
+        return null;
+    }
+}
+
+
+function modifierEmploye($id, $nom, $prenom, $login, $telephone, $mdp, $id_type) {
+    global $pdo;
+    $requete = "UPDATE login 
+                SET login = :login, mdp = :mdp, id_type = :id_type
+                WHERE id_employe = :id_employe";
+    $stmt = $pdo->prepare($requete);
+    $stmt->bindParam(':login', $login);
+    $stmt->bindParam(':mdp', $mdp);
+    $stmt->bindParam(':id_type', $id_type);
+    $stmt->bindParam(':id_employe', $id);
+    $stmt->execute();
+    $requete = "UPDATE employe
+                SET nom = :nom, prenom = :prenom, telephone = :telephone
+                WHERE id_employe = :id_employe";
+    $stmt = $pdo->prepare($requete);
+    $stmt->bindParam(':nom', $nom);
+    $stmt->bindParam(':prenom', $prenom);
+    $stmt->bindParam(':telephone', $telephone);
+    $stmt->bindParam(':id_employe', $id);
+    $stmt->execute();
 }
 
 function verifIdType($id_type) {
