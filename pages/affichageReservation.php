@@ -141,16 +141,19 @@
         <div class="row mt-3">
             <div class="table-responsive">
                 <table class="table table-striped text-center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Salle</th>
-                        <th>Employe</th>
-                        <th>Activite</th>
-                        <th>Date</th>
-                        <th>Heure debut</th>
-                        <th>Heure fin</th>
-                        <th></th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Salle</th>
+                            <th>Employe</th>
+                            <th>Activite</th>
+                            <th>Date</th>
+                            <th>Heure debut</th>
+                            <th>Heure fin</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php
                         try {
                             $listeReservation = affichageReservation();
@@ -224,6 +227,7 @@
                             }
                         }
                     ?>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -232,7 +236,6 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Récupération des éléments <select>
         const filters = {
             employes: document.getElementById("employes"),
             salles: document.getElementById("salles"),
@@ -243,52 +246,50 @@
             heure_fin: document.getElementById("heure_fin"),
         };
 
-        // Récupération de toutes les lignes du tableau
         const rows = document.querySelectorAll("table.table-striped tbody tr");
 
-        // Fonction de filtrage
         function filterTable() {
             rows.forEach(row => {
                 const columns = row.getElementsByTagName("td");
 
                 const values = {
-                    employes: columns[1].textContent.toLowerCase(),
-                    salles: columns[2].textContent.trim(),
-                    activites: columns[3].textContent.trim().toLowerCase(),
-                    date_debut: columns[4].textContent.trim().toLowerCase(),
-                    date_fin: columns[5].textContent.trim(),
-                    heure_debut: columns[7].textContent.trim().toLowerCase(),
-                    heure_fin: columns[8].textContent.trim().toLowerCase(),
+                    salles: columns[1]?.textContent?.trim().toLowerCase() || "",
+                    employes: columns[2]?.textContent?.trim().toLowerCase() || "",
+                    activites: columns[3]?.textContent?.trim().toLowerCase() || "",
+                    date_debut: columns[4]?.textContent?.trim().toLowerCase() || "",
+                    date_fin: columns[5]?.textContent?.trim().toLowerCase() || "",
+                    heure_debut: columns[6]?.textContent?.trim().toLowerCase() || "",
+                    heure_fin: columns[7]?.textContent?.trim().toLowerCase() || "",
                 };
 
                 const visible = Object.keys(filters).every(key => {
                     const filterValue = filters[key].value.trim().toLowerCase();
-
-                    // Comparaison pour les autres champs
-                    return filterValue === "" || values[key].includes(filterValue);
+                    return filterValue === "employé" || filterValue === "salle" ||
+                        filterValue === "activités" || filterValue === "date début" ||
+                        filterValue === "date fin" || filterValue === "heure début" ||
+                        filterValue === "heure fin" ||
+                        (filterValue === "" || values[key].includes(filterValue));
                 });
 
                 row.style.display = visible ? "" : "none";
             });
         }
 
-        // Ajout des écouteurs d'événements
         Object.values(filters).forEach(filter => {
             filter.addEventListener("change", filterTable);
         });
 
-        // Fonction pour réinitialiser les filtres
         const resetButton = document.querySelector('.btn-reset');
         if (resetButton) {
             resetButton.addEventListener('click', function () {
-                // Réinitialisation des filtres
                 Object.values(filters).forEach(filter => {
-                    filter.value = ""; // Réinitialise les filtres à leur valeur par défaut
+                    filter.selectedIndex = 0;
                 });
-                filterTable(); // Applique les filtres réinitialisés
+                filterTable();
             });
         }
     });
 </script>
+
 </body>
 </html>
