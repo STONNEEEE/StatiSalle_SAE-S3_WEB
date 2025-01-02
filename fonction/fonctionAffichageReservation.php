@@ -51,3 +51,138 @@ function affichageTypeReservation($idReservation){
     $resultat = $requete->fetch(PDO::FETCH_ASSOC);
     return $resultat;
 }
+function listeEmployesNom(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT nom FROM employe");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->nom;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+function listeEmployesPrenom(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT prenom FROM employe");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->prenom;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+function listeSalles(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT nom FROM salle ORDER BY nom ASC");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->nom;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+function listeActivites(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT nom_activite FROM activite ORDER BY nom_activite ASC");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->nom_activite;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+function listeDate(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT date_reservation FROM reservation 
+                                           ORDER BY date_reservation ASC");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->date_reservation;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+function listeHeureDebut(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT heure_debut FROM reservation 
+                                           ORDER BY heure_debut ASC");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->heure_debut;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+function listeHeureFin(){
+    global $pdo;
+    // Retourne la liste des noms de salles dans un tableau
+    $tableauRetour = array(); // Tableau qui sera retourné
+    try {
+        $maRequete = $pdo->prepare("SELECT DISTINCT heure_fin FROM reservation 
+                                           ORDER BY heure_fin ASC");
+
+        if ($maRequete->execute()) {
+            while ($ligne = $maRequete->fetch()) {
+                $tableauRetour[] = $ligne->heure_fin;
+            }
+        }
+        return $tableauRetour;
+    } catch (Exception $e) {
+        // Erreur de BD
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}

@@ -2,7 +2,15 @@
     require("../fonction/connexion.php");
     //session_start();
     //verif_session();
+    include '../fonction/fonctionAffichageReservation.php';
 
+    $tabEmployeNom = listeEmployesNom();
+    $tabEmployePrenom = listeEmployesPrenom();
+    $tabSalle = listeSalles();
+    $tabActivite = listeActivites();
+    $tabDate = listeDate();
+    $heureDebut = listeHeureDebut();
+    $heureFin = listeHeureFin();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -44,66 +52,82 @@
         <div class="row g-1 justify-content-start">
             <!-- Nom des employés -->
             <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
-                <select class="form-select">
+                <select class="form-select" id="employes">
                     <option selected>Employé</option>
-                    <option>Legrand Jean-Pierre</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                    foreach ($tabEmployeNom as $nom) {
+                        foreach ($tabEmployePrenom as $prenom){ // On boucle sur les noms et prénoms des employés contenus dans le tableau
+                            echo "<option value=" . $nom . " " . $prenom . ">". $nom . " " . $prenom . "</option>";
+                        }
+                    }
+                    ?>
                 </select>
             </div>
             <!-- Nom des salles -->
             <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
-                <select class="form-select">
+                <select class="form-select" id="salles">
                     <option selected>Salle</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                        foreach ($tabSalle as $salle){
+                            echo "<option value=" . $salle . ">" . $salle . "</option>";
+                        }// On boucle sur les noms des salles contenues dans le tableau
+                    ?>
                 </select>
             </div>
             <!-- Nom des activités -->
             <div class="col-12 col-md-1 mb-1 col-grand-reservation">
-                <select class="form-select">
+                <select class="form-select" id="activites">
                     <option selected>Activités</option>
-                    <option>Formation</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                    foreach ($tabActivite as $activite){ // On boucle sur les différentes activités contenues dans le tableau
+                        echo "<option value=" . $activite . ">" . $activite . "</option>";
+                    }
+                    ?>
                 </select>
             </div>
 
             <!-- Date début -->
             <div class=" col-grand-reservation col-12 col-md-1 mb-1">
-                <select class="form-select">
+                <select class="form-select" id="date_debut">
                     <option selected>Date Début</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                    foreach ($tabDate as $date){ // On boucle sur les différentes dates contenues dans le tableau
+                        echo "<option value=" . $date . ">" . $date . "</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <!-- Date fin -->
             <div class="col-grand-reservation col-12 col-md-1 mb-1">
-                <select class="form-select">
+                <select class="form-select" id="date_fin">
                     <option selected>Date Fin</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                    foreach ($tabDate as $date){ // On boucle sur les différentes dates contenues dans le tableau
+                        echo "<option value=" . $date . ">" . $date . "</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <!-- Heure début -->
             <div class="col-grand-reservation col-12 col-md-1 mb-1">
-                <select class="form-select">
+                <select class="form-select" id="heure_debut">
                     <option selected>Heure début</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                    foreach ($heureDebut as $heure){ // On boucle sur les différentes dates contenues dans le tableau
+                        echo "<option value=" . $heure . ">" . $heure . "</option>";
+                    }
+                    ?>
                 </select>
             </div>
-            <!-- Date début -->
+            <!-- Heure fin -->
             <div class="col-grand-reservation col-12 col-md-1 mb-1">
-                <select class="form-select">
+                <select class="form-select" id="heure_fin">
                     <option selected>Heure fin</option>
-                    <option>Filtre 1</option>
-                    <option>Filtre 2</option>
-                    <option>Filtre 3</option>
+                    <?php
+                    foreach ($heureFin as $heure){ // On boucle sur les différentes dates contenues dans le tableau
+                        echo "<option value=" . $heure . ">" . $heure . "</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <!-- Bouton de réinitialisation des filtres -->
@@ -128,7 +152,6 @@
                         <th></th>
                     </tr>
                     <?php
-                        include '../fonction/fonctionAffichageReservation.php';
                         try {
                             $listeReservation = affichageReservation();
                         } catch (PDOException $e) {
@@ -207,5 +230,65 @@
     </div>
     <?php include '../include/footer.php'; ?>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Récupération des éléments <select>
+        const filters = {
+            employes: document.getElementById("employes"),
+            salles: document.getElementById("salles"),
+            activites: document.getElementById("activites"),
+            date_debut: document.getElementById("date_debut"),
+            date_fin: document.getElementById("date_fin"),
+            heure_debut: document.getElementById("heure_debut"),
+            heure_fin: document.getElementById("heure_fin"),
+        };
+
+        // Récupération de toutes les lignes du tableau
+        const rows = document.querySelectorAll("table.table-striped tbody tr");
+
+        // Fonction de filtrage
+        function filterTable() {
+            rows.forEach(row => {
+                const columns = row.getElementsByTagName("td");
+
+                const values = {
+                    employes: columns[1].textContent.toLowerCase(),
+                    salles: columns[2].textContent.trim(),
+                    activites: columns[3].textContent.trim().toLowerCase(),
+                    date_debut: columns[4].textContent.trim().toLowerCase(),
+                    date_fin: columns[5].textContent.trim(),
+                    heure_debut: columns[7].textContent.trim().toLowerCase(),
+                    heure_fin: columns[8].textContent.trim().toLowerCase(),
+                };
+
+                const visible = Object.keys(filters).every(key => {
+                    const filterValue = filters[key].value.trim().toLowerCase();
+
+                    // Comparaison pour les autres champs
+                    return filterValue === "" || values[key].includes(filterValue);
+                });
+
+                row.style.display = visible ? "" : "none";
+            });
+        }
+
+        // Ajout des écouteurs d'événements
+        Object.values(filters).forEach(filter => {
+            filter.addEventListener("change", filterTable);
+        });
+
+        // Fonction pour réinitialiser les filtres
+        const resetButton = document.querySelector('.btn-reset');
+        if (resetButton) {
+            resetButton.addEventListener('click', function () {
+                // Réinitialisation des filtres
+                Object.values(filters).forEach(filter => {
+                    filter.value = ""; // Réinitialise les filtres à leur valeur par défaut
+                });
+                filterTable(); // Applique les filtres réinitialisés
+            });
+        }
+    });
+</script>
 </body>
 </html>
