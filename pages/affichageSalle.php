@@ -31,8 +31,7 @@ if ($supprimer == "true" && $id_salle) {
     }
 }
 
-// Chargement des donnnées
-$listeSalles = listeDesSalles();
+// Chargement des filtres
 $tabNoms = listeDesNoms();
 $tabCapacite = listeDesCapacites();
 $tabOrdinateur = listeDesOrdinateurs();
@@ -184,41 +183,53 @@ $tabLogiciels = listeDesLogiciels();
                     </thead>
                     <tbody>
                     <?php
-                    foreach ($listeSalles as $salle) {
-                        echo "<tr>";
-                        echo "<td>".$salle['id_salle']."</td>";
-                        echo "<td>".$salle['nom']."</td>";
-                        echo "<td>".$salle['capacite']."</td>";
-                        // Videoproj : Condition pour afficher Oui/Non
-                        echo "<td>".($salle['videoproj'] == 1 ? "Oui" : "Non")."</td>";
-                        // Ecran XXL : Condition pour afficher Oui/Non
-                        echo "<td>".($salle['ecran_xxl'] == 1 ? "Oui" : "Non")."</td>";
-                        echo "<td>".$salle['ordinateur']."</td>";
-                        echo "<td>".$salle['type']."</td>";
-                        echo "<td>".$salle['logiciels']."</td>";
-                        // Imprimante : Condition pour afficher Oui/Non
-                        echo "<td>".($salle['imprimante'] == 1 ? "Oui" : "Non")."</td>";
+                    // Chargement des données
+                    try {
+                        $listeSalles = listeDesSalles();
+                    } catch (Exception $e) {
+                        echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des salles en raison d’un problème technique...</td></tr>';
+                    }
+                    // Vérifier si le tableau est vide
+                    if (empty($listeSalles)) {
+                        echo '<tr><td colspan="5" class="text-center fw-bold">Aucune salle n’est enregistré ici !</td></tr>';
+                    } else {
+                        // Affichage des salles
+                        foreach ($listeSalles as $salle) {
+                            echo "<tr>";
+                            echo "<td>".$salle['id_salle']."</td>";
+                            echo "<td>".$salle['nom']."</td>";
+                            echo "<td>".$salle['capacite']."</td>";
+                            // Videoproj : Condition pour afficher Oui/Non
+                            echo "<td>".($salle['videoproj'] == 1 ? "Oui" : "Non")."</td>";
+                            // Ecran XXL : Condition pour afficher Oui/Non
+                            echo "<td>".($salle['ecran_xxl'] == 1 ? "Oui" : "Non")."</td>";
+                            echo "<td>".$salle['ordinateur']."</td>";
+                            echo "<td>".$salle['type']."</td>";
+                            echo "<td>".$salle['logiciels']."</td>";
+                            // Imprimante : Condition pour afficher Oui/Non
+                            echo "<td>".($salle['imprimante'] == 1 ? "Oui" : "Non")."</td>";
 
-                        // Mise en forme (boutons alignés verticalement
-                        echo '<td class="btn-colonne">';
-                        echo '<div class="d-flex justify-content-center gap-1">';
-                        ?>
-                        <!-- Paramètre envoyé pour supprimer la salle -->
-                        <form  method="post" action="">
-                            <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
-                            <input name="supprimer" type="hidden" value="true">
-                            <button class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
-                        </form>
+                            // Mise en forme (boutons alignés verticalement
+                            echo '<td class="btn-colonne">';
+                            echo '<div class="d-flex justify-content-center gap-1">';
+                            ?>
+                            <!-- Paramètre envoyé pour supprimer la salle -->
+                            <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?')">
+                                <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
+                                <input name="supprimer" type="hidden" value="true">
+                                <button type="submit" class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
+                            </form>
 
-                        <!-- Paramètre envoyé pour modifier la salle -->
-                        <form  method="post" action="modificationSalle.php">
-                            <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
-                            <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
-                        </form>
-                        <?php
-                        echo '</div>';
-                        echo "</td>";
-                        echo "</tr>";
+                            <!-- Paramètre envoyé pour modifier la salle -->
+                            <form  method="post" action="modificationSalle.php">
+                                <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
+                                <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
+                            </form>
+                            <?php
+                            echo '</div>';
+                            echo "</td>";
+                            echo "</tr>";
+                        }
                     }
                     ?>
                     </tbody>
