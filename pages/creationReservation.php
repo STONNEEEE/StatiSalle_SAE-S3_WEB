@@ -244,13 +244,21 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-3 offset-9 col-md-2">
-                    <button type="submit" class="btn btn-primary btn-block" id="submit">
+                <div class="col-3 text-center w-100">
+                    <button type="submit" class="btn-bleu rounded-2" id="submit">
                         Réserver
                     </button>
                 </div>
             </div>
         </form>
+        <div class ="row offset-md-2">
+            <div>
+                <button class="btn-suppr rounded-2" type="button"
+                        onclick="window.location.href='affichageReservation.php'">
+                    Retour
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Footer de la page -->
