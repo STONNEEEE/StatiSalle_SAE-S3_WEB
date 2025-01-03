@@ -55,14 +55,12 @@
                 <select class="form-select" id="employes">
                     <option selected>Employé</option>
                     <?php
-                    for ($i = 0; $i < count($tabEmployeNom); $i++) {
-                        $nom = $tabEmployeNom[$i];      // Nom de l'employé à l'indice $i
-                        $prenom = $tabEmployePrenom[$i]; // Prénom de l'employé à l'indice $i
-
-                        echo "<option value='" . $nom . " " . $prenom . "'>" . $nom . " " . $prenom . "</option>";
+                    foreach ($tabEmployeNom as $nom) {
+                        foreach ($tabEmployePrenom as $prenom){ // On boucle sur les noms et prénoms des employés contenus dans le tableau
+                            echo "<option value=" . $nom . " " . $prenom . ">". $nom . " " . $prenom . "</option>";
+                        }
                     }
                     ?>
-
                 </select>
             </div>
             <!-- Nom des salles -->
@@ -143,16 +141,19 @@
         <div class="row mt-3">
             <div class="table-responsive">
                 <table class="table table-striped text-center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Salle</th>
-                        <th>Employe</th>
-                        <th>Activite</th>
-                        <th>Date</th>
-                        <th>Heure debut</th>
-                        <th>Heure fin</th>
-                        <th></th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Salle</th>
+                            <th>Employe</th>
+                            <th>Activite</th>
+                            <th>Date</th>
+                            <th>Heure debut</th>
+                            <th>Heure fin</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php
                         try {
                             $listeReservation = affichageReservation();
@@ -226,6 +227,7 @@
                             }
                         }
                     ?>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -234,90 +236,60 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Récupération des éléments <select> pour les filtres
         const filters = {
             employes: document.getElementById("employes"),
             salles: document.getElementById("salles"),
             activites: document.getElementById("activites"),
             date_debut: document.getElementById("date_debut"),
+            date_fin: document.getElementById("date_fin"),
             heure_debut: document.getElementById("heure_debut"),
             heure_fin: document.getElementById("heure_fin"),
         };
 
-        // Sélection de toutes les lignes du tableau
         const rows = document.querySelectorAll("table.table-striped tbody tr");
 
-        // Fonction pour filtrer les lignes du tableau
         function filterTable() {
-            let visibleRowCount = 0; // Compteur pour les lignes visibles
-
             rows.forEach(row => {
                 const columns = row.getElementsByTagName("td");
 
-                // Correspondance des données de chaque colonne avec leurs filtres respectifs
                 const values = {
-                    employes: columns[2]?.textContent.trim().toLowerCase(),
-                    salles: columns[1]?.textContent.trim().toLowerCase(),
-                    activites: columns[3]?.textContent.trim().toLowerCase(),
-                    date_debut: columns[4]?.textContent.trim().toLowerCase(),
-                    heure_debut: columns[5]?.textContent.trim().toLowerCase(),
-                    heure_fin: columns[6]?.textContent.trim().toLowerCase(),
+                    salles: columns[1]?.textContent?.trim().toLowerCase() || "",
+                    employes: columns[2]?.textContent?.trim().toLowerCase() || "",
+                    activites: columns[3]?.textContent?.trim().toLowerCase() || "",
+                    date_debut: columns[4]?.textContent?.trim().toLowerCase() || "",
+                    date_fin: columns[5]?.textContent?.trim().toLowerCase() || "",
+                    heure_debut: columns[6]?.textContent?.trim().toLowerCase() || "",
+                    heure_fin: columns[7]?.textContent?.trim().toLowerCase() || "",
                 };
 
-                // Déterminer si la ligne doit être visible
                 const visible = Object.keys(filters).every(key => {
-                    const filterValue = filters[key]?.value.trim().toLowerCase();
-
-                    // Si une option par défaut (première option) est sélectionnée, ignorer ce filtre
-                    if (filters[key].selectedIndex === 0) return true;
-
-                    // Comparaison stricte des valeurs
-                    return values[key]?.includes(filterValue);
+                    const filterValue = filters[key].value.trim().toLowerCase();
+                    return filterValue === "employé" || filterValue === "salle" ||
+                        filterValue === "activités" || filterValue === "date début" ||
+                        filterValue === "date fin" || filterValue === "heure début" ||
+                        filterValue === "heure fin" ||
+                        (filterValue === "" || values[key].includes(filterValue));
                 });
 
                 row.style.display = visible ? "" : "none";
-                if (visible) visibleRowCount++; // Compter les lignes visibles
-            });
-
-            // Afficher un message si aucune ligne n'est visible
-            const tableBody = document.querySelector("table.table-striped tbody");
-            if (visibleRowCount === 0 && tableBody) {
-                tableBody.innerHTML = `
-                <tr>
-                    <td colspan="8" class="text-center text-danger fw-bold">
-                        Aucune donnée ne correspond aux filtres sélectionnés.
-                    </td>
-                </tr>`;
-            }
-        }
-
-        // Fonction pour réinitialiser les filtres
-        function resetFilters() {
-            // Réinitialisation des valeurs des filtres
-            Object.values(filters).forEach(filter => {
-                filter.selectedIndex = 0; // Remet à l'option par défaut
-            });
-
-            // Rendre toutes les lignes visibles après réinitialisation
-            rows.forEach(row => {
-                row.style.display = "";
             });
         }
 
-        // Attacher un écouteur d'événement "change" à chaque filtre
         Object.values(filters).forEach(filter => {
             filter.addEventListener("change", filterTable);
         });
 
-        // Réinitialiser les filtres lorsqu'on clique sur le bouton de réinitialisation
         const resetButton = document.querySelector('.btn-reset');
         if (resetButton) {
             resetButton.addEventListener('click', function () {
-                resetFilters();
-                filterTable(); // Rafraîchir le tableau pour refléter la réinitialisation
+                Object.values(filters).forEach(filter => {
+                    filter.selectedIndex = 0;
+                });
+                filterTable();
             });
         }
     });
 </script>
+
 </body>
 </html>

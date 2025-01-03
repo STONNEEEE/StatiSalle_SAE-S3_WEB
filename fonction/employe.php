@@ -46,7 +46,21 @@ function supprimerEmploye($id_employe): void {
     }
 }
 
-function verifLogin($login) {
+function verifMdp($mdp): bool {
+    // Vérifier que le mot de passe fait plus de 8 caractères
+    if (strlen($mdp) <= 8) {
+        return false;
+    }
+
+    // Vérifier qu'il contient au moins un caractère spécial
+    if (!preg_match('/[\@\#\$\%\&\*\!\?]/', $mdp)) {
+        return false;
+    }
+
+    // Si toutes les vérifications sont bonnes
+    return true;
+}
+function verifLogin($login): bool {
     global $pdo;
 
     $sql = "SELECT COUNT(*) 
@@ -60,7 +74,7 @@ function verifLogin($login) {
     return $result > 0;  // Si le nombre est supérieur à 0, le login existe déjà
 }
 
-function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type) {
+function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type): void {
     global $pdo;
 
     try {
@@ -95,7 +109,7 @@ function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type) {
         }
 
         // Hashage du mot de passe
-        //$mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
+        $mdpHash = sha1($mdp);
 
         // Insérer dans la table login
         $requeteLogin = "INSERT INTO login (login, mdp, id_type, id_employe) 
@@ -103,7 +117,7 @@ function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type) {
         $stmtLogin = $pdo->prepare($requeteLogin);
         $stmtLogin->execute([
             ':login' => $login,
-            ':mdp' => $mdp, //$mdpHash
+            ':mdp' => $mdpHash,
             ':id_type' => $id_type,
             ':id_employe' => $id
         ]);
@@ -117,7 +131,6 @@ function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type) {
         throw $e; // Propager l'exception pour gestion par l'appelant
     }
 }
-
 
 function modifierEmploye() {
 
