@@ -188,6 +188,35 @@ function listeHeureDebut(){
     }
 }
 
+function supprimerResa($id_reservation) {
+    global $pdo;
+
+    // Liste des tables à parcourir
+    $tables = [
+        'reservation_autre',
+        'reservation_entretien',
+        'reservation_formation',
+        'reservation_pret_louer',
+        'reservation_reunion',
+        'reservation' // la table réservation est mise en dernier car les autres
+                      // tables héritent de celle-ci
+    ];
+
+    try {
+         foreach ($tables as $table) {
+            // Requête SQL pour supprimer la réservation dans les différentes tables
+            $requete = "DELETE FROM $table WHERE id_reservation = :id_reservation";
+            $stmt = $pdo->prepare($requete);
+            $stmt->execute(['id_reservation' => $id_reservation]);
+
+        }
+    } catch (PDOException $e) {
+        throw new PDOException($e->getMessage(), $e->getCode());
+    }
+}
+
+
+
 function listeHeureFin(){
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
