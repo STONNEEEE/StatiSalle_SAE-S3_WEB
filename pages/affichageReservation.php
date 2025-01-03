@@ -65,7 +65,7 @@
         <!-- 1ère ligne avec le bouton "Réserver" -->
         <div class="row mb-3 ">
             <div class="col-12 text-center text-md-end">
-                <button class="btn-bleu rounded-2" onclick="window.location.href='reservation.php';">
+                <button class="btn-bleu rounded-2" onclick="window.location.href='creationReservation.php';">
                     <i class="fa fa-calendar"></i>
                     Réserver
                 </button>
@@ -273,7 +273,6 @@
             heure_fin: document.getElementById("heure_fin"),
         };
 
-
         // Sélection de toutes les lignes du tableau
         const rows = document.querySelectorAll("table.table-striped tbody tr");
 
@@ -346,6 +345,5 @@
         }
     });
 </script>
-
 </body>
 </html>

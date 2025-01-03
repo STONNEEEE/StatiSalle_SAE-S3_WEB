@@ -22,7 +22,6 @@
     $numTel =           isset($_POST['numTel']) ? $_POST['numTel'] : '';
     $precisActivite =   isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
 
-    var_dump($nomActivite);
     // Tableau pour stocker les erreurs
     $erreurs = [];
     $messageSucces = $messageErreur = "";
@@ -280,6 +279,13 @@
     // Apparition de certain champ à remplir selon l'activité sélectionné
     function afficherChampsSupplementaires() {
         const activite = activiteSelect.value;
+
+        // Initialisation de l'affichage
+        objetInput.style.display =      'none';
+        nomInput.style.display =        'none';
+        prenomInput.style.display =     'none';
+        numInput.style.display =        'none';
+        precisionInput.style.display =  'none';
 
         if (activite === 'Réunion') {
             objetInput.style.display = 'block';

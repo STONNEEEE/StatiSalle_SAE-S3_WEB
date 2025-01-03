@@ -18,11 +18,11 @@
             if ($lastId === false) {
                 $idReservation = 'R000001';
             } else {
-                // 3. Extraire la partie numérique et l'incrémenter
+                // Extrait la partie numérique et l'incrémenter
                 $partieNumerique = (int)substr($lastId, 1); // Extrait la partie numérique de l'ID
                 $nouvellePartieNumerique = $partieNumerique + 1;
 
-                // 4. Formater le nouvel identifiant en "R000001"
+                // Formate le nouvel identifiant en "R000001"
                 $idReservation = 'R' . str_pad($nouvellePartieNumerique, 6, '0', STR_PAD_LEFT);
             }
 
@@ -112,7 +112,6 @@
             return "Erreur lors de l'insertion de la réservation : " . $e->getMessage();
         }
     }
-
 
     // Fonction pour récupérer les salles disponibles
     function listeDesSalles() {

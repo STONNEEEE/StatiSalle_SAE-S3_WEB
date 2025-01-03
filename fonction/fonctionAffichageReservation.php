@@ -1,8 +1,7 @@
 <?php
 require 'liaisonBD.php';
 $pdo = connecteBD();
-function affichageReservation()
-{
+function affichageReservation() {
     global $pdo;
     $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
                 employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
@@ -20,8 +19,7 @@ function affichageReservation()
     return $resultat;
 }
 
-function affichageMesReservations()
-{
+function affichageMesReservations() {
     global $pdo;
     $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
                 employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
@@ -72,7 +70,8 @@ function affichageTypeReservation($idReservation){
     $resultat = $requete->fetch(PDO::FETCH_ASSOC);
     return $resultat;
 }
-function listeEmployesNom(){
+
+function listeEmployesNom() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
@@ -91,7 +90,7 @@ function listeEmployesNom(){
     }
 }
 
-function listeEmployesPrenom(){
+function listeEmployesPrenom() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
@@ -110,7 +109,7 @@ function listeEmployesPrenom(){
     }
 }
 
-function listeSalles(){
+function listeSalles() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
@@ -129,7 +128,7 @@ function listeSalles(){
     }
 }
 
-function listeActivites(){
+function listeActivites() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
@@ -148,7 +147,7 @@ function listeActivites(){
     }
 }
 
-function listeDate(){
+function listeDate() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
@@ -168,7 +167,7 @@ function listeDate(){
     }
 }
 
-function listeHeureDebut(){
+function listeHeureDebut() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
@@ -215,9 +214,7 @@ function supprimerResa($id_reservation) {
     }
 }
 
-
-
-function listeHeureFin(){
+function listeHeureFin() {
     global $pdo;
     // Retourne la liste des noms de salles dans un tableau
     $tableauRetour = array(); // Tableau qui sera retourné
