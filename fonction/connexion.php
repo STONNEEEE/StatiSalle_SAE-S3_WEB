@@ -48,7 +48,6 @@
     }
 
     function verif_session() {
-
         //Si la session n'existe plus, on redirige vers la page de co
         if (!isset($_SESSION['id'])) {
             header('Location: ../index.php');

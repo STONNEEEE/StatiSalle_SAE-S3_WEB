@@ -1,7 +1,8 @@
 <?php
+    require ('../fonction/connexion.php');
     session_start();
     $message = '';
-    //verif_session();
+    verif_session();
     include '../fonction/fonctionAffichageReservation.php';
 
     $tabEmployeNom = listeEmployesNom();
