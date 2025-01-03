@@ -5,6 +5,8 @@
     session_start();
     verif_session();
 
+    $idLogin = $_SESSION['id'];
+
     $tabSalles = listeDesSalles();
     $tabActivites = listeDesActivites();
 
@@ -20,6 +22,7 @@
     $numTel =           isset($_POST['numTel']) ? $_POST['numTel'] : '';
     $precisActivite =   isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
 
+    var_dump($nomActivite);
     // Tableau pour stocker les erreurs
     $erreurs = [];
     $messageSucces = $messageErreur = "";
@@ -45,13 +48,13 @@
     if (empty($erreurs)) {
         try {
             // Appel à la fonction pour insérer la réservation
-            // TODO Faire l'insertion de la réservation dans la BD, voici l'appel de la fonction
-            // insertionReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $autre, $travaux, $sujetFormation, $precisActivite);
+            insertionReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
             $messageSucces = "Réservation effectuée avec succès!";
         } catch (PDOException $e) {
             $messageErreur = "Une erreur est survenue lors de la réservation.";
         }
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
