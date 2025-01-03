@@ -20,6 +20,27 @@ function affichageReservation()
     return $resultat;
 }
 
+function affichageMesReservations()
+{
+    global $pdo;
+    $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
+                employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
+                as date, reservation.heure_debut as heure_debut, reservation.heure_fin as heure_fin
+                FROM reservation
+                JOIN salle
+                ON reservation.id_salle = salle.id_salle
+                JOIN employe
+                ON reservation.id_employe = employe.id_employe
+                JOIN activite
+                ON reservation.id_activite = activite.id_activite
+                WHERE reservation.id_employe = :id_employe";
+    $requete = $pdo->prepare($requete);
+    $requete->bindValue(':id_employe', $_SESSION['id_employe']);
+    $requete->execute();
+    $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+    return $resultat;
+}
+
 function affichageTypeReservation($idReservation){
     global $pdo;
     $requete = "SELECT reservation_entretien.*, 

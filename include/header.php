@@ -46,6 +46,10 @@
                     }
                 ?>
 
+                <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='mesReservations.php';">
+                    Mes réservations
+                </button>
+
 
                 <!-- Menu déroulant pour "Exporter" et "Utilisateurs" (visible sur sm et moins) -->
                 <div class="dropdown d-md-none">
