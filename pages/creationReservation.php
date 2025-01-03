@@ -16,7 +16,7 @@
     $heureFin =         isset($_POST['heureFin']) ? $_POST['heureFin'] : '';
     $objet =            isset($_POST['objet']) ? $_POST['objet'] : '';
     $nom =              isset($_POST['nom']) ? $_POST['nom'] : '';
-    $prenom =              isset($_POST['prenom']) ? $_POST['prenom'] : '';
+    $prenom =           isset($_POST['prenom']) ? $_POST['prenom'] : '';
     $numTel =           isset($_POST['numTel']) ? $_POST['numTel'] : '';
     $precisActivite =   isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
 
