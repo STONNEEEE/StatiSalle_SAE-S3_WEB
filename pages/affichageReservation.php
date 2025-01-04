@@ -241,12 +241,13 @@
                                     echo '    </button>';
                                     echo '</form>';
 
-                                    echo '<form method="POST" action="#">
-                                             <button type="submit" class="btn-modifier rounded-2">
-                                                <span class="fa-regular fa-pen-to-square"></span>
-                                             </button>
+                                    echo '<!-- Paramètre envoyé pour modifier la salle -->
+                                          <form  method="post" action="modificationResa.php">';
+                                                //Vérifier que cette ligne prend bien l'id de la reservation
+                                    echo'       <input name="idReservation" type="hidden" value="' . htmlentities($ligne['id_reservation'], ENT_QUOTES) . '">
+                                                <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
                                           </form>
-                                          '; //TODO à completer pour la modification
+                                          ';
                                     echo '</button>';
                                     echo '</div>';
                                     echo '</td>';
