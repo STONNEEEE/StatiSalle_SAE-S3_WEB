@@ -1,5 +1,6 @@
 <?php
 require 'liaisonBD.php';
+session_start();
 $pdo = connecteBD();
 function affichageReservation() {
     global $pdo;
@@ -19,7 +20,7 @@ function affichageReservation() {
     return $resultat;
 }
 
-function affichageMesReservations() {
+function affichageMesReservations($idEmploye) {
     global $pdo;
     $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
                 employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
@@ -33,7 +34,7 @@ function affichageMesReservations() {
                 ON reservation.id_activite = activite.id_activite
                 WHERE reservation.id_employe = :id_employe";
     $requete = $pdo->prepare($requete);
-    $requete->bindValue(':id_employe', $_SESSION['id_employe']);
+    $requete->bindValue(':id_employe', $idEmploye);
     $requete->execute();
     $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;

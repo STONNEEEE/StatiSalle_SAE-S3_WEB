@@ -2,7 +2,7 @@
     function verif_utilisateur($pdo, $identifiant)
     {
         try {
-            $requete = "SELECT id_login, login, mdp
+            $requete = "SELECT id_login, login, mdp, id_employe
                         FROM login 
                         WHERE login = :identifiant";
             $resultat = $pdo->prepare($requete);

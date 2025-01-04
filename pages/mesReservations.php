@@ -1,7 +1,8 @@
 <?php
 require("../fonction/connexion.php");
-//session_start();
-//verif_session();
+session_start();
+verif_session();
+
 include '../fonction/fonctionAffichageReservation.php';
 
 $tabEmployeNom = listeEmployesNom();
@@ -11,6 +12,7 @@ $tabActivite = listeActivites();
 $tabDate = listeDate();
 $heureDebut = listeHeureDebut();
 $heureFin = listeHeureFin();
+$idEmploye = $_SESSION['id_employe'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,7 +44,7 @@ $heureFin = listeHeureFin();
         <!-- 1ère ligne avec le bouton "Réserver" -->
         <div class="row mb-3 ">
             <div class="col-12 text-center text-md-end">
-                <button class="btn-bleu rounded-2" onclick="window.location.href='reservation.php';">
+                <button class="btn-bleu rounded-2" onclick="window.location.href='creationReservation.php';">
                     <i class="fa fa-calendar"></i>
                     Réserver
                 </button>
@@ -158,7 +160,7 @@ $heureFin = listeHeureFin();
                     <tbody>
                     <?php
                     try {
-                        $listeReservation = affichageMesReservations();
+                        $listeReservation = affichageMesReservations($idEmploye);
                     } catch (PDOException $e) {
                         echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
                     }
@@ -221,7 +223,7 @@ $heureFin = listeHeureFin();
                                                   <span class="fa-regular fa-pen-to-square"></span>
                                               </button>
                                           </form>
-                                          '; //TODO à completer pour la suppression et la modification
+                                          ';
                             echo '</button>';
                             echo '</div>';
                             echo '</td>';
