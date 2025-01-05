@@ -217,6 +217,14 @@ if(isset($_POST['modifier'])){
                     </div>
                 </div>
             </form>
+            <div class ="row offset-md-2">
+                <div>
+                    <button class="btn-suppr rounded-2" type="button"
+                            onclick="window.location.href='affichageEmploye.php'">
+                        Retour
+                    </button>
+                </div>
+            </div>
         </div>
         <br><br>
     </div>

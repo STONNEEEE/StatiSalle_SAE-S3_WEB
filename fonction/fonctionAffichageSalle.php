@@ -114,13 +114,32 @@
         }
     }
 
-    // Vérifier s'il y a des réservations pour cette salle
-    function salleAvecReservation($id_salle) {
+    function supprimerSalle($id_salle) {
         global $pdo;
-        $requete = "SELECT COUNT(*) AS total FROM reservation WHERE id_salle = :id_salle";
-        $stmt = $pdo->prepare($requete);
-        $stmt->execute(['id_salle' => $id_salle]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total'] > 0;
+        try {
+            // Requête SQL pour supprimer la salle
+            $requete = "DELETE FROM salle WHERE id_salle = :id_salle";
+            $stmt = $pdo->prepare($requete);
+            $stmt->execute(['id_salle' => $id_salle]);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
     }
+
+    /**
+     * Vérifie si une salle a des réservations
+     * Retourne un tableau contenant les IDs des réservations ou un tableau vide si aucune réservation
+     */
+    function verifierReservations($id_salle) {
+        global $pdo;
+        try {
+            $requete = "SELECT id_reservation FROM reservation WHERE id_salle = :id_salle";
+            $stmt = $pdo->prepare($requete);
+            $stmt->execute(['id_salle' => $id_salle]);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
+    }
+
 ?>
