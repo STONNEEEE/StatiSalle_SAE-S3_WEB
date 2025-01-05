@@ -100,6 +100,8 @@ if (isset($_POST['modifier'])) {
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/footer.css">
+        <!-- Icon du site -->
+        <link rel="icon" href=" ../img/logo.ico">
     </head>
     <body>
         <div class="container-fluid">
