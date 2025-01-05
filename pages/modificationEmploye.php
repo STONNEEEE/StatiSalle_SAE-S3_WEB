@@ -65,18 +65,21 @@ if(isset($_POST['modifier'])){
         $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
     }
 // Vérification format du mot de passe
-    if (!verifMdp($mdp)) {
-        $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
-    }
+//    if (!verifMdp($mdp)) {
+//        $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
+//    }
 
 // Vérification de l'unicité du login pour un employé
-    if (verifLogin($login) > 0) {
-        $erreurs['login'] = "Le login est déjà utilisé.";
-    }
+//    if (verifLogin($login) > 0) {
+//        $erreurs['login'] = "Le login est déjà utilisé.";
+//    }
 
 // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
     if (empty($erreurs)) {
         try {
+            $tabAttributEmploye = recupAttributEmploye($id);
+            $tabAttributLogin = recupAttributLogin($id);
+
             $messageSucces = "Employé modifié avec succès !";
         } catch (Exception $e) {
             $erreurs[] = "Impossible de modifier l'employé dans la base de donnée : " . $e->getMessage();
