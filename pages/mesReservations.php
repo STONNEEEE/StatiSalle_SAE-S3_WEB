@@ -1,6 +1,7 @@
 <?php
 require("../fonction/connexion.php");
 session_start();
+$message = '';
 verif_session();
 
 include '../fonction/fonctionAffichageReservation.php';
@@ -13,6 +14,19 @@ $tabDate = listeDate();
 $heureDebut = listeHeureDebut();
 $heureFin = listeHeureFin();
 $idEmploye = $_SESSION['id_employe'];
+
+if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
+    $id_reservation = $_POST['id_reservation'];
+
+    // Appeler la fonction de suppression
+    try {
+        supprimerResa($id_reservation);
+        $_SESSION['message'] = 'Reservation supprimée avec succès !';
+    } catch (Exception $e) {
+        $_SESSION['message'] = "La réservation n'a pas pu être effectuée, 
+                                    un problème est survenu.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -40,6 +54,15 @@ $idEmploye = $_SESSION['id_employe'];
             </div>
             <br><br><br>
         </div>
+
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="alert alert-info text-center" role="alert">
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']); // Effacer le message après l'affichage
+                ?>
+            </div>
+        <?php endif; ?>
 
         <!-- 1ère ligne avec le bouton "Réserver" -->
         <div class="row mb-3 ">
@@ -212,16 +235,19 @@ $idEmploye = $_SESSION['id_employe'];
 
                             echo '<td class="btn-colonne">';
                             echo '<div class="d-flex justify-content-center gap-1">';
-                            echo '<form method="POST">';
+                            echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cette réservation ?\')">';
+                            echo '    <input type="hidden" name="id_reservation" value="' . htmlspecialchars($ligne['id_reservation']) . '">';
                             echo '    <input type="hidden" name="supprimer" value="true">';
                             echo '    <button type="submit" class="btn-suppr rounded-2">';
                             echo '        <span class="fa-solid fa-trash"></span>';
                             echo '    </button>';
                             echo '</form>';
-                            echo '<form method="POST" action="#">
-                                              <button type="submit" class="btn-modifier rounded-2">
-                                                  <span class="fa-regular fa-pen-to-square"></span>
-                                              </button>
+
+                            echo '<!-- Paramètre envoyé pour modifier la salle -->
+                                          <form  method="post" action="modificationResa.php">';
+                            //Vérifier que cette ligne prend bien l'id de la reservation
+                            echo'       <input name="idReservation" type="hidden" value="' . htmlentities($ligne['id_reservation'], ENT_QUOTES) . '">
+                                                <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
                                           </form>
                                           ';
                             echo '</button>';

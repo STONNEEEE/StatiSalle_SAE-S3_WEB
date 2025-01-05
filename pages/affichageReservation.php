@@ -24,7 +24,7 @@
             $_SESSION['message'] = "La réservation n'a pas pu être effectuée, 
                                     un problème est survenu.";
         }
-}
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
