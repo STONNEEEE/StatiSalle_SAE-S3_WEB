@@ -27,7 +27,12 @@
                     <ul class="dropdown-menu" aria-labelledby="menuDeroulantPage">
                         <!-- Accueil visible seulement sur écrans sm et moins -->
                         <li><a class="dropdown-item d-md-none" href="../pages/accueil.php">Accueil</a></li>
-                        <li><a class="dropdown-item" href="../pages/affichageReservation.php">Réservations</a></li>
+                        <?php
+                        //si l'utilisateur est un admin alors, il peut accéder à la liste des employés
+                        if($_SESSION['typeUtilisateur'] === 1){
+                            echo '<li><a class="dropdown-item" href="../pages/affichageReservation.php">Réservations</a></li>';
+                        }
+                        ?>
                         <li><a class="dropdown-item" href="../pages/affichageSalle.php">Salles</a></li>
                     </ul>
                 </div>
