@@ -1,6 +1,6 @@
 <?php
-include '../fonction/employe.php';
-//session_start();
+require '../fonction/employe.php';
+session_start();
 
 $message = '';
 
@@ -147,8 +147,7 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                                           <button type="submit" class="btn-modifier rounded-2">
                                               <span class="fa-regular fa-pen-to-square"></span>
                                           </button>
-                                      </form>
-                                      ';
+                                      </form>';
                                 echo '</button>';
                                 echo '</div>';
                                 echo '</td>';

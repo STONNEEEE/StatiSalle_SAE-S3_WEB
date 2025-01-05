@@ -1,6 +1,6 @@
 <?php
-include '../fonction/employe.php';
-require("../fonction/connexion.php");
+require '../fonction/employe.php';
+require '../fonction/connexion.php';
 session_start();
 verif_session();
 
@@ -193,21 +193,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
-                <!-- Boutton envoyer le formulaire -->
-                <div class="row mt-4">
-                    <div class="col-md-6 offset-md-3">
-                        <button type="submit" class="btn-bleu rounded w-100">Créer le compte</button>
+                <!-- Bouttons -->
+                <div class="row mt-4 offset-md-3">
+                    <!-- Boutton envoyer le formulaire -->
+                    <div class="col-12 col-md-6 mb-2">
+                        <button type="submit" class="btn-bleu rounded w-100">
+                                Créer le compte
+                        </button>
+                    </div>
+                    <!-- Boutton retour -->
+                    <div class="col-12 col-md-2">
+                        <button class="btn-suppr rounded w-100" type="button"
+                                onclick="window.location.href='affichageEmploye.php'">
+                                Retour
+                        </button>
                     </div>
                 </div>
             </form>
-            <div class ="row offset-md-2">
-                <div>
-                    <button class="btn-suppr rounded-2" type="button"
-                            onclick="window.location.href='affichageEmploye.php.'">
-                        Retour
-                    </button>
-                </div>
-            </div>
         </div>
         <br><br>
     </div>

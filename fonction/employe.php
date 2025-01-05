@@ -53,7 +53,7 @@ function verifMdp($mdp): bool {
     }
 
     // Vérifier qu'il contient au moins un caractère spécial
-    if (!preg_match('/[\@\#\$\%\&\*\!\?]/', $mdp)) {
+    if (!preg_match('/[@#$%&*!?]/', $mdp)) {
         return false;
     }
 
@@ -135,14 +135,13 @@ function ajouterEmploye($nom, $prenom, $login, $telephone, $mdp, $id_type): void
 function recupAttributLogin($idEmploye) {
     global $pdo;
     try{
-        // Récupérer les informations de la table salle
+        // Récupérer les informations de la table login
         $stmt = $pdo->prepare("SELECT login, mdp, id_type
                                      FROM login 
                                      WHERE id_employe = :id_employe");
         $stmt->bindParam(':id_employe', $idEmploye, PDO::PARAM_INT);
         $stmt->execute();
-        $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $resultat;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }catch(Exception $e){
         // Gestion des erreurs
         echo "Erreur lors de la récupération des attributs des logins : " . $e->getMessage();
@@ -159,11 +158,9 @@ function recupAttributEmploye($idEmploye) {
                                       WHERE id_employe = :id_employe");
         $stmt->bindParam(':id_employe', $idEmploye, PDO::PARAM_INT);
         $stmt->execute();
-        $resultat = $stmt->fetch(PDO::FETCH_ASSOC); // Une seule ligne attendue
 
-        // Retourner les résultats combinés
-        return $resultat;
-
+        // Retourner les résultats combinés (une seule ligne est attendue)
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         // Gestion des erreurs
         echo "Erreur lors de la récupération des attributs des employés : " . $e->getMessage();
@@ -172,26 +169,42 @@ function recupAttributEmploye($idEmploye) {
 }
 
 
-function modifierEmploye($id, $nom, $prenom, $login, $telephone, $mdp, $id_type) {
+function modifierEmploye($id, $nom, $prenom, $login, $telephone, $mdp, $id_type) : void {
     global $pdo;
-    $requete = "UPDATE login 
-                SET login = :login, mdp = :mdp, id_type = :id_type
-                WHERE id_employe = :id_employe";
-    $stmt = $pdo->prepare($requete);
-    $stmt->bindParam(':login', $login);
-    $stmt->bindParam(':mdp', $mdp);
-    $stmt->bindParam(':id_type', $id_type);
-    $stmt->bindParam(':id_employe', $id);
-    $stmt->execute();
-    $requete = "UPDATE employe
-                SET nom = :nom, prenom = :prenom, telephone = :telephone
-                WHERE id_employe = :id_employe";
-    $stmt = $pdo->prepare($requete);
-    $stmt->bindParam(':nom', $nom);
-    $stmt->bindParam(':prenom', $prenom);
-    $stmt->bindParam(':telephone', $telephone);
-    $stmt->bindParam(':id_employe', $id);
-    $stmt->execute();
+
+    try {
+        // Démarrer une transaction
+        $pdo->beginTransaction();
+
+        // Mise à jour de la table 'login'
+        $requete_login = "UPDATE login 
+                          SET login = :login, mdp = :mdp, id_type = :id_type
+                          WHERE id_employe = :id_employe";
+        $stmt_login = $pdo->prepare($requete_login);
+        $stmt_login->bindParam(':login', $login);
+        $stmt_login->bindParam(':mdp', $mdp);
+        $stmt_login->bindParam(':id_type', $id_type);
+        $stmt_login->bindParam(':id_employe', $id);
+        $stmt_login->execute();
+
+        // Mise à jour de la table 'employe'
+        $requete_employe = "UPDATE employe
+                            SET nom = :nom, prenom = :prenom, telephone = :telephone
+                            WHERE id_employe = :id_employe";
+        $stmt_employe = $pdo->prepare($requete_employe);
+        $stmt_employe->bindParam(':nom', $nom);
+        $stmt_employe->bindParam(':prenom', $prenom);
+        $stmt_employe->bindParam(':telephone', $telephone);
+        $stmt_employe->bindParam(':id_employe', $id);
+        $stmt_employe->execute();
+
+        // Valider la transaction
+        $pdo->commit();
+    } catch (Exception $e) {
+        // Annuler la transaction en cas d'erreur
+        $pdo->rollBack();
+        throw $e; // Répercuter l'exception pour gestion ultérieure
+    }
 }
 
 function verifIdType($id_type) {
@@ -202,4 +215,5 @@ function verifIdType($id_type) {
     $stmtVerif->execute(['id_type' => $id_type]);
     return $stmtVerif->fetchColumn(); // Retourne le nombre d'occurrences de id_type
 }
+
 ?>
