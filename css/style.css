@@ -28,6 +28,9 @@ body {
 /*                                                            */
 /* ---------------------------------------------------------- */
 
+.auth-row {
+    min-height: 69vh;
+}
 .auth-container {
     background-color: white;
     border-radius: 10px;
@@ -38,10 +41,6 @@ body {
 /*                      Pages d'accueil                       */
 /*                                                            */
 /* ---------------------------------------------------------- */
-
-.acc-row {
-    min-height: 60vh;
-}
 
 .acc-container {
     background-color: white;
