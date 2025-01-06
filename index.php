@@ -33,12 +33,13 @@
         $_SESSION['typeUtilisateur'] = $typeUtilisateur->id_type;
     }
 
-    if ($identifiant != "" && $mdp != "") {
+if ($identifiant != "" && $mdp != "") {
         if ($utilisateurOk && $mdpOk) {
             $_SESSION['id'] = $utilisateurOk->id_login;
             $_SESSION['login'] = $utilisateurOk->login;
             $_SESSION['mdp'] = $utilisateurOk->mdp;
             $_SESSION['id_employe'] = $utilisateurOk->id_employe;
+
             header('Location: pages/accueil.php');
             exit;
         } else {
