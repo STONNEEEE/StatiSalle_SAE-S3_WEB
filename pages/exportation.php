@@ -4,10 +4,6 @@ require "../fonction/liaisonBD.php";
 require '../fonction/exportation.php';
 session_start();
 
-// Définir les erreurs et le message de succès
-$erreurs = isset($_SESSION['erreurs']) ? $_SESSION['erreurs'] : [];
-$messageSucces = isset($_SESSION['messageSucces']) ? $_SESSION['messageSucces'] : '';
-
 // Génération du fichier CSV lorsque le bouton est cliqué
 if (isset($_GET['action'])) {
     $conn = connecteBD();
@@ -15,57 +11,36 @@ if (isset($_GET['action'])) {
 
     switch ($_GET['action']) {
         case 'reservations':
-            try {
-                var_dump($_SESSION['messageSucces']); // TODO réparer les affichages de messages
-                genererCSV(
-                    "reservations_$date.csv",
-                    ['ID Réservation', 'ID Salle', 'ID Employé', 'ID Activité', 'Date Réservation', 'Heure Début', 'Heure Fin'],
-                    recupererDonnees('reservation', $conn)
-                );
-                $_SESSION['messageSucces'] = "Le fichier des réservations a été généré avec succès.";
-                var_dump($_SESSION['messageSucces']);
-            } catch (Exception $e) {
-                $_SESSION['erreurs'][] = "Erreur lors de la génération du fichier des réservations: " . $e->getMessage();
-            }
+            // TODO réparer les affichages de messages
+            genererCSV(
+                "reservations_$date.csv",
+                ['ID Réservation', 'ID Salle', 'ID Employé', 'ID Activité', 'Date Réservation', 'Heure Début', 'Heure Fin'],
+                recupererDonnees('reservation', $conn)
+            );
             break;
 
         case 'salles':
-            try {
-                genererCSV(
-                    "salles_$date.csv",
-                    ['ID Salle', 'Nom', 'Capacité', 'Vidéoprojecteur', 'Écran XXL', 'Ordinateur', 'Type', 'Logiciels', 'Imprimante'],
-                    recupererDonnees('salle', $conn)
-                );
-                $_SESSION['messageSucces'] = "Le fichier des salles a été généré avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['erreurs'][] = "Erreur lors de la génération du fichier des salles: " . $e->getMessage();
-            }
+            genererCSV(
+                "salles_$date.csv",
+                ['ID Salle', 'Nom', 'Capacité', 'Vidéoprojecteur', 'Écran XXL', 'Ordinateur', 'Type', 'Logiciels', 'Imprimante'],
+                recupererDonnees('salle', $conn)
+            );
             break;
 
         case 'employes':
-            try {
-                genererCSV(
-                    "employes_$date.csv",
-                    ['ID Employé', 'Nom', 'Prénom', 'Téléphone'],
-                    recupererDonnees('employe', $conn)
-                );
-                $_SESSION['messageSucces'] = "Le fichier des employés a été généré avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['erreurs'][] = "Erreur lors de la génération du fichier des employés: " . $e->getMessage();
-            }
+            genererCSV(
+                "employes_$date.csv",
+                ['ID Employé', 'Nom', 'Prénom', 'Téléphone'],
+                recupererDonnees('employe', $conn)
+            );
             break;
 
         case 'activites':
-            try {
-                genererCSV(
-                    "activites_$date.csv",
-                    ['ID Activité', 'Nom Activité'],
-                    recupererDonnees('activite', $conn)
-                );
-                $_SESSION['messageSucces'] = "Le fichier des activités a été généré avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['erreurs'][] = "Erreur lors de la génération du fichier des activités: " . $e->getMessage();
-            }
+            genererCSV(
+                "activites_$date.csv",
+                ['ID Activité', 'Nom Activité'],
+                recupererDonnees('activite', $conn)
+            );
             break;
 
         case 'tous':
@@ -118,39 +93,13 @@ if (isset($_GET['action'])) {
     <body>
         <div class="container-fluid">
             <!-- Header de la page -->
-            <?php //include '../include/header.php'; ?>
+            <?php include '../include/header.php'; ?>
 
             <div class="full-screen padding-header">
                 <!-- Titre de la page -->
                 <div class="row text-center padding-header">
                     <h1>Téléchargement des données</h1>
                 </div>
-
-                <!-- Affichage des erreurs globales seulement après soumission -->
-                <?php if (!empty($erreurs)): ?>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    <?php foreach ($erreurs as $erreur): ?>
-                                        <li><?= $erreur ?></li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Affichage du message de succès -->
-                <?php if ($messageSucces): ?>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="alert alert-success">
-                                <?= $messageSucces ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
 
                 <!-- Contenu -->
                 <div class="row d-flex justify-content-center align-items-start w-100 acc-row mt-3">

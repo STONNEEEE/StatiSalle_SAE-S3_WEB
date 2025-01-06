@@ -21,6 +21,7 @@ function genererCSV($nomFichier, $colonnes, $donnees) : void {
         }
         fclose($fichier);
     }
+    exit();
 }
 
 function genererCSVString($colonnes, $donnees) {
@@ -32,6 +33,7 @@ function genererCSVString($colonnes, $donnees) {
     }
     fclose($fichier);
     return ob_get_clean();
+    exit();
 }
 
 function genererZip($nomZip, $fichiers) {
@@ -52,10 +54,9 @@ function genererZip($nomZip, $fichiers) {
         // Lire le fichier temporaire et l'envoyer à l'utilisateur
         readfile($zipTemp);
         unlink($zipTemp); // Supprimer le fichier temporaire
-    } else {
-        // Ajouter une erreur en session si la création du ZIP échoue
-        $_SESSION['erreurs'][] = 'Impossible de créer le fichier ZIP.';
     }
+
+    exit();
 }
 
 ?>
