@@ -65,7 +65,7 @@ function affichageTypeReservation($idReservation){
                        reservation_formation.*, 
                        reservation_pret_louer.*, 
                        reservation_autre.*, 
-                       reservation_reunion.*
+                       reservation_reunion.objet
                 FROM reservation
                 LEFT JOIN reservation_entretien
                 ON reservation.id_reservation = reservation_entretien.id_reservation
