@@ -13,7 +13,6 @@ $tabActivite = listeActivites();
 $tabDate = listeDate();
 $heureDebut = listeHeureDebut();
 $heureFin = listeHeureFin();
-$idEmploye = $_SESSION['id_employe'];
 
 if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
     $id_reservation = $_POST['id_reservation'];
@@ -183,9 +182,8 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
                     <tbody>
                     <?php
                     try {
-                        $listeReservation = affichageMesReservations($idEmploye);
+                        $listeReservation = affichageMesReservations($_SESSION['id_employe']);
                     } catch (PDOException $e) {
-                        echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
                     }
 
                     if (empty($listeReservation)) {

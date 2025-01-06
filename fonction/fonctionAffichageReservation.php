@@ -21,22 +21,42 @@ function affichageReservation() {
 
 function affichageMesReservations($idEmploye) {
     global $pdo;
-    $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
-                employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
-                as date, reservation.heure_debut as heure_debut, reservation.heure_fin as heure_fin
-                FROM reservation
-                JOIN salle
-                ON reservation.id_salle = salle.id_salle
-                JOIN employe
-                ON reservation.id_employe = employe.id_employe
-                JOIN activite
-                ON reservation.id_activite = activite.id_activite
-                WHERE reservation.id_employe = :id_employe";
-    $requete = $pdo->prepare($requete);
-    $requete->bindValue(':id_employe', $idEmploye);
-    $requete->execute();
-    $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
-    return $resultat;
+    try {
+        $requete = "
+            SELECT 
+                reservation.id_reservation AS id_reservation,
+                salle.nom AS nom_salle,
+                employe.nom AS nom_employe,
+                employe.prenom AS prenom_employe,
+                activite.nom_activite AS nom_activite,
+                reservation.date_reservation AS date,
+                reservation.heure_debut AS heure_debut,
+                reservation.heure_fin AS heure_fin
+            FROM 
+                reservation
+            JOIN 
+                salle ON reservation.id_salle = salle.id_salle
+            JOIN 
+                employe ON reservation.id_employe = employe.id_employe
+            JOIN 
+                activite ON reservation.id_activite = activite.id_activite
+            WHERE 
+                reservation.id_employe = :id_employe
+        ";
+
+        $stmt = $pdo->prepare($requete);
+        $stmt->bindValue(':id_employe', $idEmploye, PDO::PARAM_INT); // Vérifie que $idEmploye est un entier
+        $stmt->execute();
+
+        $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultat;
+
+    } catch (PDOException $e) {
+        // Gestion des erreurs : enregistre l'erreur ou affiche un message
+        error_log("Erreur dans affichageMesReservations: " . $e->getMessage());
+        return [];
+    }
 }
 
 function affichageTypeReservation($idReservation){
@@ -45,7 +65,7 @@ function affichageTypeReservation($idReservation){
                        reservation_formation.*, 
                        reservation_pret_louer.*, 
                        reservation_autre.*, 
-                       reservation_reunion.*
+                       reservation_reunion.objet
                 FROM reservation
                 LEFT JOIN reservation_entretien
                 ON reservation.id_reservation = reservation_entretien.id_reservation
