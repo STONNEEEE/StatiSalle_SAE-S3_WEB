@@ -1,6 +1,5 @@
 <?php
 require 'liaisonBD.php';
-session_start();
 $pdo = connecteBD();
 function affichageReservation() {
     global $pdo;

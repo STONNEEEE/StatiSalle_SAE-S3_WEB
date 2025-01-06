@@ -87,6 +87,53 @@ body {
 }
 
 /* ---------------------------------------------------------- */
+/*                   Affichage réservation                    */
+/*                                                            */
+/* ---------------------------------------------------------- */
+
+.btn-pagination {
+    background-color: rgb(120, 118, 118);
+    border-color: #787676;
+    margin-left: 3px;
+}
+.btn-pagination:hover {
+    background-color: #787676;
+    box-shadow: 0 0 30px 5px #787676;
+}
+
+.btn-pagination.active {
+    background-color: #c5c1c1;
+    border: none;
+}
+
+.btn-points:hover {
+    background-color: #787676;
+    box-shadow: none;
+}
+.btn-points:hover:before {
+    -webkit-animation: none;
+    -moz-animation: none;
+    animation: none;
+}
+
+.btn-pagination-disabled {
+    background-color: #c5c1c1;
+    border-color: #c5c1c1;
+    cursor: not-allowed;
+    pointer-events: none;
+    margin-left: 3px;
+}
+.btn-pagination-disabled:hover {
+    background-color: #c5c1c1;
+    box-shadow: none;
+}
+.btn-pagination-disabled:hover:before {
+    -webkit-animation: none;
+    -moz-animation: none;
+    animation: none;
+}
+
+/* ---------------------------------------------------------- */
 /*                      Pages d'affichage                     */
 /*                 Media queries pour les filtres             */
 /* ---------------------------------------------------------- */
