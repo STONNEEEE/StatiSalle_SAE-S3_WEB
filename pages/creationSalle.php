@@ -1,12 +1,9 @@
 <?php
-
     require("../fonction/connexion.php");
+    require("../fonction/fonction_insert_update_Salle.php");
+
     session_start();
     verif_session();
-
-
-// session_start();
-    require("../fonction/fonction_insert_update_Salle.php");
 
     // Vérification des variables issues du formulaire
     $idSalle =          "";
@@ -21,8 +18,7 @@
 
     // Tableau pour stocker les erreurs
     $erreurs = [];
-    $messageSucces = "";
-    $messageErreur = "";
+    $messageSucces = $messageErreur = "";
 
     // Vérification des champs obligatoires
     if ($nomSalle == '') {
@@ -119,7 +115,7 @@
                     <div class="row"> <!-- Capacité -->
                         <div class="form-group col-12">
                             <label for="capacite" class="<?= isset($erreurs['capacite']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Capacité de la salle : *</a></label>
-                            <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="0" required>
+                            <input type="number" class="form-control" name="capacite" id="capacite" value="<?php echo htmlentities($capacite, ENT_QUOTES); ?>" min="1" required>
                         </div>
                     </div>
                     <br>

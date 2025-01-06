@@ -41,7 +41,7 @@
                         </p>
                         <p>
                             <!-- Lien vers la page pour faire une réservation -->
-                            <a href="reservation.php" target="blank" class="text-decoration-none">🕒 Nouvelle réservation (ajouter une réservation rapidement).</a>
+                            <a href="creationReservation.php" target="blank" class="text-decoration-none">🕒 Nouvelle réservation (ajouter une réservation rapidement).</a>
                         </p>
                         <p>
                             <!-- Lien vers la page pour afficher les réservations -->
