@@ -76,7 +76,7 @@
                 </div>
             </header>
 
-            <div class="row d-flex justify-content-center align-items-center w-100 auth-row">
+            <div class="row justify-content-center align-items-center w-100 full-screen">
                 <div class="auth-container text-center p-4 w-50">
                     <h3 class="mb-4">
                         <?php

@@ -28,11 +28,6 @@ body {
 /*                                                            */
 /* ---------------------------------------------------------- */
 
-.auth-row {
-    min-height: 60vh;
-    margin: 30vh;
-}
-
 .auth-container {
     background-color: white;
     border-radius: 10px;
