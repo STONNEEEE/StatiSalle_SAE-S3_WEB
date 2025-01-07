@@ -86,11 +86,6 @@ body {
     text-align: center; /* Centre les icônes */
 }
 
-/* ---------------------------------------------------------- */
-/*                   Affichage réservation                    */
-/*                                                            */
-/* ---------------------------------------------------------- */
-
 .btn-pagination {
     background-color: rgb(120, 118, 118);
     border-color: #787676;
@@ -133,6 +128,7 @@ body {
     animation: none;
 }
 
+
 /* ---------------------------------------------------------- */
 /*                      Pages d'affichage                     */
 /*                 Media queries pour les filtres             */
@@ -161,13 +157,43 @@ body {
 }
 
 /* ---------------------------------------------------------- */
-/*                       CREER RESERVATION                    */
+/*                       RESERVATION                          */
 /*                                                            */
 /* ---------------------------------------------------------- */
 
 .petite-taille {
     font-size: 15px;
 }
+
+.info-icon {
+    position: relative;
+    cursor: pointer;
+    margin-left: 5px; /* Espacement entre l'icône et le texte */
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 120%; /* Positionnez au-dessus de l'icône */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.info-icon:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
 
 /* ---------------------------------------------------------- */
 /*                        IMPORTÉ                             */
@@ -243,33 +269,3 @@ button:active {
     -moz-transition: box-shadow 0.2s ease-in;
     transition: box-shadow 0.2s ease-in;
 }
-
-.info-icon {
-    position: relative;
-    cursor: pointer;
-    margin-left: 5px; /* Espacement entre l'icône et le texte */
-}
-
-.tooltip {
-    position: absolute;
-    bottom: 120%; /* Positionnez au-dessus de l'icône */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.info-icon:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-
