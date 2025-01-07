@@ -50,8 +50,6 @@
                                 // si l'utilisateur est un admin alors, il peut accéder à la liste des employés
                                 if ($_SESSION['typeUtilisateur'] === 1) {
                                     echo '📅 Gérer les réservations.';
-                                } else {
-                                    echo '📅 Afficher les réservations.';
                                 }
                                 ?>
                             </a>
