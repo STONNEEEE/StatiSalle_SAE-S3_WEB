@@ -92,7 +92,6 @@ $tabLogiciels = listeDesLogiciels();
         }
         ?>
 
-
         <div class="row g-1 justify-content-start"> <!-- Grande row des filtres avec espacement réduit -->
             <!-- Nom des salles -->
             <div class="col-12 col-md-2 mb-1 col-reduit-salle ">
@@ -187,7 +186,7 @@ $tabLogiciels = listeDesLogiciels();
                         <th>Imprimante</th>
                         <?php
                         if($_SESSION['typeUtilisateur'] === 1){
-                            echo '<th>Actions</th>';
+                            echo '<th></th>';
                         }
                         ?>
                     </tr>
