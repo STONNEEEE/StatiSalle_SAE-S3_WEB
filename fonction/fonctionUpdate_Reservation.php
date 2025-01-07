@@ -1,6 +1,6 @@
 <?php
 
-    // Fonction pour modifier une réservation
+    // Fonction pour récupérer les valeurs d'une réservation
     function recupAttributReservation($id_Resa)
     {
         global $pdo;
@@ -76,11 +76,10 @@
 
             if ($queryDetails) {
                 $stmt = $pdo->prepare($queryDetails);
-                $stmt->bindParam(':idReservation', $idReservation, PDO::PARAM_STR);
+                $stmt->bindParam(':idReservation', $id_Resa, PDO::PARAM_STR);
                 $stmt->execute();
                 $reservation['details'] = $stmt->fetch(PDO::FETCH_ASSOC);
             }
-
             return $reservation;
         } catch (PDOException $e) {
             error_log("Erreur lors de la récupération des détails de la réservation : " . $e->getMessage());

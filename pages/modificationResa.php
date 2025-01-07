@@ -11,12 +11,7 @@ $idLogin = $_SESSION['id'];
 
 
 // On récupère l'ID de la réservation
-$idResa = isset($_POST['id_reservation']) ? $_POST['id_reservation'] : null;
-
-if (!$idResa || $idResa <= 0) {
-    $messageErreur = "ID de réservation invalide.";
-    exit;
-}
+$idResa = isset($_POST['idReservation']) ? $_POST['idReservation'] : null;
 
 // Contenu pour les listes déroulantes
 $tabSalles = listeDesSalles();
@@ -27,13 +22,14 @@ $date = $heureDebut = $heureFin = $nomSalle = $nomActivite = $objet = $nom = $pr
 
 if ($idResa > 0) {
     $detailsResa = recupAttributReservation($idResa);
+    var_dump($detailsResa);
     if ($detailsResa) {
         // Préremplir les champs avec les données existantes
         $nomSalle = $detailsResa['nomSalle'];
         $nomActivite = $detailsResa['nomActivite'];
-        $dateReservation = $detailsResa['date_reservation'];
-        $heureDebut = $detailsResa['heure_debut'];
-        $heureFin = $detailsResa['heure_fin'];
+        $date = $detailsResa['date_reservation'];
+        $heureDebut = date("H:i", strtotime($detailsResa['heure_debut']));
+        $heureFin = date("H:i", strtotime($detailsResa['heure_fin']));
         if (isset($detailsResa['details'])) {
             $details = $detailsResa['details'];
             $objet = $details['objet'] ?? '';
@@ -81,12 +77,11 @@ if (empty($erreurs)) {
     try {
         // Appel à la fonction pour insérer la réservation
         modifReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
-        $messageSucces = "Réservation effectuée avec succès!";
+        $messageSucces = "Modification effectuée avec succès!";
     } catch (PDOException $e) {
         $messageErreur = "Une erreur est survenue lors de la réservation.";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -195,10 +190,12 @@ if (empty($erreurs)) {
                                             for ($minute = 0; $minute < 60; $minute += 10) {
                                                 $heureFormatee = str_pad($heure, 2, '0', STR_PAD_LEFT);
                                                 $minuteFormatee = str_pad($minute, 2, '0', STR_PAD_LEFT);
-                                                echo "<option value=\"$heureFormatee:$minuteFormatee\">$heureFormatee:$minuteFormatee</option>\n";
+                                                $heureComplete = "$heureFormatee:$minuteFormatee";
+                                                // Comparaison et ajout de l'attribut 'selected' si l'heure correspond
+                                                $selected = ($heureComplete === $heureDebut) ? 'selected' : '';
+                                                echo "<option value=\"$heureComplete\" $selected>$heureComplete</option>\n";
                                             }
                                         }
-                                        echo "<option value=\"20:00\">20:00</option>\n";
                                         ?>
                                     </select>
                                 </div>
@@ -215,10 +212,12 @@ if (empty($erreurs)) {
                                             for ($minute = 0; $minute < 60; $minute += 10) {
                                                 $heureFormatee = str_pad($heure, 2, '0', STR_PAD_LEFT);
                                                 $minuteFormatee = str_pad($minute, 2, '0', STR_PAD_LEFT);
-                                                echo "<option value=\"$heureFormatee:$minuteFormatee\">$heureFormatee:$minuteFormatee</option>\n";
+                                                $heureComplete = "$heureFormatee:$minuteFormatee";
+                                                // Comparaison et ajout de l'attribut 'selected' si l'heure correspond
+                                                $selected = ($heureComplete === $heureFin) ? 'selected' : '';
+                                                echo "<option value=\"$heureComplete\" $selected>$heureComplete</option>\n";
                                             }
                                         }
-                                        echo "<option value=\"20:00\">20:00</option>\n";
                                         ?>
                                     </select>
                                 </div>
@@ -299,23 +298,23 @@ if (empty($erreurs)) {
 </div>
 <script>
     // Récupération des de l'ID des champs pour y faire des modifications
-    const activiteSelect =      document.getElementById('activite');
-    const objetInput =          document.getElementById('ligneObjet');
-    const nomInput =            document.getElementById('ligneNom');
-    const prenomInput =         document.getElementById('lignePrenom');
-    const numInput =            document.getElementById('ligneNum');
-    const precisionInput =      document.getElementById('lignePrecision');
+    const activiteSelect = document.getElementById('activite');
+    const objetInput = document.getElementById('ligneObjet');
+    const nomInput = document.getElementById('ligneNom');
+    const prenomInput = document.getElementById('lignePrenom');
+    const numInput = document.getElementById('ligneNum');
+    const precisionInput = document.getElementById('lignePrecision');
 
-    const objetLabel =          document.getElementById('titreObjet');
-    const nomLabel =            document.getElementById('titreNom');
-    const prenomLabel =         document.getElementById('titrePrenom');
+    const objetLabel = document.getElementById('titreObjet');
+    const nomLabel = document.getElementById('titreNom');
+    const prenomLabel = document.getElementById('titrePrenom');
 
     // Initialisation de l'affichage
-    objetInput.style.display =      'none';
-    nomInput.style.display =        'none';
-    prenomInput.style.display =     'none';
-    numInput.style.display =        'none';
-    precisionInput.style.display =  'none';
+    objetInput.style.display = 'none';
+    nomInput.style.display = 'none';
+    prenomInput.style.display = 'none';
+    numInput.style.display = 'none';
+    precisionInput.style.display = 'none';
 
     // Apparition de certain champ à remplir selon l'activité sélectionné
     function afficherChampsSupplementaires() {
@@ -360,6 +359,15 @@ if (empty($erreurs)) {
             objetLabel.textContent = 'Description de votre activité :';
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Remplir les champs avec les données existantes si elles sont pré-remplies
+        // Exemple : supposons que l'activité sélectionnée est stockée dans une variable 'activitePreRemplie'
+        const activitePreRemplie = document.getElementById('activite').value; // Si c'est un <select>
+
+        // Appeler la fonction pour ajuster l'affichage des champs selon l'activité sélectionnée
+        afficherChampsSupplementaires();
+    });
 
     activiteSelect.addEventListener('change', afficherChampsSupplementaires);
 
