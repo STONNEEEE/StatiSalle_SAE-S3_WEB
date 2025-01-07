@@ -1,78 +1,76 @@
 <?php
 
-require "../fonction/liaisonBD.php";
-require '../fonction/exportation.php';
-session_start();
+    require '../fonction/exportation.php';
+    require '../fonction/connexion.php';
+    session_start();
+    verif_session();
 
-// Génération du fichier CSV lorsque le bouton est cliqué
-if (isset($_GET['action'])) {
-    $conn = connecteBD();
-    $date = date('d_m_Y'); // Format jour_mois_année
+    // Génération du fichier CSV lorsque le bouton est cliqué
+    if (isset($_GET['action'])) {
+        $date = date('d_m_Y H_i'); // Format jour_mois_année
 
-    switch ($_GET['action']) {
-        case 'reservations':
-            // TODO réparer les affichages de messages
-            genererCSV(
-                "reservations_$date.csv",
-                ['ID Réservation', 'ID Salle', 'ID Employé', 'ID Activité', 'Date Réservation', 'Heure Début', 'Heure Fin'],
-                recupererDonnees('reservation', $conn)
-            );
-            break;
-
-        case 'salles':
-            genererCSV(
-                "salles_$date.csv",
-                ['ID Salle', 'Nom', 'Capacité', 'Vidéoprojecteur', 'Écran XXL', 'Ordinateur', 'Type', 'Logiciels', 'Imprimante'],
-                recupererDonnees('salle', $conn)
-            );
-            break;
-
-        case 'employes':
-            genererCSV(
-                "employes_$date.csv",
-                ['ID Employé', 'Nom', 'Prénom', 'Téléphone'],
-                recupererDonnees('employe', $conn)
-            );
-            break;
-
-        case 'activites':
-            genererCSV(
-                "activites_$date.csv",
-                ['ID Activité', 'Nom Activité'],
-                recupererDonnees('activite', $conn)
-            );
-            break;
-
-        case 'tous':
-            try {
-                $fichiers = [];
-                $fichiers["activites_$date.csv"] = genererCSVString(
-                    ['ID Activité', 'Nom Activité'],
-                    recupererDonnees('activite', $conn)
+        switch ($_GET['action']) {
+            case 'reservations':
+                genererCSV(
+                    "reservations $date.csv",
+                    ['Ident','salle','employe','activite','date','heuredebut','heurefin','','','','',''],
+                    recupererDonnees('reservation')
                 );
-                $fichiers["employes_$date.csv"] = genererCSVString(
-                    ['ID Employé', 'Nom', 'Prénom', 'Téléphone'],
-                    recupererDonnees('employe', $conn)
-                );
-                $fichiers["salles_$date.csv"] = genererCSVString(
-                    ['ID Salle', 'Nom', 'Capacité', 'Vidéoprojecteur', 'Écran XXL', 'Ordinateur', 'Type', 'Logiciels', 'Imprimante'],
-                    recupererDonnees('salle', $conn)
-                );
-                $fichiers["reservations_$date.csv"] = genererCSVString(
-                    ['ID Réservation', 'ID Salle', 'ID Employé', 'ID Activité', 'Date Réservation', 'Heure Début', 'Heure Fin'],
-                    recupererDonnees('reservation', $conn)
-                );
+                break;
 
-                // Créer et envoyer le fichier ZIP
-                genererZip("fichiers_$date.zip", $fichiers);
-                $_SESSION['messageSucces'] = "Les fichiers ont été générés et compressés avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['erreurs'][] = "Erreur lors de la génération des fichiers ZIP: " . $e->getMessage();
-            }
-            break;
+            case 'salles':
+                genererCSV(
+                    "salles $date.csv",
+                    ['Ident','Nom','Capacite','videoproj','ecranXXL','ordinateur','type','logiciels','imprimante'],
+                    recupererDonnees('salle')
+                );
+                break;
+
+            case 'employes':
+                genererCSV(
+                    "employes $date.csv",
+                    ['Ident','Nom','Prenom','Telephone'],
+                    recupererDonnees('employe')
+                );
+                break;
+
+            case 'activites':
+                genererCSV(
+                    "activites $date.csv",
+                    ['Ident','Activité'], // Correspond au format requis pour l'application Java
+                    recupererDonnees('activite')
+                );
+                break;
+
+            case 'tous':
+                try {
+                    $fichiers = [];
+                    $fichiers["activites $date.csv"] = genererCSVString(
+                        ['Ident','Activité'], // Correspond au format requis pour l'application Java
+                        recupererDonnees('activite')
+                    );
+                    $fichiers["employes $date.csv"] = genererCSVString(
+                        ['Ident','Nom','Prenom','Telephone'],
+                        recupererDonnees('employe')
+                    );
+                    $fichiers["salles $date.csv"] = genererCSVString(
+                        ['Ident','Nom','Capacite','videoproj','ecranXXL','ordinateur','type','logiciels','imprimante'],
+                        recupererDonnees('salle')
+                    );
+                    $fichiers["reservations $date.csv"] = genererCSVString(
+                        ['Ident','salle','employe','activite','date','heuredebut','heurefin','','','','',''],
+                        recupererDonnees('reservation')
+                    );
+
+                    // Créer et envoyer le fichier ZIP
+                    genererZip("fichiers $date.zip", $fichiers);
+                    $_SESSION['messageSucces'] = "Les fichiers ont été générés et compressés avec succès.";
+                } catch (Exception $e) {
+                    $_SESSION['erreurs'][] = "Erreur lors de la génération des fichiers ZIP: " . $e->getMessage();
+                }
+                break;
+        }
     }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
