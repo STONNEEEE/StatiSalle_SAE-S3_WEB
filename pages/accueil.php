@@ -81,7 +81,7 @@
                             <?php
                                 //si l'utilisateur est un admin alors, il peut accéder à la liste des employés
                                 if($_SESSION['typeUtilisateur'] === 1){
-                                echo '<a href="affichageEmploye.php" target="blank" class="text-decoration-none">👥 Gérer les employés.</a>';
+                                echo '<a href="affichageEmploye.php" target="blank" class="text-decoration-none">👥 Gérer les utilisateurs.</a>';
                                 }
                             ?>
                         </p>
