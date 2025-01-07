@@ -167,6 +167,22 @@
                 </div>
                 <!-- Tableau des données -->
                 <div class="row mt-3">
+                    <?php
+                    try {
+                        $listeReservation = affichageReservation();
+                    } catch (PDOException $e) {
+                        echo '<div class="text-center text-danger fw-bold">Impossible de charger les réservations en raison d’un problème technique.</div>';
+                    }
+
+                    $nombreReservations = count($listeReservation ?? []);
+                    ?>
+
+                    <div class="col-12 text-center mb-3">
+                        <p class="fw-bold">
+                            Nombre de réservation trouvée(s) : <?= $nombreReservations ?>
+                        </p>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-striped text-center">
                             <thead>
@@ -412,7 +428,7 @@
                     });
                 });
 
-                renderTable(); // Initialiser le tableau
+                renderTable();
             });
 
             // ---------------- FILTRE ----------------
