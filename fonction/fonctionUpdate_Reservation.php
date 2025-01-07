@@ -46,8 +46,8 @@
 
             // Récupérer les détails supplémentaires en fonction de l'activité
             $queryDetails = "";
-            switch ($reservation['id_activite']) {
-                case 'Reunion':
+            switch ($reservation['nomActivite']) {
+                case 'Réunion':
                     $queryDetails = "SELECT objet FROM reservation_reunion WHERE id_reservation = :idReservation";
                     break;
 
@@ -56,14 +56,16 @@
                                  FROM reservation_formation WHERE id_reservation = :idReservation";
                     break;
 
-                case 'Entretien':
+                case 'Entretien de la salle':
                     $queryDetails = "SELECT nature FROM reservation_entretien WHERE id_reservation = :idReservation";
                     break;
 
-                case 'PretLouer':
+                case 'Prêt':
+                case 'Location':
                     $queryDetails = "SELECT nom_organisme, nom_interlocuteur, prenom_interlocuteur, num_tel_interlocuteur, type_activite 
-                                 FROM reservation_pret_louer WHERE id_reservation = :idReservation";
+                                FROM reservation_pret_louer WHERE id_reservation = :idReservation";
                     break;
+
 
                 case 'Autre':
                     $queryDetails = "SELECT description FROM reservation_autre WHERE id_reservation = :idReservation";
@@ -78,7 +80,8 @@
                 $stmt = $pdo->prepare($queryDetails);
                 $stmt->bindParam(':idReservation', $id_Resa, PDO::PARAM_STR);
                 $stmt->execute();
-                $reservation['details'] = $stmt->fetch(PDO::FETCH_ASSOC);
+                $reservation['details'] = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+
             }
             return $reservation;
         } catch (PDOException $e) {
@@ -172,9 +175,9 @@
                                  WHERE id_reservation = :idReservation";
                 $stmtPretLouer = $pdo->prepare($sqlPretLouer);
                 $stmtPretLouer->bindParam(':idReservation', $idReservation);
-                $stmtPretLouer->bindParam(':nomOrganisme', $nom);
-                $stmtPretLouer->bindParam(':nomInterlocuteur', $prenom);
-                $stmtPretLouer->bindParam(':prenomInterlocuteur', $objet);
+                $stmtPretLouer->bindParam(':nomOrganisme', $objet);
+                $stmtPretLouer->bindParam(':nomInterlocuteur', $objet);
+                $stmtPretLouer->bindParam(':prenomInterlocuteur', $prenom);
                 $stmtPretLouer->bindParam(':numTelInterlocuteur', $numTel);
                 $stmtPretLouer->bindParam(':typeActivite', $precisActivite);
                 $stmtPretLouer->execute();
