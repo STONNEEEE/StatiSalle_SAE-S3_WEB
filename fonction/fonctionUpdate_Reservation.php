@@ -1,8 +1,7 @@
 <?php
 
     // Fonction pour récupérer les valeurs d'une réservation
-    function recupAttributReservation($id_Resa)
-    {
+    function recupAttributReservation($id_Resa) {
         global $pdo;
 
         try {
@@ -66,7 +65,6 @@
                                 FROM reservation_pret_louer WHERE id_reservation = :idReservation";
                     break;
 
-
                 case 'Autre':
                     $queryDetails = "SELECT description FROM reservation_autre WHERE id_reservation = :idReservation";
                     break;
@@ -90,20 +88,12 @@
         }
     }
 
-    function modifReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin) {
+    function modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin, $nomActivitePrecedent) {
         global $pdo;
 
         try {
-            // Récupère l'identifiant de la réservation
-            $sqlIdResa = "SELECT id_reservation FROM reservation WHERE id_salle = 
-                                                (SELECT id_salle FROM salle WHERE nom = :nomSalle) 
-                                                AND date_reservation = :date AND heure_debut = :heureDebut";
-            $stmtId = $pdo->prepare($sqlIdResa);
-            $stmtId->bindParam(':nomSalle', $nomSalle);
-            $stmtId->bindParam(':date', $date);
-            $stmtId->bindParam(':heureDebut', $heureDebut);
-            $stmtId->execute();
-            $idReservation = $stmtId->fetchColumn();
+            // Démarre une transaction
+            $pdo->beginTransaction();
 
             // Récupère l'identifiant de la salle
             $sqlSalle = "SELECT id_salle FROM salle WHERE nom = :nomSalle";
@@ -112,12 +102,20 @@
             $stmtSalle->execute();
             $idSalle = $stmtSalle->fetchColumn();
 
-            // Récupère l'identifiant de l'employé à partir de l'identifiant de login
+            if (!$idSalle) {
+                throw new Exception("Salle introuvable");
+            }
+
+            // Récupère l'identifiant de l'employé
             $sqlEmploye = "SELECT id_employe FROM login WHERE id_login = :idLogin";
             $stmtEmploye = $pdo->prepare($sqlEmploye);
             $stmtEmploye->bindParam(':idLogin', $idLogin);
             $stmtEmploye->execute();
             $idEmploye = $stmtEmploye->fetchColumn();
+
+            if (!$idEmploye) {
+                throw new Exception("Employé introuvable");
+            }
 
             // Récupère l'identifiant de l'activité
             $sqlActivite = "SELECT id_activite FROM activite WHERE nom_activite = :nomActivite";
@@ -126,13 +124,17 @@
             $stmtActivite->execute();
             $idActivite = $stmtActivite->fetchColumn();
 
+            if (!$idActivite) {
+                throw new Exception("Activité introuvable");
+            }
+
             // Mise à jour dans la table reservation
             $sqlReservation = "UPDATE reservation 
                                SET id_salle = :idSalle, id_employe = :idEmploye, id_activite = :idActivite, 
                                    date_reservation = :dateReservation, heure_debut = :heureDebut, heure_fin = :heureFin 
                                WHERE id_reservation = :idReservation";
             $stmtReservation = $pdo->prepare($sqlReservation);
-            $stmtReservation->bindParam(':idReservation', $idReservation);
+            $stmtReservation->bindParam(':idReservation', $idResa);
             $stmtReservation->bindParam(':idSalle', $idSalle);
             $stmtReservation->bindParam(':idEmploye', $idEmploye);
             $stmtReservation->bindParam(':idActivite', $idActivite);
@@ -141,60 +143,147 @@
             $stmtReservation->bindParam(':heureFin', $heureFin);
             $stmtReservation->execute();
 
-            // Mise à jour dans la table correspondante à l'activité
-            if ($nomActivite === 'Réunion') {
-                $sqlReunion = "UPDATE reservation_reunion SET objet = :objet WHERE id_reservation = :idReservation";
-                $stmtReunion = $pdo->prepare($sqlReunion);
-                $stmtReunion->bindParam(':idReservation', $idReservation);
-                $stmtReunion->bindParam(':objet', $objet);
-                $stmtReunion->execute();
+            // Mise à jour dans la table spécifique à l'activité
+            switch ($nomActivite == $nomActivitePrecedent) {
+                case 'Réunion':
+                    $sqlReunion = "UPDATE reservation_reunion SET objet = :objet WHERE id_reservation = :idReservation";
+                    $stmtReunion = $pdo->prepare($sqlReunion);
+                    $stmtReunion->bindParam(':idReservation', $idResa);
+                    $stmtReunion->bindParam(':objet', $objet);
+                    $stmtReunion->execute();
+                    break;
 
-            } else if ($nomActivite === 'Formation') {
-                $sqlFormation = "UPDATE reservation_formation 
-                                 SET sujet = :sujet, nom_formateur = :nomFormateur, prenom_formateur = :prenomFormateur, num_tel_formateur = :numTelFormateur 
-                                 WHERE id_reservation = :idReservation";
-                $stmtFormation = $pdo->prepare($sqlFormation);
-                $stmtFormation->bindParam(':idReservation', $idReservation);
-                $stmtFormation->bindParam(':sujet', $objet);
-                $stmtFormation->bindParam(':nomFormateur', $nom);
-                $stmtFormation->bindParam(':prenomFormateur', $prenom);
-                $stmtFormation->bindParam(':numTelFormateur', $numTel);
-                $stmtFormation->execute();
+                case 'Formation':
+                    $sqlFormation = "UPDATE reservation_formation 
+                                     SET sujet = :sujet, nom_formateur = :nomFormateur, prenom_formateur = :prenomFormateur, num_tel_formateur = :numTelFormateur 
+                                     WHERE id_reservation = :idReservation";
+                    $stmtFormation = $pdo->prepare($sqlFormation);
+                    $stmtFormation->bindParam(':idReservation', $idResa);
+                    $stmtFormation->bindParam(':sujet', $objet);
+                    $stmtFormation->bindParam(':nomFormateur', $nom);
+                    $stmtFormation->bindParam(':prenomFormateur', $prenom);
+                    $stmtFormation->bindParam(':numTelFormateur', $numTel);
+                    $stmtFormation->execute();
+                    break;
 
-            } else if ($nomActivite === 'Entretien de la salle') {
-                $sqlEntretien = "UPDATE reservation_entretien SET nature = :nature WHERE id_reservation = :idReservation";
-                $stmtEntretien = $pdo->prepare($sqlEntretien);
-                $stmtEntretien->bindParam(':idReservation', $idReservation);
-                $stmtEntretien->bindParam(':nature', $objet);
-                $stmtEntretien->execute();
+                case 'Entretien de la salle':
+                    $sqlEntretien = "UPDATE reservation_entretien SET nature = :nature WHERE id_reservation = :idReservation";
+                    $stmtEntretien = $pdo->prepare($sqlEntretien);
+                    $stmtEntretien->bindParam(':idReservation', $idResa);
+                    $stmtEntretien->bindParam(':nature', $objet);
+                    $stmtEntretien->execute();
+                    break;
 
-            } else if ($nomActivite === 'Prêt' || $nomActivite === 'Location') {
-                $sqlPretLouer = "UPDATE reservation_pret_louer 
-                                 SET nom_organisme = :nomOrganisme, nom_interlocuteur = :nomInterlocuteur, prenom_interlocuteur = :prenomInterlocuteur, 
-                                     num_tel_interlocuteur = :numTelInterlocuteur, type_activite = :typeActivite 
-                                 WHERE id_reservation = :idReservation";
-                $stmtPretLouer = $pdo->prepare($sqlPretLouer);
-                $stmtPretLouer->bindParam(':idReservation', $idReservation);
-                $stmtPretLouer->bindParam(':nomOrganisme', $objet);
-                $stmtPretLouer->bindParam(':nomInterlocuteur', $objet);
-                $stmtPretLouer->bindParam(':prenomInterlocuteur', $prenom);
-                $stmtPretLouer->bindParam(':numTelInterlocuteur', $numTel);
-                $stmtPretLouer->bindParam(':typeActivite', $precisActivite);
-                $stmtPretLouer->execute();
+                case 'Location' || 'Prêt':
+                    $sqlPretLouer = "UPDATE reservation_pret_louer 
+                                     SET nom_organisme = :nomOrganisme, nom_interlocuteur = :nomInterlocuteur, prenom_interlocuteur = :prenomInterlocuteur, 
+                                         num_tel_interlocuteur = :numTelInterlocuteur, type_activite = :typeActivite 
+                                     WHERE id_reservation = :idReservation";
+                    $stmtPretLouer = $pdo->prepare($sqlPretLouer);
+                    $stmtPretLouer->bindParam(':idReservation', $idResa);
+                    $stmtPretLouer->bindParam(':nomOrganisme', $objet);
+                    $stmtPretLouer->bindParam(':nomInterlocuteur', $nom);
+                    $stmtPretLouer->bindParam(':prenomInterlocuteur', $prenom);
+                    $stmtPretLouer->bindParam(':numTelInterlocuteur', $numTel);
+                    $stmtPretLouer->bindParam(':typeActivite', $precisActivite);
+                    $stmtPretLouer->execute();
+                    break;
 
-            } else if ($nomActivite === 'Autre') {
-                $sqlAutre = "UPDATE reservation_autre SET description = :description WHERE id_reservation = :idReservation";
-                $stmtAutre = $pdo->prepare($sqlAutre);
-                $stmtAutre->bindParam(':idReservation', $idReservation);
-                $stmtAutre->bindParam(':description', $objet);
-                $stmtAutre->execute();
+                case 'Autre':
+                    $sqlAutre = "UPDATE reservation_autre SET description = :description WHERE id_reservation = :idReservation";
+                    $stmtAutre = $pdo->prepare($sqlAutre);
+                    $stmtAutre->bindParam(':idReservation', $idResa);
+                    $stmtAutre->bindParam(':description', $objet);
+                    $stmtAutre->execute();
+                    break;
             }
+
+            $nomTablePrecedent = '';
+            if ($nomActivitePrecedent == 'Reunion') {
+                $nomTablePrecedent = 'reservation_reunion';
+            } else if ($nomActivitePrecedent == 'Prêt' || $nomActivitePrecedent == 'Location') {
+                $nomTablePrecedent = 'reservation_pret_louer';
+            } else if ($nomActivitePrecedent == 'Formation') {
+                $nomTablePrecedent = 'reservation_formation';
+            } else if ($nomActivitePrecedent == 'Entretien') {
+                $nomTablePrecedent = 'reservation_entretien';
+            } else if ($nomActivitePrecedent == 'Autre') {
+                $nomTablePrecedent = 'reservation_autre';
+            }
+
+            // TODO COmmentaire
+            switch ($nomActivite != $nomActivitePrecedent) {
+                case 'Réunion':
+                    // Insert puis DELETE
+                    // Insère dans la table reservation_reunion
+                    $sqlReunion = "INSERT INTO reservation_reunion (id_reservation, objet) 
+                                   VALUES (:idReservation, :objet)";
+                    $stmtReunion = $pdo->prepare($sqlReunion);
+                    $stmtReunion->bindParam(':idReservation', $idResa);
+                    $stmtReunion->bindParam(':objet', $objet);
+                    $stmtReunion->execute();
+
+                    $sqlReunion = "DELETE FROM $nomTablePrecedent WHERE id_reservation = :idReservation";
+                    $stmtReunion = $pdo->prepare($sqlReunion);
+                    $stmtReunion->bindParam(':idReservation', $idResa);
+                    $stmtReunion->bindParam(':objet', $objet);
+                    $stmtReunion->execute();
+                    break;
+
+                case 'Formation':
+                    $sqlFormation = "UPDATE reservation_formation 
+                                     SET sujet = :sujet, nom_formateur = :nomFormateur, prenom_formateur = :prenomFormateur, num_tel_formateur = :numTelFormateur 
+                                     WHERE id_reservation = :idReservation";
+                    $stmtFormation = $pdo->prepare($sqlFormation);
+                    $stmtFormation->bindParam(':idReservation', $idResa);
+                    $stmtFormation->bindParam(':sujet', $objet);
+                    $stmtFormation->bindParam(':nomFormateur', $nom);
+                    $stmtFormation->bindParam(':prenomFormateur', $prenom);
+                    $stmtFormation->bindParam(':numTelFormateur', $numTel);
+                    $stmtFormation->execute();
+                    break;
+
+                case 'Entretien de la salle':
+                    $sqlEntretien = "UPDATE reservation_entretien SET nature = :nature WHERE id_reservation = :idReservation";
+                    $stmtEntretien = $pdo->prepare($sqlEntretien);
+                    $stmtEntretien->bindParam(':idReservation', $idResa);
+                    $stmtEntretien->bindParam(':nature', $objet);
+                    $stmtEntretien->execute();
+                    break;
+
+                case 'Location' || 'Prêt':
+                    $sqlPretLouer = "UPDATE reservation_pret_louer 
+                                     SET nom_organisme = :nomOrganisme, nom_interlocuteur = :nomInterlocuteur, prenom_interlocuteur = :prenomInterlocuteur, 
+                                         num_tel_interlocuteur = :numTelInterlocuteur, type_activite = :typeActivite 
+                                     WHERE id_reservation = :idReservation";
+                    $stmtPretLouer = $pdo->prepare($sqlPretLouer);
+                    $stmtPretLouer->bindParam(':idReservation', $idResa);
+                    $stmtPretLouer->bindParam(':nomOrganisme', $objet);
+                    $stmtPretLouer->bindParam(':nomInterlocuteur', $nom);
+                    $stmtPretLouer->bindParam(':prenomInterlocuteur', $prenom);
+                    $stmtPretLouer->bindParam(':numTelInterlocuteur', $numTel);
+                    $stmtPretLouer->bindParam(':typeActivite', $precisActivite);
+                    $stmtPretLouer->execute();
+                    break;
+
+                case 'Autre':
+                    $sqlAutre = "UPDATE reservation_autre SET description = :description WHERE id_reservation = :idReservation";
+                    $stmtAutre = $pdo->prepare($sqlAutre);
+                    $stmtAutre->bindParam(':idReservation', $idResa);
+                    $stmtAutre->bindParam(':description', $objet);
+                    $stmtAutre->execute();
+                    break;
+            }
+
+            // Validation de la transaction
+            $pdo->commit();
 
             return "Réservation modifiée avec succès";
 
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
+            // Annulation de la transaction en cas d'erreur
+            $pdo->rollBack();
             return "Erreur lors de la modification de la réservation : " . $e->getMessage();
         }
     }
-
 ?>
