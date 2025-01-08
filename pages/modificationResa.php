@@ -11,12 +11,7 @@ $idLogin = $_SESSION['id'];
 
 
 // On récupère l'ID de la réservation
-$idResa = isset($_POST['id_reservation']) ? $_POST['id_reservation'] : null;
-
-if (!$idResa || $idResa <= 0) {
-    $messageErreur = "ID de réservation invalide.";
-    exit;
-}
+$idResa = isset($_POST['idReservation']) ? $_POST['idReservation'] : null;
 
 // Contenu pour les listes déroulantes
 $tabSalles = listeDesSalles();
@@ -27,17 +22,18 @@ $date = $heureDebut = $heureFin = $nomSalle = $nomActivite = $objet = $nom = $pr
 
 if ($idResa > 0) {
     $detailsResa = recupAttributReservation($idResa);
+    var_dump($detailsResa);
     if ($detailsResa) {
         // Préremplir les champs avec les données existantes
         $nomSalle = $detailsResa['nomSalle'];
         $nomActivite = $detailsResa['nomActivite'];
-        $dateReservation = $detailsResa['date_reservation'];
-        $heureDebut = $detailsResa['heure_debut'];
-        $heureFin = $detailsResa['heure_fin'];
+        $date = $detailsResa['date_reservation'];
+        $heureDebut = date("H:i", strtotime($detailsResa['heure_debut']));
+        $heureFin = date("H:i", strtotime($detailsResa['heure_fin']));
         if (isset($detailsResa['details'])) {
             $details = $detailsResa['details'];
             $objet = $details['objet'] ?? '';
-            $nom = $details['nom'] ?? '';
+            $nomOrganisme = $details['nom_organisme'] ?? '';
             $prenom = $details['prenom'] ?? '';
             $numTel = $details['num_tel'] ?? '';
             $precisActivite = $details['type_activite'] ?? '';
@@ -50,43 +46,46 @@ if ($idResa > 0) {
 }
 
 // Tableau pour stocker les erreurs
-$erreurs = [];
 $messageSucces = "";
 $messageErreur = "";
+$erreurs = [];
 
-// Validation des champs
-if ($nomSalle == '') {
-    $erreurs['nomSalle'] = "Le nom de la salle est obligatoire.";
-}
-if ($nomActivite == '') {
-    $erreurs['nomActivite'] = "L'activité est obligatoire.";
-}
-if ($date == '') {
-    $erreurs['date'] = "La date est obligatoire.";
-}
-if ($heureDebut == '') {
-    $erreurs['heureDebut'] = "L'heure de début est obligatoire.";
-}
-if ($heureFin == '') {
-    $erreurs['heureFin'] = "L'heure de fin est obligatoire.";
-}
+// Vérification si le formulaire est soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validation des champs
+    if ($nomSalle == '') {
+        $erreurs['nomSalle'] = "Le nom de la salle est obligatoire.";
+    }
+    if ($nomActivite == '') {
+        $erreurs['nomActivite'] = "L'activité est obligatoire.";
+    }
+    if ($date == '') {
+        $erreurs['date'] = "La date est obligatoire.";
+    }
+    if ($heureDebut == '') {
+        $erreurs['heureDebut'] = "L'heure de début est obligatoire.";
+    }
+    if ($heureFin == '') {
+        $erreurs['heureFin'] = "L'heure de fin est obligatoire.";
+    }
 
-// Vérification que l'heure de fin est bien après l'heure de début
-if (strtotime($heureDebut) >= strtotime($heureFin)) {
-    $erreurs['heureFin'] = "L'heure de fin doit être après l'heure de début.";
-}
+    // Vérification que l'heure de fin est après l'heure de début
+    if (strtotime($heureDebut) >= strtotime($heureFin)) {
+        $erreurs['heureFin'] = "L'heure de fin doit être après l'heure de début.";
+    }
 
-// Si aucun champ n'a d'erreur, on tente l'insertion
-if (empty($erreurs)) {
-    try {
-        // Appel à la fonction pour insérer la réservation
-        modifReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
-        $messageSucces = "Réservation effectuée avec succès!";
-    } catch (PDOException $e) {
-        $messageErreur = "Une erreur est survenue lors de la réservation.";
+    if (isset($_POST['submit'])) {
+        // Si aucun champ n'a d'erreur, on tente l'insertion
+        if (empty($erreurs)) {
+            try {
+                modifReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
+                $messageSucces = "Modification effectuée avec succès!";
+            } catch (PDOException $e) {
+                $messageErreur = "Une erreur est survenue lors de la réservation.";
+            }
+        }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -195,10 +194,12 @@ if (empty($erreurs)) {
                                             for ($minute = 0; $minute < 60; $minute += 10) {
                                                 $heureFormatee = str_pad($heure, 2, '0', STR_PAD_LEFT);
                                                 $minuteFormatee = str_pad($minute, 2, '0', STR_PAD_LEFT);
-                                                echo "<option value=\"$heureFormatee:$minuteFormatee\">$heureFormatee:$minuteFormatee</option>\n";
+                                                $heureComplete = "$heureFormatee:$minuteFormatee";
+                                                // Comparaison et ajout de l'attribut 'selected' si l'heure correspond
+                                                $selected = ($heureComplete === $heureDebut) ? 'selected' : '';
+                                                echo "<option value=\"$heureComplete\" $selected>$heureComplete</option>\n";
                                             }
                                         }
-                                        echo "<option value=\"20:00\">20:00</option>\n";
                                         ?>
                                     </select>
                                 </div>
@@ -215,10 +216,12 @@ if (empty($erreurs)) {
                                             for ($minute = 0; $minute < 60; $minute += 10) {
                                                 $heureFormatee = str_pad($heure, 2, '0', STR_PAD_LEFT);
                                                 $minuteFormatee = str_pad($minute, 2, '0', STR_PAD_LEFT);
-                                                echo "<option value=\"$heureFormatee:$minuteFormatee\">$heureFormatee:$minuteFormatee</option>\n";
+                                                $heureComplete = "$heureFormatee:$minuteFormatee";
+                                                // Comparaison et ajout de l'attribut 'selected' si l'heure correspond
+                                                $selected = ($heureComplete === $heureFin) ? 'selected' : '';
+                                                echo "<option value=\"$heureComplete\" $selected>$heureComplete</option>\n";
                                             }
                                         }
-                                        echo "<option value=\"20:00\">20:00</option>\n";
                                         ?>
                                     </select>
                                 </div>
@@ -239,15 +242,15 @@ if (empty($erreurs)) {
                         <div class="col-md-6">
                             <div class="row" id="ligneNom">
                                 <div class="form-group col-12">
-                                    <label for="nom" id="titreNom" class="">Nom :</label>
-                                    <input type="text" id="nom" name="nom" class="form-control" value="<?php echo htmlentities($nom, ENT_QUOTES) ?>">
+                                    <label for="nom" id="titreNom" class="">Nom de l'interlocuteur :</label>
+                                    <input type="text" id="nom" name="nom" class="form-control" value="<?php echo htmlentities($nomOrganisme, ENT_QUOTES) ?>">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6"> <!-- Prénom formateur ou interlocuteur -->
                             <div class="row" id="lignePrenom">
                                 <div class="form-group col-12">
-                                    <label for="prenom" id="titrePrenom" class="">Prénom :</label>
+                                    <label for="prenom" id="titrePrenom" class="">Prénom de l'interlocuteur :</label>
                                     <input type="text" class="form-control" name="prenom" id="prenom" value="<?php echo htmlentities($prenom, ENT_QUOTES) ?>">
                                 </div>
                             </div>
@@ -256,8 +259,8 @@ if (empty($erreurs)) {
                     <br>
                     <div class="row" > <!-- Numéro de téléphone formateur ou interlocuteur -->
                         <div class="form-group col-md-6">
-                            <div class="row">
-                                <div class="form-group col-12" id="ligneNum">
+                            <div class="row" id="ligneNum">
+                                <div class="form-group col-12">
                                     <label for="numTel" class="">Numéro de téléphone :</label>
                                     <input type="tel" class="form-control" name="numTel" id="numTel" value="<?php echo htmlentities($numTel, ENT_QUOTES) ?>">
                                 </div>
@@ -265,8 +268,8 @@ if (empty($erreurs)) {
                             <br>
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="row"> <!-- Précision sur l'activité -->
-                                <div class="form-group col-12" id="lignePrecision">
+                            <div class="row" id="lignePrecision"> <!-- Précision sur l'activité -->
+                                <div class="form-group col-12">
                                     <label for="precisActivite">Précision :</label>
                                     <input type="text" class="form-control"  placeholder="Précisez votre activité" name="precisActivite" id="precisActivite" value="<?php echo htmlentities($precisActivite, ENT_QUOTES) ?>">
                                 </div>
@@ -278,7 +281,7 @@ if (empty($erreurs)) {
             <br>
             <div class="row">
                 <div class="col-3 text-center w-100">
-                    <button type="submit" class="btn-bleu rounded-2" id="submit">
+                    <button type="submit" class="btn-bleu rounded-2" id="submit" name="submit">
                         Mise à jour de la réservation
                     </button>
                 </div>
@@ -298,24 +301,24 @@ if (empty($erreurs)) {
     <?php include '../include/footer.php'; ?>
 </div>
 <script>
-    // Récupération des de l'ID des champs pour y faire des modifications
-    const activiteSelect =      document.getElementById('activite');
-    const objetInput =          document.getElementById('ligneObjet');
-    const nomInput =            document.getElementById('ligneNom');
-    const prenomInput =         document.getElementById('lignePrenom');
-    const numInput =            document.getElementById('ligneNum');
-    const precisionInput =      document.getElementById('lignePrecision');
+    // Récupération de l'ID des champs pour y faire des modifications
+    const activiteSelect = document.getElementById('activite');
+    const objetInput = document.getElementById('ligneObjet');
+    const nomInput = document.getElementById('ligneNom');
+    const prenomInput = document.getElementById('lignePrenom');
+    const numInput = document.getElementById('ligneNum');
+    const precisionInput = document.getElementById('lignePrecision');
 
-    const objetLabel =          document.getElementById('titreObjet');
-    const nomLabel =            document.getElementById('titreNom');
-    const prenomLabel =         document.getElementById('titrePrenom');
+    const objetLabel = document.getElementById('titreObjet');
+    const nomLabel = document.getElementById('titreNom');
+    const prenomLabel = document.getElementById('titrePrenom');
 
     // Initialisation de l'affichage
-    objetInput.style.display =      'none';
-    nomInput.style.display =        'none';
-    prenomInput.style.display =     'none';
-    numInput.style.display =        'none';
-    precisionInput.style.display =  'none';
+    objetInput.style.display = 'none';
+    nomInput.style.display = 'none';
+    prenomInput.style.display = 'none';
+    numInput.style.display = 'none';
+    precisionInput.style.display = 'none';
 
     // Apparition de certain champ à remplir selon l'activité sélectionné
     function afficherChampsSupplementaires() {
@@ -360,6 +363,15 @@ if (empty($erreurs)) {
             objetLabel.textContent = 'Description de votre activité :';
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Remplir les champs avec les données existantes si elles sont pré-remplies
+        // Exemple : supposons que l'activité sélectionnée est stockée dans une variable 'activitePreRemplie'
+        const activitePreRemplie = document.getElementById('activite').value; // Si c'est un <select>
+
+        // Appeler la fonction pour ajuster l'affichage des champs selon l'activité sélectionnée
+        afficherChampsSupplementaires();
+    });
 
     activiteSelect.addEventListener('change', afficherChampsSupplementaires);
 
