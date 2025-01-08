@@ -1,74 +1,72 @@
 <?php
-require '../fonction/employe.php';
-require '../fonction/connexion.php';
-session_start();
-verif_session();
+    require '../fonction/employe.php';
+    require '../fonction/connexion.php';
+    session_start();
+    verif_session();
 
 
-// Initialisation des variables et messages d'erreur
-$nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
-$erreurs = [];
-$messageSucces = "";
+    // Initialisation des variables et messages d'erreur
+    $nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
+    $erreurs = [];
+    $messageSucces = "";
 
-// Vérification si le formulaire a été soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupération des données du formulaire
-    $nom = htmlspecialchars($_POST['nom'])?? '';
-    $prenom = htmlspecialchars($_POST['prenom']) ?? '';
-    $numTel = htmlspecialchars($_POST['numTel']) ?? '';
-    $login = htmlspecialchars($_POST['login']) ?? '';
-    $mdp = htmlspecialchars($_POST['mdp']) ?? '';
-    $cmdp = htmlspecialchars($_POST['cmdp']) ?? '';
-    $admin = isset($_POST['admin']) ? 1 : 2;
+    // Vérification si le formulaire a été soumis
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupération des données du formulaire
+        $nom    = htmlspecialchars($_POST['nom'])?? '';
+        $prenom = htmlspecialchars($_POST['prenom']) ?? '';
+        $numTel = htmlspecialchars($_POST['numTel']) ?? '';
+        $login  = htmlspecialchars($_POST['login']) ?? '';
+        $mdp    = htmlspecialchars($_POST['mdp']) ?? '';
+        $cmdp   = htmlspecialchars($_POST['cmdp']) ?? '';
+        $admin  = isset($_POST['admin']) ? 1 : 2;
 
-    // Vérification des champs requis
-    if (!isset($nom) || $nom === '') $erreurs['nom'] = "Le nom est requis.";
-    if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
-    if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
-    if (!isset($login) || $login === '') $erreurs['id'] = "Le login est requis.";
-    if (!isset($mdp) || $mdp === '') $erreurs['mdp'] = "Le mot de passe est requis.";
-    if (!isset($cmdp) || $cmdp === '') $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
+        // Vérification des champs requis
+        if (!isset($nom)    || $nom === '')    $erreurs['nom'] = "Le nom est requis.";
+        if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
+        if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
+        if (!isset($login)  || $login === '')  $erreurs['id'] = "Le login est requis.";
+        if (!isset($mdp)    || $mdp === '')    $erreurs['mdp'] = "Le mot de passe est requis.";
+        if (!isset($cmdp)   || $cmdp === '')   $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
 
-    // Vérification des longueurs des champs
-    if (strlen($numTel) < 4 || strlen($numTel) > 10) {
-        $erreurs['numTel'] = "Le numéro de téléphone doit contenir entre 4 et 10 caractères.";
-    }
-    if (strlen($nom) < 1 || strlen($nom) > 50) {
-        $erreurs['nom'] = "Le nom doit contenir entre 1 et 50 caractères.";
-    }
-    if (strlen($prenom) < 1 || strlen($prenom) > 50) {
-        $erreurs['prenom'] = "Le prénom doit contenir entre 1 et 50 caractères.";
-    }
+        // Vérification des longueurs des champs
+        if (strlen($numTel) < 4 || strlen($numTel) > 10) {
+            $erreurs['numTel'] = "Le numéro de téléphone doit contenir entre 4 et 10 caractères.";
+        }
+        if (strlen($nom) < 1 || strlen($nom) > 50) {
+            $erreurs['nom'] = "Le nom doit contenir entre 1 et 50 caractères.";
+        }
+        if (strlen($prenom) < 1 || strlen($prenom) > 50) {
+            $erreurs['prenom'] = "Le prénom doit contenir entre 1 et 50 caractères.";
+        }
 
-    // Vérification que le numéro de téléphone contient uniquement des chiffres
-    if (!ctype_digit($numTel)) {
-        $erreurs['numTel'] = "Le numéro de téléphone doit contenir uniquement des chiffres.";
-    }
+        if (!ctype_digit($numTel)) {
+            $erreurs['numTel'] = "Le numéro de téléphone doit contenir uniquement des chiffres.";
+        }
 
-    // Vérification que le mot de passe et sa confirmation sont identiques
-    if ($mdp !== $cmdp) {
-        $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
-    }
-    // Vérification format du mot de passe
-    if (!verifMdp($mdp)) {
-        $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
-    }
+        // Vérification que le mot de passe et sa confirmation sont identiques
+        if ($mdp !== $cmdp) {
+            $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
+        }
+        if (!verifMdp($mdp)) {
+            $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
+        }
 
-    // Vérifiaction de l'unicité du login pour un employé
-    if (verifLogin($login) > 0) {
-        $erreurs['login'] = "Le login est déjà utilisé.";
-    }
+        // Vérifiaction de l'unicité du login pour un employé
+        if (verifLogin($login) > 0) {
+            $erreurs['login'] = "Le login est déjà utilisé.";
+        }
 
-    // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
-    if (empty($erreurs)) {
-        try {
-            ajouterEmploye($nom, $prenom, $login, $numTel, $mdp, $admin);
-            $messageSucces = "Employé ajouté avec succès !";
-        } catch (Exception $e) {
-            $erreurs[] = "Impossible d'ajouter l'employé a la base de donnée : " . $e->getMessage();
+        // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
+        if (empty($erreurs)) {
+            try {
+                ajouterEmploye($nom, $prenom, $login, $numTel, $mdp, $admin);
+                $messageSucces = "Employé ajouté avec succès !";
+            } catch (Exception $e) {
+                $erreurs[] = "Impossible d'ajouter l'employé a la base de donnée : " . $e->getMessage();
+            }
         }
     }
-}
 ?>
 
 <!DOCTYPE html>

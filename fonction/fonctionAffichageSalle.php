@@ -5,7 +5,7 @@
     function listeDesSalles() {
         global $pdo;
         // Retourne la liste des salles sous forme de tableau
-        $tableauRetour = array(); // Tableau qui sera retourné
+        $tableauRetour = array();
         try {
             $maRequete = $pdo->prepare("SELECT id_salle, nom, capacite, videoproj, ecran_xxl, ordinateur, type, logiciels, imprimante 
                                                FROM salle 
@@ -31,12 +31,10 @@
         }
     }
 
-
-
     function listeDesNoms() {
         global $pdo;
         // Retourne la liste des noms de salles dans un tableau
-        $tableauRetour = array(); // Tableau qui sera retourné
+        $tableauRetour = array();
         try {
             $maRequete = $pdo->prepare("SELECT DISTINCT nom FROM salle ORDER BY nom ASC");
 
@@ -55,7 +53,7 @@
     function listeDesCapacites() {
         global $pdo;
         // Retourne la liste des capacites des salles dans un tableau
-        $tableauRetour = array(); // Tableau qui sera retourné
+        $tableauRetour = array();
         try {
             $maRequete = $pdo->prepare("SELECT DISTINCT capacite FROM salle ORDER BY capacite ASC");
 
@@ -71,12 +69,10 @@
         }
     }
 
-
-
     function listeDesOrdinateurs() {
         global $pdo;
         // Retourne la liste des nombres d'ordinateurs des salles dans un tableau
-        $tableauRetour = array(); // Tableau qui sera retourné
+        $tableauRetour = array();
         try {
             $maRequete = $pdo->prepare("SELECT DISTINCT ordinateur FROM salle ORDER BY ordinateur ASC");
 
@@ -95,7 +91,7 @@
     function listeDesLogiciels() {
         global $pdo;
         // Retourne la liste des logiciels des salles dans un tableau
-        $tableauRetour = array(); // Tableau qui sera retourné
+        $tableauRetour = array();
         try {
             $maRequete = $pdo->prepare("SELECT DISTINCT logiciels FROM salle ORDER BY logiciels ASC");
 
@@ -117,7 +113,6 @@
     function supprimerSalle($id_salle) {
         global $pdo;
         try {
-            // Requête SQL pour supprimer la salle
             $requete = "DELETE FROM salle WHERE id_salle = :id_salle";
             $stmt = $pdo->prepare($requete);
             $stmt->execute(['id_salle' => $id_salle]);
@@ -141,5 +136,4 @@
             throw new PDOException($e->getMessage(), $e->getCode());
         }
     }
-
 ?>

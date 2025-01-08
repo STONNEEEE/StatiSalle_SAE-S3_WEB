@@ -47,17 +47,11 @@
                                    FROM salle 
                                    WHERE id_salle = :id_salle");
 
-            // Liaison du paramètre
             $stmt->bindParam(':id_salle', $idSalle, PDO::PARAM_INT);
-
-            // Exécution de la requête
             $stmt->execute();
-
-            // Récupérer les résultats dans un tableau associatif
             $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Vérification si des résultats sont obtenus
-            return $resultat;  // Retourner les attributs de la salle sous forme d'un tableau associatif
+            return $resultat;
 
         } catch (PDOException $e) {
             // Gérer les erreurs potentielles liées à la base de données
@@ -86,7 +80,6 @@
                                                imprimante = :imprimante
                                            WHERE id_salle = :id_salle;");
 
-            // Liaison des paramètres
             $stmt->bindParam(':Nom', $nomSalle);
             $stmt->bindParam(':Capacite', $capacite, PDO::PARAM_INT);
             $stmt->bindParam(':videoproj', $videoProjecteur, PDO::PARAM_INT);
@@ -96,8 +89,6 @@
             $stmt->bindParam(':logiciels', $logiciel);
             $stmt->bindParam(':imprimante', $imprimante, PDO::PARAM_INT);
             $stmt->bindParam(':id_salle', $idSalle, PDO::PARAM_INT);
-
-            // Exécution de la requête
             $stmt->execute();
 
             // Vérifier si des lignes ont été mises à jour
