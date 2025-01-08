@@ -15,14 +15,6 @@
 
         // Vérifie quelle table est récupérée et applique le format nécessaire
         switch($table) {
-            case 'activite':
-                // Formate les noms d'activités sans guillemets
-                // FIXME Fonctionne pas
-                foreach ($donnees as &$ligne) {
-                    $ligne['nom_activite'] = str_replace('"', '', $ligne['nom_activite']); // Supprime les guillemets si présents
-                }
-                break;
-
             case 'reservation':
                 foreach ($donnees as &$ligne) {
                     // Formate l'ID des salles à 8 chiffres
@@ -104,8 +96,6 @@
 
                     // Formate l'ID des salles à 8 chiffres
                     $ligne['id_salle'] = str_pad($ligne['id_salle'], 8, '0', STR_PAD_LEFT);
-
-                    $ligne['nom'] = str_replace('"', '', $ligne['nom']);
                 }
                 break;
         }
@@ -126,13 +116,17 @@
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $nomFichier . '"');
         $fichier = fopen('php://output', 'w');
+
         if ($fichier) {
-            // Ajouter les colonnes au fichier
-            fputcsv($fichier, $colonnes, ';');
+            // Ajouter les colonnes au fichier manuellement
+            fwrite($fichier, implode(';', $colonnes) . "\n");
+
             // Ajouter les données
             foreach ($donnees as $ligne) {
-                fputcsv($fichier, $ligne, ';');
+                // Formater la ligne manuellement
+                fwrite($fichier, implode(';', $ligne) . "\n");
             }
+
             fclose($fichier);
         }
         exit();
