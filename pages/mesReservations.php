@@ -187,7 +187,7 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
                     }
 
                     if (empty($listeReservation)) {
-                        echo '<tr><td colspan="5" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
+                        echo '<tr><td colspan="8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
                     } else {
                         foreach ($listeReservation as $ligne) {
                             echo '<tr>';
