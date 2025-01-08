@@ -10,16 +10,16 @@
     $idResa =         isset($_POST['idReservation']) ? $_POST['idReservation'] : null;
     $nomSalle =       isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
     $nomActivite =    isset($_POST['nomActivite']) ? $_POST['nomActivite'] : '';
-    $date =           isset($_POST['date']) ? $_POST['date'] : '';
-    $heureDebut =     isset($_POST['heureDebut']) ? $_POST['heureDebut'] : '';
-    $heureFin =       isset($_POST['heureFin']) ? $_POST['heureFin'] : '';
-    $valeurChamp1 =   isset($_POST['objet']) ? $_POST['objet'] : '';
-    $valeurChamp2 =   isset($_POST['nom']) ? $_POST['nom'] : '';
-    $valeurChamp3 =   isset($_POST['prenom']) ? $_POST['prenom'] : '';
-    $valeurChamp4 =   isset($_POST['numTel']) ? $_POST['numTel'] : '';
-    $precisActivite = isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
-    $nomActivitePrecedent = '';
-    $mettreAJour =    isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];
+    $date =                 isset($_POST['date']) ? $_POST['date'] : '';
+    $heureDebut =           isset($_POST['heureDebut']) ? $_POST['heureDebut'] : '';
+    $heureFin =             isset($_POST['heureFin']) ? $_POST['heureFin'] : '';
+    $valeurChamp1 =         isset($_POST['objet']) ? $_POST['objet'] : '';
+    $valeurChamp2 =         isset($_POST['nom']) ? $_POST['nom'] : '';
+    $valeurChamp3 =         isset($_POST['prenom']) ? $_POST['prenom'] : '';
+    $valeurChamp4 =         isset($_POST['numTel']) ? $_POST['numTel'] : '';
+    $precisActivite =       isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
+    $nomActivitePrecedent = isset($_POST['nomActivitePrecedente']) ? $_POST['nomActivitePrecedente'] : '';
+    $mettreAJour =          isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];
 
     $idLogin = $_SESSION['id'];
 
@@ -29,10 +29,9 @@
 
     $detailsResa = recupAttributReservation($idResa);
     if ($detailsResa && $mettreAJour != 1) {
-        // Préremplir les champs avec les données existantes
+        // Préremplir les champs avec les données existantes, passage une seulle fois
         $nomSalle = $detailsResa['nomSalle'];
         $nomActivite = $detailsResa['nomActivite'];
-        $nomActivitePrecedent = $detailsResa['nomActivite'];
         $date = $detailsResa['date_reservation'];
         $heureDebut = date("H:i", strtotime($detailsResa['heure_debut']));
         $heureFin = date("H:i", strtotime($detailsResa['heure_fin']));
@@ -100,6 +99,7 @@
         try {
             modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $valeurChamp1, $valeurChamp2, $valeurChamp3, $valeurChamp4, $precisActivite, $idLogin, $nomActivitePrecedent);
             $messageSucces = "Modification effectuée avec succès!";
+
         } catch (PDOException $e) {
             $messageErreur = "Une erreur est survenue lors de la réservation.";
         }
@@ -122,7 +122,7 @@
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php // include '../include/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
     <div class="full-screen">
         <!-- Contenu de la page -->
@@ -160,6 +160,8 @@
                     <div class="row"> <!-- Salle -->
                         <div class="form-group col-md-12">
                             <input name="mettreAJour" type="hidden" value="1">
+                            <input name="nomActivitePrecedente" type="hidden" value="<?php echo htmlentities($nomActivite, ENT_QUOTES); ?>">
+
                             <label for="salle" class="<?= isset($erreurs['nomSalle']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Nom de la salle : *</a></label>
                             <select class="form-select" name="nomSalle" id="salle" required>
                                 <option value="<?php echo htmlentities($nomSalle, ENT_QUOTES); ?>" disabled selected>Choisir la salle</option>
@@ -189,7 +191,7 @@
                     </div>
                     <br>
                     <div class="row"> <!-- Date, Heure Début, Heure Fin -->
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6"> <!-- Date -->
                             <div class="row">
                                 <div class="form-group col-12">
                                     <label for="date" class="<?= isset($erreurs['date']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Date : *</a></label>
@@ -198,9 +200,8 @@
                                            value="<?php echo htmlentities($date, ENT_QUOTES); ?>">
                                 </div>
                             </div>
-                            <br>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3"> <!-- Heure Début -->
                             <div class="row">
                                 <div class="form-group col-12">
                                     <label for="heureDebut" class="petite-taille <?= isset($erreurs['heureDebut']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Heure début : *</a></label>
@@ -223,9 +224,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <br>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3"> <!-- Heure Fin -->
                             <div class="row">
                                 <div class="form-group col-12">
                                     <label for="heureFin" class="petite-taille <?= isset($erreurs['heureFin']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Heure de fin : *</a></label>
@@ -248,7 +248,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- premier champ -->
                 <div class="form-group col-md-4"> <!-- Informations supplémentaires -->
                     <br>
                     <div class="row" id="champ1"> <!-- Objet de l'activité sélectionné -->
@@ -278,7 +277,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row" > <!-- Numéro de téléphone formateur ou interlocuteur -->
+                    <div class="row" > <!-- Numéro de téléphone -->
                         <div class="form-group col-md-6">
                             <div class="row">
                                 <div class="form-group col-12" id="champ4">
@@ -343,7 +342,6 @@
         champ3Input.style.display = 'none';
         champ4Input.style.display = 'none';
         champ5Input.style.display = 'none';
-
     }
 
     // Fonction pour afficher les champs nécessaires selon l'activité sélectionnée
@@ -398,7 +396,7 @@
 
     // Vérification que l'heure de fin plus tard que l'heure de début
     const heureDebut = document.getElementById('heureDebut');
-    const heureFin = document.getElementById('heureFin');
+    const heureFin   = document.getElementById('heureFin');
 
     function verifierHeures() {
         const debut = heureDebut.value;
@@ -413,6 +411,7 @@
         }
     }
 
+    // Mise à jour lors du changement d'heure de début ou de fin
     heureDebut.addEventListener('change', verifierHeures);
     heureFin.addEventListener('change', verifierHeures);
 </script>
