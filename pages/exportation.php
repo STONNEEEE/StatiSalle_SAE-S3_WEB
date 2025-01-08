@@ -37,7 +37,7 @@
             case 'activites':
                 genererCSV(
                     "activites $date.csv",
-                    ['Ident','Activité'], // Correspond au format requis pour l'application Java
+                    ['Ident','Activité'],
                     recupererDonnees('activite')
                 );
                 break;
@@ -46,7 +46,7 @@
                 try {
                     $fichiers = [];
                     $fichiers["activites $date.csv"] = genererCSVString(
-                        ['Ident','Activité'], // Correspond au format requis pour l'application Java
+                        ['Ident','Activité'],
                         recupererDonnees('activite')
                     );
                     $fichiers["employes $date.csv"] = genererCSVString(

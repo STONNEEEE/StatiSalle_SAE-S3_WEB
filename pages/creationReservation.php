@@ -11,15 +11,15 @@
     $tabActivites = listeDesActivites();
 
     // Vérification des variables du formulaire
-    $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
-    $nomActivite =      isset($_POST['nomActivite']) ? $_POST['nomActivite'] : '';
-    $date =             isset($_POST['date']) ? $_POST['date'] : '';
-    $heureDebut =       isset($_POST['heureDebut']) ? $_POST['heureDebut'] : '';
-    $heureFin =         isset($_POST['heureFin']) ? $_POST['heureFin'] : '';
-    $objet =            isset($_POST['objet']) ? $_POST['objet'] : '';
-    $nom =              isset($_POST['nom']) ? $_POST['nom'] : '';
-    $prenom =           isset($_POST['prenom']) ? $_POST['prenom'] : '';
-    $numTel =           isset($_POST['numTel']) ? $_POST['numTel'] : '';
+    $nomSalle =         isset($_POST['nomSalle'])       ? $_POST['nomSalle'] : '';
+    $nomActivite =      isset($_POST['nomActivite'])    ? $_POST['nomActivite'] : '';
+    $date =             isset($_POST['date'])           ? $_POST['date'] : '';
+    $heureDebut =       isset($_POST['heureDebut'])     ? $_POST['heureDebut'] : '';
+    $heureFin =         isset($_POST['heureFin'])       ? $_POST['heureFin'] : '';
+    $objet =            isset($_POST['objet'])          ? $_POST['objet'] : '';
+    $nom =              isset($_POST['nom'])            ? $_POST['nom'] : '';
+    $prenom =           isset($_POST['prenom'])         ? $_POST['prenom'] : '';
+    $numTel =           isset($_POST['numTel'])         ? $_POST['numTel'] : '';
     $precisActivite =   isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
 
     // Tableau pour stocker les erreurs
@@ -44,7 +44,7 @@
     }
 
     // Si aucun champ n'a d'erreur, on tente l'insertion
-    if (empty($erreurs)) {
+    if (empty($erreurs) && $messageErreur == "") {
         try {
             // Appel à la fonction pour insérer la réservation
             insertionReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
