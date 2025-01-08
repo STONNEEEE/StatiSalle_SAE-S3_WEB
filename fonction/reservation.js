@@ -1,3 +1,4 @@
+// ---------------- FILTRE ----------------
 document.addEventListener("DOMContentLoaded", function () {
 
     // Récupération des éléments <select> et <input> pour les filtres
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Récupération de toutes les lignes du tableau
-    const rows = Array.from(document.querySelectorAll("table.table-striped tbody tr"));
+    const rows = document.querySelectorAll("table.table-striped tbody tr");
 
     // Fonction pour vérifier si tous les filtres sont vides
     function areFiltersEmpty() {
@@ -28,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fonction de filtrage
     function filterTable() {
-        const filteredRows = []; // Tableau pour stocker les lignes filtrées
         let visibleRowCount = 0; // Compteur pour les lignes visibles
         let noResultsFound = true; // Variable pour vérifier si des résultats sont trouvés
 
@@ -36,18 +36,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (areFiltersEmpty()) {
             rows.forEach(row => {
                 row.style.display = ""; // Affiche toutes les lignes
-                filteredRows.push(row); // Ajouter la ligne au tableau filtré
             });
 
             // Met à jour le compteur avec le nombre total de lignes
             const resultCountElement = document.querySelector(".result-count");
             if (resultCountElement) {
-                resultCountElement.textContent = `Nombre de réservation trouvée(s) : ${rows.length / 2}`;
+                resultCountElement.textContent = `Nombre de réservation trouvée(s) : ${rows.length/2}`;
             }
 
             // Retirer la ligne "Aucune réservation trouvée" si elle existe
-            supprimerLigneResultatIntrouvable();
-            return filteredRows; // Retourner les lignes filtrées (même si toutes sont affichées)
+            removeNoResultsRow();
+            return; // On arrête la fonction ici, aucun filtrage n'est appliqué
         }
 
         rows.forEach(row => {
@@ -55,28 +54,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Extraction des valeurs nécessaires des colonnes correspondantes
             const values = {
-                salles: columns[1]?.innerText.trim().toLowerCase(),
-                nom: columns[2]?.innerText.trim().toLowerCase(),
-                activites: columns[3]?.childNodes[0]?.textContent.trim().toLowerCase(),
-                date: columns[4]?.textContent.trim(),
-                heure_debut: columns[5]?.textContent.trim(),
-                heure_fin: columns[6]?.textContent.trim(),
+                salles: columns[1]?.innerText.trim().toLowerCase(), // Utiliser innerText pour récupérer tout le texte visible
+                nom: columns[2]?.innerText.trim().toLowerCase(), // Utiliser innerText pour récupérer tout le texte visible
+                activites: columns[3]?.childNodes[0]?.textContent.trim().toLowerCase(), // Colonne "Activité"
+                date: columns[4]?.textContent.trim(), // Colonne "Date"
+                heure_debut: columns[5]?.textContent.trim(), // Colonne "Heure début"
+                heure_fin: columns[6]?.textContent.trim(), // Colonne "Heure fin"
             };
 
             // Vérification des filtres
             const isDateInRange = (() => {
-                const filterStart = filters.date_debut.value.trim();
-                const filterEnd = filters.date_fin.value.trim();
+                const filterStart = filters.date_debut.value.trim(); // Valeur du filtre date début
+                const filterEnd = filters.date_fin.value.trim(); // Valeur du filtre date fin
 
-                if (!filterStart && !filterEnd) return true;
+                if (!filterStart && !filterEnd) return true; // Pas de filtre
 
-                const rowDate = new Date(values.date);
+                const rowDate = new Date(values.date); // Date de la ligne
                 const startDate = filterStart ? new Date(filterStart) : null;
                 const endDate = filterEnd ? new Date(filterEnd) : null;
 
                 return (!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate);
             })();
 
+            // Convertit une chaîne d'heure (HH:mm:ss) en minutes totales
             function timeToMinutes(time) {
                 const [hours, minutes, seconds] = time.split(":").map(Number);
                 return hours * 60 + minutes + (seconds || 0) / 60;
@@ -86,18 +86,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 const filterStartTime = filters.heure_debut.value.trim();
                 const filterEndTime = filters.heure_fin.value.trim();
 
+                // Si aucun filtre n'est défini, tout est accepté
                 if (!filterStartTime && !filterEndTime) return true;
 
                 const rowStartTime = values.heure_debut;
                 const rowEndTime = values.heure_fin;
 
+                // Si une des heures de la ligne est manquante, la ligne est exclue
                 if (!rowStartTime || !rowEndTime) return false;
 
+                // Convertir les heures en minutes totales pour la comparaison
                 const filterStartMinutes = filterStartTime ? timeToMinutes(filterStartTime) : null;
                 const filterEndMinutes = filterEndTime ? timeToMinutes(filterEndTime) : null;
                 const rowStartMinutes = timeToMinutes(rowStartTime);
                 const rowEndMinutes = timeToMinutes(rowEndTime);
 
+                // Vérification stricte : la réservation doit commencer et se terminer dans la plage
                 const isStartInRange = filterStartMinutes === null || rowStartMinutes >= filterStartMinutes;
                 const isEndInRange = filterEndMinutes === null || rowEndMinutes <= filterEndMinutes;
 
@@ -111,24 +115,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const filterValue = filters[key]?.value.trim().toLowerCase();
 
+                // Si la valeur du filtre est vide ou égale à la valeur par défaut (première option), on passe
                 if (!filterValue || (filters[key]?.tagName === "SELECT" && filterValue === filters[key]?.options[0]?.value.trim())) {
                     return true;
                 }
 
                 if (key === "salles") {
-                    return values.salles === filterValue;
+                    return values.salles === filterValue; // Vérifie l'égalité exacte, sans modification
                 }
 
+                // Vérification pour les autres champs (on garde la logique de recherche partielle)
                 return values[key]?.includes(filterValue) ?? false;
             });
 
+            // Afficher ou masquer la ligne en fonction des conditions
             const isVisible = matchesFilters && isDateInRange && isTimeInRange;
             row.style.display = isVisible ? "" : "none";
 
             if (isVisible) {
-                filteredRows.push(row); // Ajouter la ligne filtrée
-                visibleRowCount++;
-                noResultsFound = false;
+                visibleRowCount++; // Incrémente si la ligne est visible
+                noResultsFound = false; // Il y a des résultats visibles
             }
         });
 
@@ -140,160 +146,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Si aucune ligne n'est visible, afficher une ligne "Aucune réservation trouvée"
         if (noResultsFound) {
-            ajouterLigneResultatIntrouvable();
+            addNoResultsRow();
         } else {
-            supprimerLigneResultatIntrouvable();
+            removeNoResultsRow();
         }
+    }
 
-        return filteredRows; // Retourne les lignes filtrées
+    // Fonction pour ajouter la ligne "Aucune réservation trouvée"
+    function addNoResultsRow() {
+        const tbody = document.querySelector("table.table-striped tbody");
+        if (!document.querySelector(".no-results-row")) {
+            const row = document.createElement("tr");
+            row.classList.add("no-results-row");
+            row.innerHTML = `<td colspan="8" class="text-center text-danger fw-bold">Aucune réservation trouvée</td>`;
+            tbody.appendChild(row);
+        }
     }
 
     // Fonction pour retirer la ligne "Aucune réservation trouvée"
-    function supprimerLigneResultatIntrouvable() {
+    function removeNoResultsRow() {
         const noResultsRow = document.querySelector(".no-results-row");
         if (noResultsRow) {
             noResultsRow.remove();
         }
     }
 
-    // Fonction pour ajouter la ligne "Aucune réservation trouvée"
-    function ajouterLigneResultatIntrouvable() {
-        const tbody = document.querySelector("table.table-striped tbody");
-        if (!document.querySelector(".no-results-row")) {
-            const row = document.createElement("tr");
-            row.classList.add("no-results-row");
-            row.innerHTML = '<td colspan="8" class="text-center text-danger fw-bold">Aucune réservation trouvée</td>';
-            tbody.appendChild(row);
-        }
-    }
-
-    // ---------------- PAGINATION ----------------
-    const paginationContainer = document.querySelector("#pagination");
-    const rowsPerPageOptions = document.querySelectorAll(".rows-per-page");
-    let rowsPerPage = 10; // Par défaut, 10 lignes par page
-    let currentPage = 1;
-    let filteredRows = [];
-
-    function generatePageLinks(totalPages, currentPage) {
-        const pages = [];
-
-        pages.push(1);
-
-        if (currentPage > 3) {
-            pages.push('...');
-        }
-
-        for (let i = Math.max(2, currentPage - 2); i <= Math.min(totalPages - 1, currentPage + 2); i++) {
-            pages.push(i);
-        }
-
-        if (currentPage < totalPages - 2) {
-            pages.push('...');
-        }
-
-        if (totalPages > 1) {
-            pages.push(totalPages);
-        }
-
-        return pages;
-    }
-
-    function renderTable() {
-        filteredRows = filterTable(); // Applique le filtrage et récupère les lignes filtrées
-        const totalRows = filteredRows.length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-        const startRow = (currentPage - 1) * rowsPerPage;
-        const endRow = startRow + rowsPerPage;
-
-        filteredRows.forEach((row, index) => {
-            row.style.display = index >= startRow && index < endRow ? "" : "none";
-        });
-
-        paginationContainer.innerHTML = "";
-
-        const pageLinks = generatePageLinks(totalPages, currentPage);
-
-        const firstButton = document.createElement("button");
-        firstButton.textContent = "<<";
-        firstButton.className = currentPage === 1
-            ? "btn-pagination-disabled rounded"
-            : "btn-pagination rounded";
-        if (currentPage !== 1) {
-            firstButton.addEventListener("click", () => {
-                currentPage = 1;
-                renderTable();
-            });
-        }
-        paginationContainer.appendChild(firstButton);
-
-        const prevButton = document.createElement("button");
-        prevButton.textContent = "<";
-        prevButton.className = currentPage === 1
-            ? "btn-pagination-disabled rounded"
-            : "btn-pagination rounded";
-        if (currentPage !== 1) {
-            prevButton.addEventListener("click", () => {
-                currentPage -= 1;
-                renderTable();
-            });
-        }
-        paginationContainer.appendChild(prevButton);
-
-        pageLinks.forEach(link => {
-            const button = document.createElement("button");
-            button.textContent = link;
-            if (link === "...") {
-                button.className = "btn-pagination btn-points disabled rounded";
-            } else {
-                button.className = `btn-pagination rounded ${link === currentPage ? "active" : ""}`;
-                button.addEventListener("click", () => {
-                    currentPage = link;
-                    renderTable();
-                });
-            }
-            paginationContainer.appendChild(button);
-        });
-
-        const nextButton = document.createElement("button");
-        nextButton.textContent = ">";
-        nextButton.className = currentPage === totalPages
-            ? "btn-pagination-disabled rounded"
-            : "btn-pagination rounded";
-        if (currentPage !== totalPages) {
-            nextButton.addEventListener("click", () => {
-                currentPage += 1;
-                renderTable();
-            });
-        }
-        paginationContainer.appendChild(nextButton);
-
-        const lastButton = document.createElement("button");
-        lastButton.textContent = ">>";
-        lastButton.className = currentPage === totalPages
-            ? "btn-pagination-disabled rounded"
-            : "btn-pagination rounded";
-        if (currentPage !== totalPages) {
-            lastButton.addEventListener("click", () => {
-                currentPage = totalPages;
-                renderTable();
-            });
-        }
-        paginationContainer.appendChild(lastButton);
-    }
-
-    rowsPerPageOptions.forEach(option => {
-        option.addEventListener("click", function () {
-            rowsPerPage = parseInt(this.dataset.rows, 10);
-            currentPage = 1; // Revenir à la première page
-            renderTable();
-        });
-    });
-
-    // Ajouter les événements de changement pour les filtres
+    // Ajout des écouteurs d'événements pour chaque filtre
     Object.values(filters).forEach(filter => {
-        filter.addEventListener("change", renderTable);
+        const eventType = filter.tagName === "SELECT" ? "change" : "input";
+        filter.addEventListener(eventType, filterTable);
     });
 
-    renderTable();
+    // Bouton de réinitialisation des filtres
+    const resetButton = document.querySelector('.btn-reset');
+    if (resetButton) {
+        resetButton.addEventListener('click', function () {
+            Object.values(filters).forEach(filter => {
+                // Réinitialise chaque filtre à sa valeur par défaut
+                if (filter.tagName === "SELECT") {
+                    filter.selectedIndex = 0; // Remet le premier élément sélectionné
+                } else {
+                    filter.value = ""; // Vide les champs texte
+                }
+            });
+            filterTable(); // Applique les filtres réinitialisés
+        });
+    }
 });
