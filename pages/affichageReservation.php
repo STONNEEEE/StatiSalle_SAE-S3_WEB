@@ -1,11 +1,10 @@
 <?php
-    require ('../fonction/connexion.php');
     require '../fonction/connexion.php';
     session_start();
     verif_session();
 
     $message = '';
-    verif_session();
+
     include '../fonction/fonctionAffichageReservation.php';
 
     $tabEmployeNom    = listeEmployesNom();
@@ -103,7 +102,6 @@
                             ?>
                         </select>
                     </div>
-
                     <!-- Date début -->
                     <div class=" col-grand-reservation col-12 col-md-1 mb-1">
                         <select class="form-select select-nom" id="date_debut">
@@ -280,6 +278,6 @@
             </div>
             <?php include '../include/footer.php'; ?>
         </div>
-        <script defer src="../fonction/reservation.js"></script>
+        <script defer src="../fonction/filtre.js"></script>
     </body>
 </html>
