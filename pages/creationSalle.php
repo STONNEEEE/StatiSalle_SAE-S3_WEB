@@ -7,14 +7,14 @@
 
     // Vérification des variables issues du formulaire
     $idSalle =          "";
-    $nomSalle =         isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
-    $capacite =         isset($_POST['capacite']) ? $_POST['capacite'] : '';
+    $nomSalle =         isset($_POST['nomSalle'])        ? $_POST['nomSalle'] : '';
+    $capacite =         isset($_POST['capacite'])        ? $_POST['capacite'] : '';
     $videoProjecteur =  isset($_POST['videoProjecteur']) ? $_POST['videoProjecteur'] : '';
-    $ordinateurXXL =    isset($_POST['ordinateurXXL']) ? $_POST['ordinateurXXL'] : '';
-    $nbrOrdi =          isset($_POST['nbrOrdi']) ? $_POST['nbrOrdi'] : '';
-    $typeMateriel =     isset($_POST['typeMateriel']) ? $_POST['typeMateriel'] : '';
-    $logiciel =         isset($_POST['logiciel']) ? $_POST['logiciel'] : '';
-    $imprimante =       isset($_POST['imprimante']) ? $_POST['imprimante'] : '';
+    $ordinateurXXL =    isset($_POST['ordinateurXXL'])   ? $_POST['ordinateurXXL'] : '';
+    $nbrOrdi =          isset($_POST['nbrOrdi'])         ? $_POST['nbrOrdi'] : '';
+    $typeMateriel =     isset($_POST['typeMateriel'])    ? $_POST['typeMateriel'] : '';
+    $logiciel =         isset($_POST['logiciel'])        ? $_POST['logiciel'] : '';
+    $imprimante =       isset($_POST['imprimante'])      ? $_POST['imprimante'] : '';
 
     // Tableau pour stocker les erreurs
     $erreurs = [];

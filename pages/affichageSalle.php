@@ -1,42 +1,40 @@
 <?php
-require '../fonction/fonctionAffichageSalle.php';
+    require '../fonction/fonctionAffichageSalle.php';
+    require '../fonction/connexion.php';
+    session_start();
+    verif_session();
 
-// On démarre la session
-session_start();
+    $message = '';
 
-$message = '';
+    $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
+    $id_salle = $_POST['idSalle'] ?? null;
 
-$supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
-$id_salle = $_POST['idSalle'] ?? null;
+    if ($supprimer == "true" && $id_salle) {
+        try {
+            $reservations = verifierReservations($id_salle);
 
-if ($supprimer == "true" && $id_salle) {
-    try {
-        // Vérifier si la salle a des réservations
-        $reservations = verifierReservations($id_salle);
-
-        if (count($reservations) > 0) {
-            // Si des réservations existent, afficher un message d'erreur
+            if (count($reservations) > 0) {
+                // Si des réservations existent, afficher un message d'erreur
+                $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                                            <span class="erreur">Impossible de supprimer cette salle. 
+                                            Des réservations y sont associées.</span>
+                                            <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
+            } else {
+                // Si pas de réservations, supprimer la salle
+                supprimerSalle($id_salle);
+                $_SESSION['message'] = 'Salle supprimée avec succès !';
+            }
+        } catch (Exception $e) {
             $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
-                                        <span class="erreur">Impossible de supprimer cette salle. 
-                                        Des réservations y sont associées.</span>
-                                        <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
-        } else {
-            // Si pas de réservations, supprimer la salle
-            supprimerSalle($id_salle);
-            $_SESSION['message'] = 'Salle supprimée avec succès !';
+                                        <span class="erreur">Une erreur est survenue : ' . htmlspecialchars($e->getMessage()) . '</span>';
         }
-    } catch (Exception $e) {
-        $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
-                                    <span class="erreur">Une erreur est survenue : ' . htmlspecialchars($e->getMessage()) . '</span>';
     }
-}
 
-// Chargement des filtres
-$tabNoms = listeDesNoms();
-$tabCapacite = listeDesCapacites();
-$tabOrdinateur = listeDesOrdinateurs();
-$tabLogiciels = listeDesLogiciels();
-
+    // Chargement des filtres
+    $tabNoms       = listeDesNoms();
+    $tabCapacite   = listeDesCapacites();
+    $tabOrdinateur = listeDesOrdinateurs();
+    $tabLogiciels  = listeDesLogiciels();
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -1,91 +1,91 @@
 <?php
-include '../fonction/employe.php';
-require("../fonction/connexion.php");
-session_start();
-verif_session();
+    include '../fonction/employe.php';
+    require("../fonction/connexion.php");
 
+    session_start();
+    verif_session();
 
-// Initialisation des variables et messages d'erreur
-$nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
-$erreurs = [];
-$messageSucces = "";
+    // Initialisation des variables et messages d'erreur
+    $nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
+    $erreurs = [];
+    $messageSucces = "";
 
-//vérifie si la modification est souhaitée
-$modifie = $_POST['modifie'] ?? false;
-$id = $_POST['id_employe'] ?? null;
+    //vérifie si la modification est souhaitée
+    $modifie = $_POST['modifie'] ?? false;
+    $id      = $_POST['id_employe'] ?? null;
 
-//Récupération des attributs de l'employé en fonction de l'id de l'employé
-$tabAttributEmploye = recupAttributEmploye($id);
+    //Récupération des attributs de l'employé en fonction de l'id de l'employé
+    $tabAttributEmploye = recupAttributEmploye($id);
 
-//Récupération des attributs du login en fonction de l'id de l'employé
-$tabAttributLogin = recupAttributLogin($id);
+    //Récupération des attributs du login en fonction de l'id de l'employé
+    $tabAttributLogin = recupAttributLogin($id);
 
-$nom = $_POST['nom'] ?? '';
-$prenom = $_POST['prenom'] ?? '';
-$numTel = $_POST['numTel'] ?? '';
-$login = $_POST['login'] ?? '';
-$mdp = $_POST['mdp'] ?? '';
-$cmdp = $_POST['cmdp'] ?? '';
-$admin = $_POST['admin'] ?? '0'; // Par défaut non admin
+    $nom    = $_POST['nom'] ?? '';
+    $prenom = $_POST['prenom'] ?? '';
+    $numTel = $_POST['numTel'] ?? '';
+    $login  = $_POST['login'] ?? '';
+    $mdp    = $_POST['mdp'] ?? '';
+    $cmdp   = $_POST['cmdp'] ?? '';
+    $admin  = $_POST['admin'] ?? '0'; // Par défaut non admin
 
-if(isset($_POST['modifier'])){
-    // Récupération de la valeur de la case admin
-    $admin = $_POST['admin'] ?? false; // Par défaut, pas d'admin
-    $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé)
+    if(isset($_POST['modifier'])){
+        // Récupération de la valeur de la case admin
+        $admin = $_POST['admin'] ?? false; // Par défaut, pas d'admin
+        $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé)
 
-    //Fonction pour effectuer la modification
-    modifierEmploye($id, $nom, $prenom, $login, $numTel, $mdp, $id_type);
-    // Vérification des champs requis
-    if (!isset($nom) || $nom === '') $erreurs['nom'] = "Le nom est requis.";
-    if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
-    if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
-    if (!isset($login) || $login === '') $erreurs['id'] = "Le login est requis.";
-    if (!isset($mdp) || $mdp === '') $erreurs['mdp'] = "Le mot de passe est requis.";
-    if (!isset($cmdp) || $cmdp === '') $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
-    if (!isset($admin) || $admin === '') $erreurs['admin'] = "La selection du type de compte est requise";
+        //Fonction pour effectuer la modification
+        modifierEmploye($id, $nom, $prenom, $login, $numTel, $mdp, $id_type);
+        // Vérification des champs requis
+        if (!isset($nom)    || $nom === '')    $erreurs['nom'] = "Le nom est requis.";
+        if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
+        if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
+        if (!isset($login)  || $login === '')  $erreurs['id'] = "Le login est requis.";
+        if (!isset($mdp)    || $mdp === '')    $erreurs['mdp'] = "Le mot de passe est requis.";
+        if (!isset($cmdp)   || $cmdp === '')   $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
+        if (!isset($admin)  || $admin === '')  $erreurs['admin'] = "La selection du type de compte est requise";
 
-    // Vérification des longueurs des champs
-    if (strlen($numTel) < 4 || strlen($numTel) > 10) {
-        $erreurs['numTel'] = "Le numéro de téléphone doit contenir entre 4 et 10 caractères.";
-    }
-    if (strlen($nom) < 1 || strlen($nom) > 50) {
-        $erreurs['nom'] = "Le nom doit contenir entre 1 et 50 caractères.";
-    }
-    if (strlen($prenom) < 1 || strlen($prenom) > 50) {
-        $erreurs['prenom'] = "Le prénom doit contenir entre 1 et 50 caractères.";
-    }
+        // Vérification des longueurs des champs
+        if (strlen($numTel) < 4 || strlen($numTel) > 10) {
+            $erreurs['numTel'] = "Le numéro de téléphone doit contenir entre 4 et 10 caractères.";
+        }
+        if (strlen($nom) < 1 || strlen($nom) > 50) {
+            $erreurs['nom'] = "Le nom doit contenir entre 1 et 50 caractères.";
+        }
+        if (strlen($prenom) < 1 || strlen($prenom) > 50) {
+            $erreurs['prenom'] = "Le prénom doit contenir entre 1 et 50 caractères.";
+        }
 
-// Vérification que le numéro de téléphone contient uniquement des chiffres
-    if (!ctype_digit($numTel)) {
-        $erreurs['numTel'] = "Le numéro de téléphone doit contenir uniquement des chiffres.";
-    }
+        // Vérification que le numéro de téléphone contient uniquement des chiffres
+        if (!ctype_digit($numTel)) {
+            $erreurs['numTel'] = "Le numéro de téléphone doit contenir uniquement des chiffres.";
+        }
 
-// Vérification que le mot de passe et sa confirmation sont identiques
-    if ($mdp !== $cmdp) {
-        $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
-    }
-// Vérification format du mot de passe
-//    if (!verifMdp($mdp)) {
-//        $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
-//    }
+        // Vérification que le mot de passe et sa confirmation sont identiques
+        if ($mdp !== $cmdp) {
+            $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
+        }
+    // Vérification format du mot de passe
+    //    if (!verifMdp($mdp)) {
+    //        $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
+    //    }
 
-// Vérification de l'unicité du login pour un employé
-//    if (verifLogin($login) > 0) {
-//        $erreurs['login'] = "Le login est déjà utilisé.";
-//    }
+    // Vérification de l'unicité du login pour un employé
+    //    if (verifLogin($login) > 0) {
+    //        $erreurs['login'] = "Le login est déjà utilisé.";
+    //    }
 
-// Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
-    if (empty($erreurs)) {
-        try {
-            $tabAttributEmploye = recupAttributEmploye($id);
-            $tabAttributLogin = recupAttributLogin($id);
+    // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
+        if (empty($erreurs)) {
+            try {
+                $tabAttributEmploye = recupAttributEmploye($id);
+                $tabAttributLogin = recupAttributLogin($id);
 
-            $messageSucces = "Employé modifié avec succès !";
-        } catch (Exception $e) {
-            $erreurs[] = "Impossible de modifier l'employé dans la base de donnée : " . $e->getMessage();
+                $messageSucces = "Employé modifié avec succès !";
+            } catch (Exception $e) {
+                $erreurs[] = "Impossible de modifier l'employé dans la base de donnée : " . $e->getMessage();
+            }
         }
     }
-}
 ?>
 
 <!DOCTYPE html>

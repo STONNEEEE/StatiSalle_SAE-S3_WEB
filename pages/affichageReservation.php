@@ -1,23 +1,24 @@
 <?php
     require ('../fonction/connexion.php');
+    require '../fonction/connexion.php';
     session_start();
+    verif_session();
 
     $message = '';
     verif_session();
     include '../fonction/fonctionAffichageReservation.php';
 
-    $tabEmployeNom = listeEmployesNom();
+    $tabEmployeNom    = listeEmployesNom();
     $tabEmployePrenom = listeEmployesPrenom();
-    $tabSalle = listeSalles();
-    $tabActivite = listeActivites();
-    $tabDate = listeDate();
-    $heureDebut = listeHeureDebut();
-    $heureFin = listeHeureFin();
+    $tabSalle         = listeSalles();
+    $tabActivite      = listeActivites();
+    $tabDate          = listeDate();
+    $heureDebut       = listeHeureDebut();
+    $heureFin         = listeHeureFin();
 
     if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
         $id_reservation = $_POST['id_reservation'];
 
-        // Appeler la fonction de suppression
         try {
             supprimerResa($id_reservation);
             $_SESSION['message'] = 'Reservation supprimée avec succès !';

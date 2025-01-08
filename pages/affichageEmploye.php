@@ -1,27 +1,29 @@
 <?php
-require '../fonction/employe.php';
-session_start();
+    require '../fonction/employe.php';
+    require '../fonction/connexion.php';
+    session_start();
+    verif_session();
 
-$message = '';
+    $message = '';
 
-if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
-    $id_employe = $_POST['id_employe'];
+    if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
+        $id_employe = $_POST['id_employe'];
 
-    // Appeler la fonction de suppression
-    try {
-        supprimerEmploye($id_employe);
-        $_SESSION['message'] = 'Employé supprimé avec succès !';
-    } catch (Exception $e) {
-        if ($e->getCode() == '23000') { // Code SQLSTATE pour contrainte de clé étrangère
-            $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
-                                    <span class="erreur">Impossible de supprimer cet employé : 
-                                    veuillez supprimer la réservation qui lui est attribuée.</span>
-                                    <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
-        } else {
-            $_SESSION['message'] = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
+        // Appeler la fonction de suppression
+        try {
+            supprimerEmploye($id_employe);
+            $_SESSION['message'] = 'Employé supprimé avec succès !';
+        } catch (Exception $e) {
+            if ($e->getCode() == '23000') { // Code SQLSTATE pour contrainte de clé étrangère
+                $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                                        <span class="erreur">Impossible de supprimer cet employé : 
+                                        veuillez supprimer la réservation qui lui est attribuée.</span>
+                                        <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
+            } else {
+                $_SESSION['message'] = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
+            }
         }
     }
-}
 ?>
 
 <!DOCTYPE html>
