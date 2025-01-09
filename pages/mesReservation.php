@@ -160,13 +160,13 @@
 
                     <!-- Compteur -->
                     <?php
-                    try {
-                        $listeReservation = affichageReservation();
-                    } catch (PDOException $e) {
-                        echo '<div class="text-center text-danger fw-bold">Impossible de charger les réservations en raison d’un problème technique.</div>';
-                    }
+                        try {
+                            $listeReservation = affichageMesReservations($_SESSION['id_employe']);
+                        } catch (PDOException $e) {
+                            echo '<div class="text-center text-danger fw-bold">Impossible de charger les réservations en raison d’un problème technique.</div>';
+                        }
 
-                    $nombreReservations = count($listeReservation ?? []);
+                        $nombreReservations = count($listeReservation ?? []);
                     ?>
                     <div class="col-12 text-center mb-3">
                         <p class="fw-bold compteur-reservation">
@@ -190,11 +190,6 @@
                             </thead>
                             <tbody>
                                 <?php
-                                try {
-                                    $listeReservation = affichageMesReservations($_SESSION['id_employe']);
-                                } catch (PDOException $e) {
-                                }
-
                                 if (empty($listeReservation)) {
                                     echo '<tr><td colspan="8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
                                 } else {
