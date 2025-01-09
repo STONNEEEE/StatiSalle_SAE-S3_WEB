@@ -218,10 +218,10 @@
                                                              }
                                                              echo "</tr>";
                                                          } else {
-                                                             echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
+                                                             echo "<tr><td colspan='1'>Aucune donnée trouvée pour cette réservation</td></tr>";
                                                          }
                                                      } else {
-                                                         echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
+                                                         echo "<tr><td colspan='1'>Aucune donnée trouvée pour cette réservation</td></tr>";
                                                      }
                                                  echo ' </table>';
                                              echo '</span>';
@@ -251,7 +251,6 @@
                                                    </form>
                                                    ';
                                          }
-                                         echo '</button>';
                                          echo '</div>';
                                          echo '</td>';
                                      echo '</tr>';

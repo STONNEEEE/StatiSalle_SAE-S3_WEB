@@ -167,7 +167,7 @@
                         <!-- Numéro de tel -->
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <label for="numTel"></label><input class="form-text form-control" type="text" placeholder="Numéro de téléphone" id="numTel" name="numTel" value="<?= htmlentities($tabAttributEmploye['telephone']) ?>" required>
+                                <label for="numTel"></label><input class="form-text form-control" type="text" placeholder="Numéro de téléphone" id="numTel" name="numTel" value="<?= htmlentities($tabAttributEmploye['telephone'], ENT_QUOTES) ?>" required>
                                 <?php if (isset($erreurs['numTel'])): ?>
                                     <small class="text-danger"><?= $erreurs['numTel'] ?></small>
                                 <?php endif; ?>
@@ -177,7 +177,7 @@
                         <!-- login -->
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <label for="login"></label><input class="form-text form-control" type="text" placeholder="Compte utilisateur" id="login" name="login" value="<?= htmlentities($tabAttributLogin['login']) ?>" required>
+                                <label for="login"></label><input class="form-text form-control" type="text" placeholder="Compte utilisateur" id="login" name="login" value="<?= htmlentities($tabAttributLogin['login'], ENT_QUOTES) ?>" required>
                                 <?php if (isset($erreurs['login'])): ?>
                                     <small class="text-danger"><?= $erreurs['login'] ?></small>
                                 <?php endif; ?>
@@ -209,7 +209,7 @@
                             <div class="col-md-6 offset-md-3">
                                 <label for="admin">Permissions administratives</label>
                                 <?php $checked = ($tabAttributLogin['id_type'] == 1) ? 'checked' : ''; ?>
-                                <input type="checkbox" id="admin" name="admin" value="<?= $tabAttributLogin['id_type'] ?>" <?= $checked?>>
+                                <input type="checkbox" id="admin" name="admin" value="<?= $tabAttributLogin['id_type'] ?>" <?= $checked?> >
                                 <small class="text-muted">Cochez cette case si l'employé a des permissions administratives.</small>
                             </div>
                         </div>

@@ -4,7 +4,6 @@
     $pdo = connecteBD();
 
     // Récupération des données depuis la base de données
-    // FIXME Enlever les guillemets sur les String avec des espaces
     function recupererDonnees($table) {
         global $pdo;
 
