@@ -1,14 +1,15 @@
 <?php
     require("../fonction/connexion.php");
-    require("../fonction/fonction_insert_Reservation.php");
+    require("../fonction/fonctionReservation.php");
 
     session_start();
     verif_session();
 
     $idLogin = $_SESSION['id'];
 
-    $tabSalles = listeDesSalles();
-    $tabActivites = listeDesActivites();
+    $tabSalles = listeSalles();
+    $tabActivites = listeActivites();
+    $tabReservation = affichageReservation();
 
     // Vérification des variables du formulaire
     $nomSalle =         isset($_POST['nomSalle'])       ? $_POST['nomSalle'] : '';
