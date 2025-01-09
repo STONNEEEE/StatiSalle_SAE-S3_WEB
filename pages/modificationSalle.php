@@ -1,10 +1,9 @@
 <?php
-    require("../fonction/connexion.php");
+    require '../fonction/connexion.php';
+    require '../fonction/salle.php';
 
     session_start();
     verif_session();
-
-    require("../fonction/fonction_insert_update_Salle.php");
 
     $idSalle = $_POST['idSalle'] ?? null;
     $mettreAJour = isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];;

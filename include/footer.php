@@ -2,7 +2,7 @@
     <?php
     // Récupérer le nom de la page actuelle
     $_SESSION['nom_page'] = basename($_SERVER['PHP_SELF'], '.php'); // Exemple : "index" pour "index.php"
-    var_dump($_SESSION['nom_page']);
+
     // Associer les pages d'aide aux noms de pages
     $aides = [
         'index'               => '   pagesAides/aideConnexion.php',

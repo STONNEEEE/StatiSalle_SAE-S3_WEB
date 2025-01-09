@@ -1,11 +1,11 @@
 <?php
     require '../fonction/connexion.php';
+    require '../fonction/reservation.php';
+
     session_start();
+    verif_session();
 
     $message = '';
-    verif_session();
-    include '../fonction/fonctionAffichageReservation.php';
-
     $tabEmployeNom    = listeEmployesNom();
     $tabEmployePrenom = listeEmployesPrenom();
     $tabSalle         = listeSalles();
@@ -168,7 +168,7 @@
                     ?>
 
                     <div class="col-12 text-center mb-3">
-                        <p class="fw-bold result-count">
+                        <p class="fw-bold compteur-reservation">
                             Nombre de réservation trouvée(s) : <?= $nombreReservations ?>
                         </p>
                     </div>
@@ -251,7 +251,7 @@
                                             echo '</form>';
 
                                             echo '<!-- Paramètre envoyé pour modifier la salle -->
-                                                  <form  method="post" action="modificationResa.php">';
+                                                  <form  method="post" action="modificationReservation.php">';
                                                         //Vérifier que cette ligne prend bien l'id de la reservation
                                             echo'       <input name="idReservation" type="hidden" value="' . htmlentities($ligne['id_reservation'], ENT_QUOTES) . '">
                                                         <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
@@ -280,6 +280,7 @@
             </div>
             <?php include '../include/footer.php'; ?>
         </div>
-        <script defer src="../fonction/filtre.js"></script>
+        <!-- JavaScript pour les filtres -->
+        <script defer src="../fonction/filtreReservation.js"></script>
     </body>
 </html>

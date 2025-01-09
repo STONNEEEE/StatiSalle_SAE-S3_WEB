@@ -93,7 +93,7 @@ if (isset($_GET['action'])) {
             <!-- Header de la page -->
             <?php include '../include/header.php'; ?>
 
-            <div class="full-screen padding-header">
+            <div class="full-screen padding-header mb-4">
                 <!-- Titre de la page -->
                 <div class="row text-center">
                     <h1>Téléchargement des données</h1>

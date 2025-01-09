@@ -1,6 +1,7 @@
 <?php
     require '../fonction/employe.php';
     require '../fonction/connexion.php';
+
     session_start();
     verif_session();
 

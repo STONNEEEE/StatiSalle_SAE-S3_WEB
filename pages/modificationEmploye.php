@@ -1,6 +1,6 @@
 <?php
     include '../fonction/employe.php';
-    require("../fonction/connexion.php");
+    include '../fonction/connexion.php';
 
     session_start();
     verif_session();
@@ -26,23 +26,21 @@
     $login  = $_POST['login'] ?? '';
     $mdp    = $_POST['mdp'] ?? '';
     $cmdp   = $_POST['cmdp'] ?? '';
-    $admin  = $_POST['admin'] ?? '0'; // Par défaut non admin
+    $admin  = $_POST['admin'] ?? '0'; // Par défaut user non admin
 
-    if(isset($_POST['modifier'])){
+    if (isset($_POST['modifier'])) {
         // Récupération de la valeur de la case admin
         $admin = $_POST['admin'] ?? false; // Par défaut, pas d'admin
         $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé)
 
         //Fonction pour effectuer la modification
         modifierEmploye($id, $nom, $prenom, $login, $numTel, $mdp, $id_type);
+
         // Vérification des champs requis
-        if (!isset($nom)    || $nom === '')    $erreurs['nom'] = "Le nom est requis.";
+        if (!isset($nom) || $nom === '')    $erreurs['nom'] = "Le nom est requis.";
         if (!isset($prenom) || $prenom === '') $erreurs['prenom'] = "Le prénom est requis.";
         if (!isset($numTel) || $numTel === '') $erreurs['numTel'] = "Le numéro de téléphone est requis.";
-        if (!isset($login)  || $login === '')  $erreurs['id'] = "Le login est requis.";
-        if (!isset($mdp)    || $mdp === '')    $erreurs['mdp'] = "Le mot de passe est requis.";
-        if (!isset($cmdp)   || $cmdp === '')   $erreurs['cmdp'] = "La confirmation du mot de passe est requise.";
-        if (!isset($admin)  || $admin === '')  $erreurs['admin'] = "La selection du type de compte est requise";
+        if (!isset($login) || $login === '')  $erreurs['login'] = "Le login est requis.";
 
         // Vérification des longueurs des champs
         if (strlen($numTel) < 4 || strlen($numTel) > 10) {
@@ -60,29 +58,36 @@
             $erreurs['numTel'] = "Le numéro de téléphone doit contenir uniquement des chiffres.";
         }
 
-        // Vérification que le mot de passe et sa confirmation sont identiques
-        if ($mdp !== $cmdp) {
-            $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
+        // Vérification du login uniquement s'il a été modifié
+        if ($login !== $tabAttributLogin['login']) {
+            if (verifLoginExiste($login)) {
+                $erreurs['login'] = "Ce login existe déjà. Veuillez en choisir un autre.";
+            }
         }
-    // Vérification format du mot de passe
-    //    if (!verifMdp($mdp)) {
-    //        $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
-    //    }
 
-    // Vérification de l'unicité du login pour un employé
-    //    if (verifLogin($login) > 0) {
-    //        $erreurs['login'] = "Le login est déjà utilisé.";
-    //    }
+        // Vérification des mots de passe si modifiés
+        if ($mdp !== '') {
+            if ($mdp !== $cmdp) {
+                $erreurs['cmdp'] = "Les mots de passe ne correspondent pas.";
+            }
+            if (!verifMdp($mdp)) {
+                $erreurs['mdp'] = "Le mot de passe doit faire plus de 8 caractères et contenir un caractère spécial, par exemple : @, #, $, %, & ou *.";
+            }
+        }
 
-    // Si aucune erreur, on appelle de la fonction pour ajouter l'employé dans la base de données
+        // Si aucune erreur, on effectue la modification
         if (empty($erreurs)) {
             try {
+                // Modifier les données de l'employé
+                modifierEmploye($id, $nom, $prenom, $login, $numTel, $mdp, $id_type);
+
+                // Actualisation des données pour affichage
                 $tabAttributEmploye = recupAttributEmploye($id);
                 $tabAttributLogin = recupAttributLogin($id);
 
                 $messageSucces = "Employé modifié avec succès !";
             } catch (Exception $e) {
-                $erreurs[] = "Impossible de modifier l'employé dans la base de donnée : " . $e->getMessage();
+                $erreurs[] = "Impossible de modifier l'employé dans la base de données : " . $e->getMessage();
             }
         }
     }
@@ -186,7 +191,7 @@
                 <!-- Mdp -->
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <label for="mdp"></label><input class="form-text form-control" type="password" placeholder="Mot de passe" id="mdp" name="mdp" value="<?= $tabAttributLogin['mdp'] ?>" required>
+                        <label for="mdp"></label><input class="form-text form-control" type="password" placeholder="Mot de passe" id="mdp" name="mdp" value="">
                         <?php if (isset($erreurs['mdp'])): ?>
                             <small class="text-danger"><?= $erreurs['mdp'] ?></small>
                         <?php endif; ?>
@@ -196,7 +201,7 @@
                 <!-- Confirmation mot de passe -->
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <label for="cmdp"></label><input class="form-text form-control" type="password" placeholder="Confirmez le mot de passe" id="cmdp" name="cmdp" value="<?= $tabAttributLogin['mdp'] ?>" required>
+                        <label for="cmdp"></label><input class="form-text form-control" type="password" placeholder="Confirmez le mot de passe" id="cmdp" name="cmdp" value="">
                         <?php if (isset($erreurs['cmdp'])): ?>
                             <small class="text-danger"><?= $erreurs['cmdp'] ?></small>
                         <?php endif; ?>
@@ -221,18 +226,19 @@
                         <button type="submit" class="btn-bleu rounded w-100">Modifier le compte</button>
                     </div>
                 </div>
+
+                <!-- Boutton retour -->
+                <br class="d-md-block d-none">
+                <div class="row mt-4 offset-md-2">
+                    <div class="col-12 col-md-auto">
+                        <button class="btn-suppr rounded-2 w-100 w-md-auto" type="button"
+                                onclick="window.location.href='affichageEmploye.php'">
+                            Retour
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
-        <div class="row mt-4 offset-md-2">
-                <div class="col-12 col-md-auto">
-                <button class="btn-suppr rounded-2 w-100 w-md-auto" type="button"
-                        onclick="window.location.href='affichageEmploye.php'">
-                    Retour
-                </button>
-            </div>
-        </div>
-
-        <br><br>
     </div>
 
     <?php include '../include/footer.php'; ?>

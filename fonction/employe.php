@@ -109,7 +109,7 @@
             }
 
             // Hashage du mot de passe
-            $mdpHash = password_hash($mdp, PASSWORD_BCRYPT);
+            $mdpHash = sha1($mdp);
 
             // Insérer dans la table login
             $requeteLogin = "INSERT INTO login (login, mdp, id_type, id_employe) 
@@ -184,7 +184,8 @@
                 WHERE id_employe = :id_employe";
             $stmt = $pdo->prepare($requete);
             $stmt->bindParam(':login', $login);
-            $stmt->bindParam(':mdp', $mdp);
+            $hashMdp = sha1($mdp);
+            $stmt->bindParam(':mdp', $hashMdp);
             $stmt->bindParam(':id_type', $id_type);
             $stmt->bindParam(':id_employe', $id);
             $stmt->execute();
@@ -219,5 +220,13 @@
         $stmtVerif = $pdo->prepare($requeteVerifType);
         $stmtVerif->execute(['id_type' => $id_type]);
         return $stmtVerif->fetchColumn(); // Retourne le nombre d'occurrences de id_type
+    }
+
+    // Fonction pour vérifier si le login existe déjà
+    function verifLoginExiste($login): bool {
+        global $pdo;
+        $query = $pdo->prepare("SELECT COUNT(*) FROM login WHERE login = :login");
+        $query->execute(['login' => $login]);
+        return $query->fetchColumn() > 0;
     }
 ?>

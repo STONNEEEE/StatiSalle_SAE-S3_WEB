@@ -1,31 +1,31 @@
 <?php
-require("../fonction/connexion.php");
-session_start();
-$message = '';
-verif_session();
+    require '../fonction/connexion.php';
+    require '../fonction/reservation.php';
 
-include '../fonction/fonctionAffichageReservation.php';
+    session_start();
+    verif_session();
 
-$tabEmployeNom = listeEmployesNom();
-$tabEmployePrenom = listeEmployesPrenom();
-$tabSalle = listeSalles();
-$tabActivite = listeActivites();
-$tabDate = listeDate();
-$heureDebut = listeHeureDebut();
-$heureFin = listeHeureFin();
+    $message = '';
+    $tabEmployeNom = listeEmployesNom();
+    $tabEmployePrenom = listeEmployesPrenom();
+    $tabSalle = listeSalles();
+    $tabActivite = listeActivites();
+    $tabDate = listeDate();
+    $heureDebut = listeHeureDebut();
+    $heureFin = listeHeureFin();
 
-if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
-    $id_reservation = $_POST['id_reservation'];
+    if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
+        $id_reservation = $_POST['id_reservation'];
 
-    // Appeler la fonction de suppression
-    try {
-        supprimerResa($id_reservation);
-        $_SESSION['message'] = 'Reservation supprimée avec succès !';
-    } catch (Exception $e) {
-        $_SESSION['message'] = "La réservation n'a pas pu être effectuée, 
-                                    un problème est survenu.";
+        // Appeler la fonction de suppression
+        try {
+            supprimerResa($id_reservation);
+            $_SESSION['message'] = 'Reservation supprimée avec succès !';
+        } catch (Exception $e) {
+            $_SESSION['message'] = "La réservation n'a pas pu être effectuée, 
+                                        un problème est survenu.";
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -234,7 +234,7 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
                                         echo '</form>';
 
                                         echo '<!-- Paramètre envoyé pour modifier la salle -->
-                                                      <form  method="post" action="modificationResa.php">';
+                                                      <form  method="post" action="modificationReservation.php">';
                                         // Vérifier que cette ligne prend bien l'id de la reservation
                                         echo'       <input name="idReservation" type="hidden" value="' . htmlentities($ligne['id_reservation'], ENT_QUOTES) . '">
                                                             <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
@@ -254,6 +254,6 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
             </div>
             <?php include '../include/footer.php'; ?>
         </div>
-        <script defer src="../fonction/filtre.js"></script>
+        <script defer src="../fonction/filtreReservation.js"></script>
     </body>
 </html>

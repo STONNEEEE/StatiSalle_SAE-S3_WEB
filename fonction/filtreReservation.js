@@ -1,20 +1,19 @@
-// ---------------- FILTRE ----------------
+// ---------------- FILTRE RESERVATION ----------------
 document.addEventListener("DOMContentLoaded", function () {
     const filters = {
-        nom: document.getElementById("nom"), // Filtre sur le nom
-        salles: document.getElementById("salles"), // Filtre sur la salle
-        activites: document.getElementById("activites"), // Filtre sur les activités
-        date_debut: document.getElementById("date_debut"), // Filtre date début
-        date_fin: document.getElementById("date_fin"), // Filtre date fin
-        heure_debut: document.getElementById("heure_debut"), // Filtre heure début
-        heure_fin: document.getElementById("heure_fin"), // Filtre heure fin
+        nom: document.getElementById("nom"),
+        salles: document.getElementById("salles"),
+        activites: document.getElementById("activites"),
+        date_debut: document.getElementById("date_debut"),
+        date_fin: document.getElementById("date_fin"),
+        heure_debut: document.getElementById("heure_debut"),
+        heure_fin: document.getElementById("heure_fin"),
     };
 
     const rows = document.querySelectorAll("table.table-striped tbody tr");
 
     function areFiltersEmpty() {
         return Object.values(filters).every(filter => {
-            if (!filter) return true; // Si le filtre n'existe pas, on le considère comme vide
             if (filter.tagName === "SELECT") {
                 return filter.selectedIndex === 0;
             }
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 row.style.display = "";
             });
             updateResultCount(rows.length);
-            removeNoResultsRow();
+            supprimerLigneResultatNul();
             return;
         }
 
@@ -124,30 +123,30 @@ document.addEventListener("DOMContentLoaded", function () {
         updateResultCount(visibleRowCount);
 
         if (noResultsFound) {
-            addNoResultsRow();
+            ajouterLigneresultatNul();
         } else {
-            removeNoResultsRow();
+            supprimerLigneResultatNul();
         }
     }
 
     function updateResultCount(count) {
-        const resultCountElement = document.querySelector(".result-count");
+        const resultCountElement = document.querySelector(".compteur-reservation");
         if (resultCountElement) {
             resultCountElement.textContent = `Nombre de réservation trouvée(s) : ${count}`;
         }
     }
 
-    function addNoResultsRow() {
+    function ajouterLigneresultatNul() {
         const tbody = document.querySelector("table.table-striped tbody");
         if (!document.querySelector(".no-results-row")) {
             const row = document.createElement("tr");
             row.classList.add("no-results-row");
-            row.innerHTML = `<td colspan="8" class="text-center text-danger fw-bold">Aucune réservation trouvée</td>`;
+            row.innerHTML = `<td colspan="8" class="text-center text-danger fst-italic">Aucune réservation trouvée</td>`;
             tbody.appendChild(row);
         }
     }
 
-    function removeNoResultsRow() {
+    function supprimerLigneResultatNul() {
         const noResultsRow = document.querySelector(".no-results-row");
         if (noResultsRow) {
             noResultsRow.remove();

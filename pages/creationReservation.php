@@ -1,6 +1,6 @@
 <?php
-    require("../fonction/connexion.php");
-    require("../fonction/fonction_insert_Reservation.php");
+    require '../fonction/connexion.php';
+    require '../fonction/reservation.php';
 
     session_start();
     verif_session();

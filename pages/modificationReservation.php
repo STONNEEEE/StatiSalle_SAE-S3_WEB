@@ -1,7 +1,6 @@
 <?php
-    require("../fonction/connexion.php");
-    require("../fonction/fonctionUpdate_Reservation.php");
-    require("../fonction/fonction_insert_Reservation.php");
+    require '../fonction/connexion.php';
+    require '../fonction/reservation.php';
 
     session_start();
     verif_session();
@@ -155,7 +154,7 @@
             </div>
         <?php endif; ?>
         <br>
-        <form method="post" action="modificationResa.php">
+        <form method="post" action="modificationReservation.php">
             <div class="row"> <!-- Grande row -->
                 <div class="form-group offset-md-2 col-md-4"> <!-- first colonne -->
                     <br>

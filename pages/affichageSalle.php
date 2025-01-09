@@ -1,6 +1,7 @@
 <?php
-    require '../fonction/fonctionAffichageSalle.php';
     require '../fonction/connexion.php';
+    require '../fonction/salle.php';
+
     session_start();
     verif_session();
 
