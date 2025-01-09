@@ -4,7 +4,7 @@ session_start();
 $message = '';
 verif_session();
 
-include '../fonction/fonctionAffichageReservation.php';
+include '../fonction/fonctionReservation.php';
 
 $tabEmployeNom = listeEmployesNom();
 $tabEmployePrenom = listeEmployesPrenom();

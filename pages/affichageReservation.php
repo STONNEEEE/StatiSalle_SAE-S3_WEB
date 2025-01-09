@@ -1,15 +1,13 @@
 <?php
     require ('../fonction/connexion.php');
-    require '../fonction/connexion.php';
+    require ('../fonction/fonctionReservation.php');
+
     session_start();
     verif_session();
 
     $message = '';
-    verif_session();
-    include '../fonction/fonctionAffichageReservation.php';
 
-    $tabEmployeNom    = listeEmployesNom();
-    $tabEmployePrenom = listeEmployesPrenom();
+    $tabEmployeNom    = listeEmployes();
     $tabSalle         = listeSalles();
     $tabActivite      = listeActivites();
     $tabDate          = listeDate();
@@ -84,9 +82,8 @@
                             <?php
                             for ($i = 0; $i < count($tabEmployeNom); $i++) {
                                 $nom = $tabEmployeNom[$i];      // Nom de l'employé à l'indice $i
-                                $prenom = $tabEmployePrenom[$i]; // Prénom de l'employé à l'indice $i
 
-                                echo "<option value='" . $nom . " " . $prenom . "'>" . $nom . " " . $prenom . "</option>";
+                                echo "<option value='" . $nom ."'> " . $nom . "</option>";
                             }
                             ?>
 

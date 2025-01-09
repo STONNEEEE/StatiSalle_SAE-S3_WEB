@@ -1,5 +1,6 @@
 <?php
     require("../fonction/connexion.php");
+    require("../fonction/fonctionSalle.php");
 
     session_start();
     verif_session();

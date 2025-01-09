@@ -1,6 +1,6 @@
 <?php
     require("../fonction/connexion.php");
-    require("../fonction/fonction_insert_update_Salle.php");
+    require("../fonction/fonctionSalle.php");
 
     session_start();
     verif_session();

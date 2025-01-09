@@ -1,5 +1,5 @@
 <?php
-    require '../fonction/fonctionAffichageSalle.php';
+    require '../fonction/fonctionSalle.php';
     require '../fonction/connexion.php';
     session_start();
     verif_session();

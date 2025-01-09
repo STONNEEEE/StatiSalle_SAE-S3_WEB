@@ -1,15 +1,16 @@
 <?php
     require("../fonction/connexion.php");
-    require("../fonction/fonctionUpdate_Reservation.php");
-    require("../fonction/fonction_insert_Reservation.php");
+    require("../fonction/fonctionReservation.php");
 
     session_start();
     verif_session();
 
+    $idLogin = $_SESSION['id'];
+
     // Vérification des variables issues du formulaire
-    $idResa =         isset($_POST['idReservation']) ? $_POST['idReservation'] : null;
-    $nomSalle =       isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
-    $nomActivite =    isset($_POST['nomActivite']) ? $_POST['nomActivite'] : '';
+    $idResa =               isset($_POST['idReservation']) ? $_POST['idReservation'] : null;
+    $nomSalle =             isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
+    $nomActivite =          isset($_POST['nomActivite']) ? $_POST['nomActivite'] : '';
     $date =                 isset($_POST['date']) ? $_POST['date'] : '';
     $heureDebut =           isset($_POST['heureDebut']) ? $_POST['heureDebut'] : '';
     $heureFin =             isset($_POST['heureFin']) ? $_POST['heureFin'] : '';
@@ -21,11 +22,9 @@
     $nomActivitePrecedent = isset($_POST['nomActivitePrecedente']) ? $_POST['nomActivitePrecedente'] : '';
     $mettreAJour =          isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];
 
-    $idLogin = $_SESSION['id'];
-
     // Contenu pour les listes déroulantes
-    $tabSalles = listeDesSalles();
-    $tabActivites = listeDesActivites();
+    $tabSalles = listeSalles();
+    $tabActivites = listeActivites();
 
     $detailsResa = recupAttributReservation($idResa);
     if ($detailsResa && $mettreAJour != 1) {
