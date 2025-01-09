@@ -7,7 +7,7 @@ verif_session();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - aides Accueil</title>
+    <title>StatiSalle - Aides Generale</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -31,43 +31,58 @@ verif_session();
 
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
-                <!-- Champ Identifiant -->
-                <div class="mb-3">
-                    <div class="d-flex flex-column flex-sm-row justify-content-between">
-                        <label for="identifiant" class="form-label mb-1 mb-sm-0">Identifiant</label>
-                        <small class="form-text text-sm-start text-md-end">
-                            <a href="#" target="_blank" class="text-danger text-decoration-none" title="Identifiant oublié">
-                                Identifiant oublié ?
-                            </a>
-                        </small>
-                    </div>
-                    <input type="text" class="form-control mt-2 mt-sm-0" name="identifiant" id="identifiant" placeholder="Entrez votre identifiant">
-                </div>
                 <p>
-                    Dans ce champ, vous devez entrer l’identifiant de votre compte pour pouvoir accéder au reste des pages et fonctionnalités du site. La fonctionnalité de <b>l'identifiant oublié ne fonctionne pas</b>, elle est là pour montrer que cette fonctionnalité pourrait implémenter dans le futur.
+                    <!-- Lien vers la page pour faire une réservation -->
+                    La page d'accueil permet de montrer les différents types de fonctionnalités présentes dans l’application.
+                    <br>En commençant avec la possibilité d’effectuer une réservation
+                    <br><a href="#" target="blank" class="text-decoration-none">🕒 Nouvelle réservation (ajout rapide).</a>
+
                 </p>
-                <!-- Champ mot de passe -->
-                <div class="mb-3">
-                    <!-- Container pour label et small -->
-                    <div class="d-flex flex-column flex-sm-row justify-content-between">
-                        <label for="mdp" class="form-label mb-1 mb-sm-0">Mot de passe</label>
-                        <small class="form-text text-sm-start text-md-end">
-                            <a href="#" target="_blank" class="text-danger text-decoration-none" title="Mot de passe oublié">
-                                Mot de passe oublié ?
-                            </a>
-                        </small>
-                    </div>
-                    <input type="password" class="form-control mt-2 mt-sm-0" name="mdp" id="mdp" placeholder="Entrez votre mot de passe">
-                </div>
                 <p>
-                    Dans ce champ, vous devez entrer le mot de passe concernant l’identifiant entrer au-dessus afin d'accéder au reste du site. La fonctionnalité de <b>mot de passe oublié ne fonctionne pas</b>, elle est là pour montrer que cette fonctionnalité pourrait implémenter dans le futur.
-                    <br>
+                    <!-- Lien vers la page pour afficher les réservations -->
+                    <a href="#" target="blank" class="text-decoration-none">
+                        <?php
+                        // si l'utilisateur est un admin alors, il peut accéder à la liste des employés
+                        if ($_SESSION['typeUtilisateur'] === 1) {
+                            echo '📅 Gérer les réservations. </a>';
+                            echo " <br> Ceci correspond à l'affichage de toutes les reservations cela correspond également à l'endroit où l'administrateur peut gérer les salles";
+                        }
+                        ?>
+                    </a>
+
                 </p>
-                <button type="submit" class="btn btn-info w-100">Se connecter</button>
                 <p>
-                    <br>
-                    Une fois l’identifiant et le mot de passe saisis, il faut cliquer sur ce bouton pour effectuer une tentative de connexion.
-                    Si jamais l’identifiant ou le mot de passe n’est pas juste, un message d’erreur s’affiche.
+                    <!-- Lien vers la page pour afficher les réservations relié au compte -->
+                    <a href="#" target="blank" class="text-decoration-none">✏️ Gérer mes réservations.</a>
+                    <br>Ensuite, nous avons l’affichage des réservations que vous avez effectuées avec votre compte.
+                </p>
+                <p>
+                    <!-- Lien vers la page pour afficher ou gérer les salles -->
+                    <a href="#" target="blank" class="text-decoration-none">
+                        <?php
+                        // si l'utilisateur est un admin alors, il peut accéder à la liste des employés
+                        if ($_SESSION['typeUtilisateur'] === 1) {
+                            echo '🏢 Gérer les salles. </a>';
+                            echo "<br> Pour continuer, nous avons la page d'affichage des salles où, en tant d'administrateur, vous pouvez également gérer les salles.";
+                        } else {
+                            echo '🏢 Afficher les salles.</a>';
+                            echo '<br> Pour continuer avec les affichages, nous avons la liste de toutes les salles que l’entreprise dispose.';
+                        }
+                        ?>
+                </p>
+                <p>
+                    <!-- Lien vers la page pour exporter les données -->
+                    <a href="#" target="blank" class="text-decoration-none">📊 Exporter des données.</a>
+                    <br> Pour finir, nous avons la fonctionnalité d’exportation des données en fichier en format CSV.
+                </p>
+                <p>
+                    <?php
+                    //si l'utilisateur est un admin alors, il peut accéder à la liste des employés
+                    if($_SESSION['typeUtilisateur'] === 1){
+                        echo '<a href="#" target="blank" class="text-decoration-none">👥 Gérer les utilisateurs.</a>';
+                        echo "<br> Pour finir, nous avons l'affichage de tous les utilisateurs mais aussi la possibilité pour un administrateur de modifier ou supprimer un utilisateur.";
+                    }
+                    ?>
                 </p>
             </div>
         </div>

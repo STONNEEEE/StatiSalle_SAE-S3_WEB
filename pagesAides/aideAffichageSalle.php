@@ -7,7 +7,7 @@ verif_session();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - aides affichage des salles</title>
+    <title>StatiSalle - Aides Salles</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->

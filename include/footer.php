@@ -2,19 +2,21 @@
     <?php
     // Récupérer le nom de la page actuelle
     $_SESSION['nom_page'] = basename($_SERVER['PHP_SELF'], '.php'); // Exemple : "index" pour "index.php"
-
+    var_dump($_SESSION['nom_page']);
     // Associer les pages d'aide aux noms de pages
     $aides = [
-        'accueil' => 'aideAccueil.php',
-        'affichageEmploye' => 'aideAffichageEmploye.php',
-        'affichageSalle' => 'aideAffichageSalle.php',
-        'creationEmploye' => 'aideCreationEmploye.php',
-        'creationReservation' => 'aideCreationReservation.php',
-        'creationSalle' => 'aideCreationSalle.php',
-        'mesReservation' => 'aideMesReservation.php',
+        'index'               => '   pagesAides/aideConnexion.php',
+        'accueil'             => '../pagesAides/aideAccueil.php',
+        'affichageEmploye'    => '../pagesAides/aideAffichageEmploye.php',
+        'affichageSalle'      => '../pagesAides/aideAffichageSalle.php',
+        'creationEmploye'     => '../pagesAides/aideCreationEmploye.php',
+        'creationReservation' => '../pagesAides/aideCreationReservation.php',
+        'creationSalle'       => '../pagesAides/aideCreationSalle.php',
+        'mesReservation'      => '../pagesAides/aideMesReservation.php',
+        'contact'            => '#',
     ];
 
-    $page_aide = isset($aides[$_SESSION['nom_page']]) ? $aides[$_SESSION['nom_page']] : 'aideGenerale.php';
+    $page_aide = isset($aides[$_SESSION['nom_page']]) ? $aides[$_SESSION['nom_page']] : 'aideAccueil.php';
     ?>
     <script>
         // Stocker la page d'aide dans une variable JavaScript
