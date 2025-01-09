@@ -5,15 +5,23 @@
 
     // Associer les pages d'aide aux noms de pages
     $aides = [
-        'index'               => '   pagesAides/aideConnexion.php',
-        'accueil'             => '../pagesAides/aideAccueil.php',
-        'affichageEmploye'    => '../pagesAides/aideAffichageEmploye.php',
-        'affichageSalle'      => '../pagesAides/aideAffichageSalle.php',
-        'creationEmploye'     => '../pagesAides/aideCreationEmploye.php',
-        'creationReservation' => '../pagesAides/aideCreationReservation.php',
-        'creationSalle'       => '../pagesAides/aideCreationSalle.php',
-        'mesReservation'      => '../pagesAides/aideMesReservation.php',
-        'contact'            => '#',
+        'index'                   => '   pagesAides/aideIndex.php',
+        'accueil'                 => '../pagesAides/aideAccueil.php',
+        'contact'                 => '../pagesAides/aideContact.php',
+
+        'affichageEmploye'        => '../pagesAides/aideAffichageEmploye.php',
+        'affichageSalle'          => '../pagesAides/aideAffichageSalle.php',
+        'affichageReservation'    => '../pagesAides/aideAffichageReservation.php',
+
+        'mesReservation'          => '../pagesAides/aideMesReservation.php',
+
+        'creationEmploye'         => '../pagesAides/aideCreationEmploye.php',
+        'creationReservation'     => '../pagesAides/aideCreationReservation.php',
+        'creationSalle'           => '../pagesAides/aideCreationSalle.php',
+
+        'modificationEmploye'     => '../pagesAides/aideModificationEmploye.php',
+        'modificationSalle'       => '../pagesAides/aideModificationSalle.php',
+        'modificationReservation' => '../pagesAides/aideModificationReservation.php',
     ];
 
     $page_aide = isset($aides[$_SESSION['nom_page']]) ? $aides[$_SESSION['nom_page']] : 'aideAccueil.php';
