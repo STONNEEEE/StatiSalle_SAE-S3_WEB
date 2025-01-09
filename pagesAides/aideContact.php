@@ -1,5 +1,5 @@
 <?php
-require("../fonction/connexion.php");
+require '../fonction/connexion.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
