@@ -332,14 +332,16 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-3 text-center w-100">
+                        <div class="col-12 col-md-6 offset-md-3">
                             <button type="submit" class="btn-bleu rounded-2" id="submit" name="submit">
                                 Mise à jour de la réservation
                             </button>
                         </div>
                     </div>
+
                 </form>
-                <div class ="row offset-md-2">
+
+                <div class="row col-12 col-md-6 offset-md-3">
                     <div>
                         <button class="btn-suppr rounded-2" type="button"
                                 onclick="window.location.href='affichageReservation.php';">

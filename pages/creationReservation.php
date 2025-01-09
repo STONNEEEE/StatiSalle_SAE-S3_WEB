@@ -282,15 +282,16 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col-3 text-center w-100">
-                            <button type="submit" class="btn-bleu rounded-2" id="submit">
+                    <div class="row mt-4 offset-md-3">
+                        <!-- Bouton envoyer le formulaire -->
+                        <div class="col-12 col-md-8 mb-2">
+                            <button type="submit" class="btn-bleu rounded w-100">
                                 Réserver
                             </button>
                         </div>
                     </div>
                 </form>
-                <div class ="row offset-md-2">
+                <div class ="row  offset-md-2">
                     <div>
                         <button class="btn-suppr rounded-2" type="button"
                                 onclick="window.location.href='affichageReservationUtilisateur.php';">

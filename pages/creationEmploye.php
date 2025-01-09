@@ -204,7 +204,7 @@
                         </div>
                     </form>
                     <br>
-                    <div class ="row offset-md-1">
+                    <div class ="row col-12 offset-md-1">
                         <!-- Bouton retour -->
                         <div>
                             <button class="btn-suppr rounded-2" type="button"
