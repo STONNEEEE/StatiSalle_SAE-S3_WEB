@@ -9,6 +9,7 @@
 
     $tabSalles = listeSalles();
     $tabActivites = listeActivites();
+    $tabReservation = affichageReservation();
 
     // Vérification des variables du formulaire
     $nomSalle =         isset($_POST['nomSalle'])       ? htmlspecialchars($_POST['nomSalle']) : '';
@@ -290,8 +291,12 @@
         </form>
         <div class ="row offset-md-2">
             <div>
+                <?php
+                    // Si l'utilisateur est un admin, il accède à la liste des réservations, sinon à ses réservations
+                    $pageRetour = ($_SESSION['typeUtilisateur'] === 1) ? 'affichageReservation.php' : 'affichageReservationUtilisateur.php';
+                ?>
                 <button class="btn-suppr rounded-2" type="button"
-                        onclick="window.location.href='affichageReservation.php'">
+                        onclick="window.location.href='<?php echo $pageRetour; ?>'">
                     Retour
                 </button>
             </div>

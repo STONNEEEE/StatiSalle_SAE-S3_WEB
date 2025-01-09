@@ -109,7 +109,7 @@
                     try {
                         $listeEmploye = renvoyerEmployes();
                     } catch (PDOException $e) {
-                        echo '<div class="text-center text-danger fw-bold">Impossible de charger les employés en raison d’un problème technique.</div>';
+                        echo '<div class="text-center text-danger fw-bold">Impossible de charger les employés en raison d’un problème technique...</div>';
                     }
 
                     $nombreEmploye = count($listeEmploye ?? []);
@@ -133,48 +133,42 @@
                             </thead>
                             <tbody>
                                 <?php
-                                try {
-                                    $employes = renvoyerEmployes();
-                                } catch (Exception $e) {
-                                    echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des employés en raison d’un problème technique...</td></tr>';
-                                }
-
-                                // Vérifier si le tableau est vide
-                                if (empty($employes)) {
-                                    echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
-                                } else {
-                                    // Afficher les employés
-                                    foreach ($employes as $employe) {
-                                        echo '<tr>';
-                                        echo '<td>' . $employe->nom . '</td>';
-                                        echo '<td>' . $employe->prenom . '</td>';
-                                        echo '<td>';
-                                        // Ajouter une icône si l'utilisateur est un admin
-                                        if ($employe->type_utilisateur === 'admin') {
-                                            echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
+                                    // Vérifier si le tableau est vide
+                                    if (empty($employes)) {
+                                        echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
+                                    } else {
+                                        // Afficher les employés
+                                        foreach ($employes as $employe) {
+                                            echo '<tr>';
+                                            echo '<td>' . $employe->nom . '</td>';
+                                            echo '<td>' . $employe->prenom . '</td>';
+                                            echo '<td>';
+                                            // Ajouter une icône si l'utilisateur est un admin
+                                            if ($employe->type_utilisateur === 'admin') {
+                                                echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
+                                            }
+                                            echo $employe->id_compte. '</td>';
+                                            echo '<td>' . $employe->telephone . '</td>';
+                                            echo '<td class="btn-colonne">';
+                                            echo '<div class="d-flex justify-content-center gap-1">';
+                                            echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
+                                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
+                                            echo '    <input type="hidden" name="supprimer" value="true">';
+                                            echo '    <button type="submit" class="btn-suppr rounded-2">';
+                                            echo '        <span class="fa-solid fa-trash"></span>';
+                                            echo '    </button>';
+                                            echo '</form>';
+                                            echo '<form method="POST" action="modificationEmploye.php">
+                                                      <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
+                                                      <button type="submit" class="btn-modifier rounded-2">
+                                                          <span class="fa-regular fa-pen-to-square"></span>
+                                                      </button>
+                                                  </form>';
+                                            echo '</div>';
+                                            echo '</td>';
+                                            echo '</tr>';
                                         }
-                                        echo $employe->id_compte. '</td>';
-                                        echo '<td>' . $employe->telephone . '</td>';
-                                        echo '<td class="btn-colonne">';
-                                        echo '<div class="d-flex justify-content-center gap-1">';
-                                        echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
-                                        echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
-                                        echo '    <input type="hidden" name="supprimer" value="true">';
-                                        echo '    <button type="submit" class="btn-suppr rounded-2">';
-                                        echo '        <span class="fa-solid fa-trash"></span>';
-                                        echo '    </button>';
-                                        echo '</form>';
-                                        echo '<form method="POST" action="modificationEmploye.php">
-                                                  <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
-                                                  <button type="submit" class="btn-modifier rounded-2">
-                                                      <span class="fa-regular fa-pen-to-square"></span>
-                                                  </button>
-                                              </form>';
-                                        echo '</div>';
-                                        echo '</td>';
-                                        echo '</tr>';
                                     }
-                                }
                                 ?>
                             </tbody>
                         </table>

@@ -91,25 +91,6 @@
         return $resultat;
     }
 
-    function listeEmployes() {
-        global $pdo;
-        // Retourne la liste des noms des employés dans un tableau
-        $tableauRetour = array();
-        try {
-            $maRequete = $pdo->prepare("SELECT CONCAT(nom, ' ', prenom) AS nom FROM employe");
-
-            if ($maRequete->execute()) {
-                while ($ligne = $maRequete->fetch()) {
-                    $tableauRetour[] = $ligne->nom;
-                }
-            }
-            return $tableauRetour;
-        } catch (Exception $e) {
-            // Erreur de BD
-            throw new PDOException($e->getMessage(), $e->getCode());
-        }
-    }
-
     function listeSalles() {
         global $pdo;
         // Retourne la liste des noms de salles dans un tableau

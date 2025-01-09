@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ajout d'une ligne par défaut pour les résultats vides
     const tbody = document.querySelector("table.table-striped tbody");
     const noResultRow = document.createElement("tr");
-    noResultRow.innerHTML = `<td colspan="7" class="text-center text-danger fst-italic">Aucune réservation trouvée.</td>`;
+    noResultRow.innerHTML = `<td colspan="8" class="text-center text-danger fw-bold">Aucune réservation trouvée.</td>`;
     noResultRow.style.display = "none"; // Cachée par défaut
     tbody.appendChild(noResultRow);
 

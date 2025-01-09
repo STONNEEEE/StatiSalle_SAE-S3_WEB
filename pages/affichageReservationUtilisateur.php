@@ -1,13 +1,11 @@
 <?php
     require '../fonction/connexion.php';
-    require '../fonction/reservation.php';
+    require '../fonction/fonctionReservation.php';
 
     session_start();
     verif_session();
 
     $message = '';
-    $tabEmployeNom = listeEmployesNom();
-    $tabEmployePrenom = listeEmployesPrenom();
     $tabSalle = listeSalles();
     $tabActivite = listeActivites();
     $tabDate = listeDate();
@@ -190,9 +188,6 @@
                             </thead>
                             <tbody>
                                 <?php
-                                if (empty($listeReservation)) {
-                                    echo '<tr><td colspan="8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
-                                } else {
                                     foreach ($listeReservation as $ligne) {
                                         echo '<tr class="tab-trier">';
                                         echo '<td class="tab-trier">' . $ligne['id_reservation'] . '</td>';
@@ -256,7 +251,6 @@
                                         echo '</div>';
                                         echo '</td>';
                                         echo '</tr>';
-                                    }
                                 }
                                 ?>
                             </tbody>

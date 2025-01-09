@@ -34,7 +34,7 @@
                         }
                         ?>
                         <li><a class="dropdown-item" href="../pages/affichageSalle.php">Salles</a></li>
-                        <li><a class="dropdown-item" href="../pages/mesReservation.php">Mes réservations</a></li>
+                        <li><a class="dropdown-item" href="../pages/affichageReservationUtilisateur.php">Mes réservations</a></li>
                     </ul>
                 </div>
 
@@ -64,7 +64,7 @@
                         <li><a class="dropdown-item" href="../pages/accueil.php">Accueil</a></li>
                         <li><a class="dropdown-item" href="../pages/affichageReservation.php">Réservations</a></li>
                         <li><a class="dropdown-item" href="../pages/affichageSalle.php">Salles</a></li>
-                        <li><a class="dropdown-item" href="../pages/mesReservation.php">Mes réservations</a></li>
+                        <li><a class="dropdown-item" href="../pages/affichageReservationUtilisateur.php">Mes réservations</a></li>
                     </ul>
                 </div>
             </div>
