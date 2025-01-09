@@ -56,7 +56,7 @@
                         </p>
                         <p>
                             <!-- Lien vers la page pour afficher les réservations relié au compte -->
-                            <a href="mesReservations.php" target="blank" class="text-decoration-none">✏️ Gérer mes réservations.</a>
+                            <a href="mesReservation.php" target="blank" class="text-decoration-none">✏️ Gérer mes réservations.</a>
                         </p>
                         <p>
                             <!-- Lien vers la page pour afficher ou gérer les salles -->

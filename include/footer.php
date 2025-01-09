@@ -1,9 +1,34 @@
 <footer class="footer row">
+    <?php
+    // Récupérer le nom de la page actuelle
+    $_SESSION['nom_page'] = basename($_SERVER['PHP_SELF'], '.php'); // Exemple : "index" pour "index.php"
+
+    // Associer les pages d'aide aux noms de pages
+    $aides = [
+        'accueil' => 'aideAccueil.php',
+        'affichageEmploye' => 'aideAffichageEmploye.php',
+        'affichageSalle' => 'aideAffichageSalle.php',
+        'creationEmploye' => 'aideCreationEmploye.php',
+        'creationReservation' => 'aideCreationReservation.php',
+        'creationSalle' => 'aideCreationSalle.php',
+        'mesReservation' => 'aideMesReservation.php',
+    ];
+
+    $page_aide = isset($aides[$_SESSION['nom_page']]) ? $aides[$_SESSION['nom_page']] : 'aideGenerale.php';
+    ?>
+    <script>
+        // Stocker la page d'aide dans une variable JavaScript
+        const pageAide = "<?php echo $page_aide; ?>";
+    </script>
     <div class="col-12 col-sm-6 col-md-4 d-flex flex-column gap-2 align-items-center align-items-sm-start justify-content-center mb-md-0 mb-3">
-        <button class="rounded bouton-footer">
+        <button class="rounded bouton-footer"
+                 type="button" onclick="window.open(pageAide, '_blank');"
+                 aria-label="Ouvrir la page d'aide">
             Besoin d'aide ?
         </button>
-        <button class="rounded bouton-footer">
+        <button class="rounded bouton-footer"
+                type="button" onclick="window.open('contact.php', '_blank');"
+                aria-label="Ouvrir la page de contact">
             Contactez-nous
         </button>
     </div>
@@ -29,7 +54,8 @@
     </div>
 
     <div class="col-12 col-md-4 d-flex justify-content-md-end justify-content-center">
-        <a href="#" title="Page d'accueil">
+        <!-- TODO changer le lien -->
+        <a href="../index.php" title="Page d'accueil">
             <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid d-none d-sm-none d-md-block">
         </a>
     </div>
