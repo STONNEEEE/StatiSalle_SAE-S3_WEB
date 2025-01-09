@@ -14,27 +14,23 @@
     $modifie = $_POST['modifie'] ?? false;
     $id      = $_POST['id_employe'] ?? null;
 
-    //Récupération des attributs de l'employé en fonction de l'id de l'employé
+    // Récupération des attributs de l'employé en fonction de l'id de l'employé
     $tabAttributEmploye = recupAttributEmploye($id);
 
-    //Récupération des attributs du login en fonction de l'id de l'employé
+    // Récupération des attributs du login en fonction de l'id de l'employé
     $tabAttributLogin = recupAttributLogin($id);
-
-    $nom    = $_POST['nom'] ?? '';
-    $prenom = $_POST['prenom'] ?? '';
-    $numTel = $_POST['numTel'] ?? '';
-    $login  = $_POST['login'] ?? '';
-    $mdp    = $_POST['mdp'] ?? '';
-    $cmdp   = $_POST['cmdp'] ?? '';
-    $admin  = $_POST['admin'] ?? '0'; // Par défaut user non admin
 
     if (isset($_POST['modifier'])) {
         // Récupération de la valeur de la case admin
         $admin = $_POST['admin'] ?? false; // Par défaut, pas d'admin
         $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé)
 
-        //Fonction pour effectuer la modification
-        modifierEmploye($id, $nom, $prenom, $login, $numTel, $mdp, $id_type);
+        $nom    = htmlspecialchars($_POST['nom'])?? '';
+        $prenom = htmlspecialchars($_POST['prenom']) ?? '';
+        $numTel = htmlspecialchars($_POST['numTel']) ?? '';
+        $login  = htmlspecialchars($_POST['login']) ?? '';
+        $mdp    = htmlspecialchars($_POST['mdp']) ?? '';
+        $cmdp   = htmlspecialchars($_POST['cmdp']) ?? '';
 
         // Vérification des champs requis
         if (!isset($nom) || $nom === '')    $erreurs['nom'] = "Le nom est requis.";
@@ -92,7 +88,6 @@
         }
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -155,13 +150,13 @@
                 <!-- Nom et prénom -->
                 <div class="row">
                     <div class="col-md-3 offset-md-3">
-                        <label for="nom"></label><input class="form-text form-control" type="text" placeholder="Nom" id="nom" name="nom" value="<?= $tabAttributEmploye['nom'] ?>" required>
+                        <label for="nom"></label><input class="form-text form-control" type="text" placeholder="Nom" id="nom" name="nom" value="<?= htmlentities($tabAttributEmploye['nom']) ?>" required>
                         <?php if (isset($erreurs['nom'])): ?>
                             <small class="text-danger"><?= $erreurs['nom'] ?></small>
                         <?php endif; ?>
                     </div>
                     <div class="col-md-3">
-                        <label for="prenom"></label><input class="form-text form-control" type="text" placeholder="Prénom" id="prenom" name="prenom" value="<?= $tabAttributEmploye['prenom'] ?>" required>
+                        <label for="prenom"></label><input class="form-text form-control" type="text" placeholder="Prénom" id="prenom" name="prenom" value="<?= htmlentities($tabAttributEmploye['prenom']) ?>" required>
                         <?php if (isset($erreurs['prenom'])): ?>
                             <small class="text-danger"><?= $erreurs['prenom'] ?></small>
                         <?php endif; ?>
@@ -171,7 +166,7 @@
                 <!-- Numéro de tel -->
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <label for="numTel"></label><input class="form-text form-control" type="text" placeholder="Numéro de téléphone" id="numTel" name="numTel" value="<?= $tabAttributEmploye['telephone'] ?>" required>
+                        <label for="numTel"></label><input class="form-text form-control" type="text" placeholder="Numéro de téléphone" id="numTel" name="numTel" value="<?= htmlentities($tabAttributEmploye['telephone']) ?>" required>
                         <?php if (isset($erreurs['numTel'])): ?>
                             <small class="text-danger"><?= $erreurs['numTel'] ?></small>
                         <?php endif; ?>
@@ -181,7 +176,7 @@
                 <!-- login -->
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <label for="login"></label><input class="form-text form-control" type="text" placeholder="Compte utilisateur" id="login" name="login" value="<?= $tabAttributLogin['login'] ?>" required>
+                        <label for="login"></label><input class="form-text form-control" type="text" placeholder="Compte utilisateur" id="login" name="login" value="<?= htmlentities($tabAttributLogin['login']) ?>" required>
                         <?php if (isset($erreurs['login'])): ?>
                             <small class="text-danger"><?= $erreurs['login'] ?></small>
                         <?php endif; ?>
@@ -240,7 +235,6 @@
             </form>
         </div>
     </div>
-
     <?php include '../include/footer.php'; ?>
 </div>
 </body>

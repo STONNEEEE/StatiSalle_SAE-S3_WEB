@@ -6,19 +6,19 @@
     verif_session();
 
     // Vérification des variables issues du formulaire
-    $idResa =         isset($_POST['idReservation']) ? $_POST['idReservation'] : null;
-    $nomSalle =       isset($_POST['nomSalle']) ? $_POST['nomSalle'] : '';
-    $nomActivite =    isset($_POST['nomActivite']) ? $_POST['nomActivite'] : '';
-    $date =           isset($_POST['date']) ? $_POST['date'] : '';
-    $heureDebut =     isset($_POST['heureDebut']) ? $_POST['heureDebut'] : '';
-    $heureFin =       isset($_POST['heureFin']) ? $_POST['heureFin'] : '';
-    $valeurChamp1 =   isset($_POST['objet']) ? $_POST['objet'] : '';
-    $valeurChamp2 =   isset($_POST['nom']) ? $_POST['nom'] : '';
-    $valeurChamp3 =   isset($_POST['prenom']) ? $_POST['prenom'] : '';
-    $valeurChamp4 =   isset($_POST['numTel']) ? $_POST['numTel'] : '';
-    $precisActivite = isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
+    $idResa =         isset($_POST['idReservation'])  ? htmlspecialchars($_POST['idReservation']) : null;
+    $nomSalle =       isset($_POST['nomSalle'])       ? htmlspecialchars($_POST['nomSalle']) : '';
+    $nomActivite =    isset($_POST['nomActivite'])    ? htmlspecialchars($_POST['nomActivite']) : '';
+    $date =           isset($_POST['date'])           ? htmlspecialchars($_POST['date']) : '';
+    $heureDebut =     isset($_POST['heureDebut'])     ? htmlspecialchars($_POST['heureDebut']) : '';
+    $heureFin =       isset($_POST['heureFin'])       ? htmlspecialchars($_POST['heureFin']) : '';
+    $valeurChamp1 =   isset($_POST['objet'])          ? htmlspecialchars($_POST['objet']) : '';
+    $valeurChamp2 =   isset($_POST['nom'])            ? htmlspecialchars($_POST['nom']) : '';
+    $valeurChamp3 =   isset($_POST['prenom'])         ? htmlspecialchars($_POST['prenom']) : '';
+    $valeurChamp4 =   isset($_POST['numTel'])         ? htmlspecialchars($_POST['numTel']) : '';
+    $precisActivite = isset($_POST['precisActivite']) ? htmlspecialchars($_POST['precisActivite']) : '';
     $nomActivitePrecedent = '';
-    $mettreAJour =    isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];
+    $mettreAJour =    isset($_POST['mettreAJour']) ?? htmlspecialchars($_POST['mettreAJour']);
 
     $idLogin = $_SESSION['id'];
 

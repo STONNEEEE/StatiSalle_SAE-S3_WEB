@@ -19,7 +19,7 @@
         exit;
     }
 
-    $identifiant = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
+    $identifiant = isset($_POST['identifiant']) ? htmlspecialchars($_POST['identifiant']) : '';
     $mdp = isset($_POST['mdp']) ? sha1($_POST['mdp']) : '';
 
     // vérification de l'éxistence de l'identifiant de l'utilisateur

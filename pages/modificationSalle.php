@@ -6,7 +6,7 @@
     verif_session();
 
     $idSalle = $_POST['idSalle'] ?? null;
-    $mettreAJour = isset($_POST['mettreAJour']) ?? $_POST['mettreAJour'];;
+    $mettreAJour = isset($_POST['mettreAJour']) ?? htmlspecialchars($_POST['mettreAJour']);;
     $tabAttribut = recupAttributSalle($idSalle);
 
     // Tableau de correspondance entre les noms des champs de formulaire et les colonnes de la base de données
@@ -23,7 +23,11 @@
 
     // Initialisation des variables
     foreach ($mapChamps as $champFormulaire => $champBD) {
-        $$champFormulaire = isset($_POST[$champFormulaire]) ? $_POST[$champFormulaire] : (isset($tabAttribut[$champBD]) ? $tabAttribut[$champBD] : '');
+        $$champFormulaire = isset($_POST[$champFormulaire])
+            ? htmlspecialchars($_POST[$champFormulaire], ENT_QUOTES)
+            : (isset($tabAttribut[$champBD])
+                ? htmlspecialchars($tabAttribut[$champBD], ENT_QUOTES)
+                : '');
     }
 
     // Tableau pour stocker les erreurs

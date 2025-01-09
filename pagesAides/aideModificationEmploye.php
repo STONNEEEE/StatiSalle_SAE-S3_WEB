@@ -5,7 +5,7 @@ require("../fonction/connexion.php");
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Aides Modification Réservation</title>
+    <title>StatiSalle - Aides Modification Employé</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -28,7 +28,7 @@ require("../fonction/connexion.php");
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
                 <p>
-                    Pour effectuer une modification, il suffit de renseigner uniquement le champ que vous souhaitez modifier parmi les informations disponibles sur l'utilisateur. Par exemple, dans le cas d'une salle, vous pouvez changer son nom, sa capacité, indiquer si elle contient un vidéoprojecteur ou un ordinateur XXL, préciser le nombre d'ordinateurs présents, le type de matériel disponible, les logiciels installés sur les ordinateurs, ou encore si la salle est équipée d'une imprimante.
+                    Pour effectuer une modification, il suffit de renseigner uniquement le champ que vous souhaitez modifier parmi les informations disponibles sur l'utilisateur. Par exemple, dans le cas d'un employé, il est possible de modifier son nom, son prénom, son numéro de téléphone, son nom d’utilisateur ou identifiant, ainsi que son mot de passe.
                 </p>
             </div>
         </div>

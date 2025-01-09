@@ -7,14 +7,14 @@
 
     // Vérification des variables issues du formulaire
     $idSalle =          "";
-    $nomSalle =         isset($_POST['nomSalle'])        ? $_POST['nomSalle'] : '';
-    $capacite =         isset($_POST['capacite'])        ? $_POST['capacite'] : '';
-    $videoProjecteur =  isset($_POST['videoProjecteur']) ? $_POST['videoProjecteur'] : '';
-    $ordinateurXXL =    isset($_POST['ordinateurXXL'])   ? $_POST['ordinateurXXL'] : '';
-    $nbrOrdi =          isset($_POST['nbrOrdi'])         ? $_POST['nbrOrdi'] : '';
-    $typeMateriel =     isset($_POST['typeMateriel'])    ? $_POST['typeMateriel'] : '';
-    $logiciel =         isset($_POST['logiciel'])        ? $_POST['logiciel'] : '';
-    $imprimante =       isset($_POST['imprimante'])      ? $_POST['imprimante'] : '';
+    $nomSalle =         isset($_POST['nomSalle'])        ? htmlspecialchars($_POST['nomSalle']) : '';
+    $capacite =         isset($_POST['capacite'])        ? htmlspecialchars($_POST['capacite']) : '';
+    $videoProjecteur =  isset($_POST['videoProjecteur']) ? htmlspecialchars($_POST['videoProjecteur']) : '';
+    $ordinateurXXL =    isset($_POST['ordinateurXXL'])   ? htmlspecialchars($_POST['ordinateurXXL']) : '';
+    $nbrOrdi =          isset($_POST['nbrOrdi'])         ? htmlspecialchars($_POST['nbrOrdi']) : '';
+    $typeMateriel =     isset($_POST['typeMateriel'])    ? htmlspecialchars($_POST['typeMateriel']) : '';
+    $logiciel =         isset($_POST['logiciel'])        ? htmlspecialchars($_POST['logiciel']) : '';
+    $imprimante =       isset($_POST['imprimante'])      ? htmlspecialchars($_POST['imprimante']) : '';
 
     // Tableau pour stocker les erreurs
     $erreurs = [];
