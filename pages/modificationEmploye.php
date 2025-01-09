@@ -223,6 +223,15 @@
                 </div>
             </form>
         </div>
+        <div class="row mt-4 offset-md-2">
+                <div class="col-12 col-md-auto">
+                <button class="btn-suppr rounded-2 w-100 w-md-auto" type="button"
+                        onclick="window.location.href='affichageEmploye.php'">
+                    Retour
+                </button>
+            </div>
+        </div>
+
         <br><br>
     </div>
 
