@@ -46,7 +46,7 @@
     }
 
     // Si aucun champ n'a d'erreur, on tente l'insertion
-    if (empty($erreurs) && $messageErreur == "") {
+    if (empty($erreurs)) {
         try {
             // Appel à la fonction pour insérer la réservation
             insertionReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
@@ -174,7 +174,7 @@
                                         <div class="form-group col-12">
                                             <label for="date" class="<?= isset($erreurs['date']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Date : *</a></label>
                                             <input type="date" id="date" name="date" class="form-control" min="<?= date('Y-m-d'); ?>" required
-                                                   oninput="var day = new Date(this.value).getUTCDay(); if(day == 0){ this.value=''; alert('Réservation impossible le dimanche.'); }"
+                                                   oninput="const day = new Date(this.value).getUTCDay(); if(day === 0){ this.value=''; alert('Réservation impossible le dimanche.'); }"
                                                    value="<?php echo htmlentities($date, ENT_QUOTES); ?>">
                                         </div>
                                     </div>
@@ -292,22 +292,23 @@
                 </form>
                 <div class ="row offset-md-2">
                     <div>
-                        <?php
-                            // Si l'utilisateur est un admin, il accède à la liste des réservations, sinon à ses réservations
-                            $pageRetour = ($_SESSION['typeUtilisateur'] === 1) ? 'affichageReservation.php' : 'affichageReservationUtilisateur.php';
-                        ?>
                         <button class="btn-suppr rounded-2" type="button"
-                                onclick="window.location.href='<?php echo $pageRetour; ?>'">
+                                onclick="window.location.href='affichageReservationUtilisateur.php';">
                             Retour
                         </button>
                     </div>
                 </div>
             </div>
-
             <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
-        <script>
+        <!-- JavaScript pour les formulaires dynamique -->
+        <script defer>
+            /*
+             * Le javascript n'a pas pu être séparé du code php
+             * car nous convertissons une varibale php directement dans le PHP.
+             */
+
             // Récupération des de l'ID des champs pour y faire des modifications
             const activiteSelect =      document.getElementById('activite');
             const objetInput =          document.getElementById('ligneObjet');
@@ -394,7 +395,9 @@
             heureDebut.addEventListener('change', verifierHeures);
             heureFin.addEventListener('change', verifierHeures);
 
-            //------------------------------------------
+            /*
+             * Converti une variable PHP en javascript
+             */
             const reservationsParSalle = <?= json_encode($reservationsParSalle, JSON_HEX_TAG); ?>;
 
             // Récupération des éléments
@@ -461,7 +464,6 @@
             // Mettre à jour les plages horaires lorsque la salle ou la date change
             salleSelect.addEventListener('change', mettreAJourPlagesHoraires);
             dateInput.addEventListener('change', mettreAJourPlagesHoraires);
-
         </script>
     </body>
 </html>

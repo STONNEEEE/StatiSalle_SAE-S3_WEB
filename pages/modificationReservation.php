@@ -224,7 +224,7 @@
                                         <div class="form-group col-12">
                                             <label for="date" class="<?= isset($erreurs['date']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Date : *</a></label>
                                             <input type="date" id="date" name="date" class="form-control" min="<?= date('Y-m-d'); ?>" required
-                                                   oninput="var day = new Date(this.value).getUTCDay(); if(day == 0){ this.value=''; alert('Réservation impossible le dimanche.'); }"
+                                                   oninput="const day = new Date(this.value).getUTCDay(); if(day === 0){ this.value=''; alert('Réservation impossible le dimanche.'); }"
                                                    value="<?php echo htmlentities($date, ENT_QUOTES); ?>">
                                         </div>
                                     </div>
@@ -341,12 +341,8 @@
                 </form>
                 <div class ="row offset-md-2">
                     <div>
-                        <?php
-                        // Si l'utilisateur est un admin, il accède à la liste des réservations, sinon à ses réservations
-                        $pageRetour = ($_SESSION['typeUtilisateur'] === 1) ? 'affichageReservation.php' : 'affichageReservationUtilisateur.php';
-                        ?>
                         <button class="btn-suppr rounded-2" type="button"
-                                onclick="window.location.href='<?php echo $pageRetour; ?>'">
+                                onclick="window.location.href='affichageReservation.php';">
                             Retour
                         </button>
                     </div>
