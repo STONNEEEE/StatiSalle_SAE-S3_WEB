@@ -123,7 +123,7 @@
 <body>
 <div class="container-fluid">
     <!-- Header de la page -->
-    <?php // include '../include/header.php'; ?>
+    <?php include '../include/header.php'; ?>
 
     <div class="full-screen">
         <!-- Contenu de la page -->

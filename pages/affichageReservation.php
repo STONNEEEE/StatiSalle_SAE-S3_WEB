@@ -157,6 +157,8 @@
 
                 <!-- Tableau des données -->
                 <div class="row mt-3">
+
+                    <!-- Compteur -->
                     <?php
                     try {
                         $listeReservation = affichageReservation();
@@ -166,7 +168,6 @@
 
                     $nombreReservations = count($listeReservation ?? []);
                     ?>
-
                     <div class="col-12 text-center mb-3">
                         <p class="fw-bold compteur-reservation">
                             Nombre de réservation trouvée(s) : <?= $nombreReservations ?>
