@@ -1,4 +1,5 @@
 <?php
+    $startTime = microtime(true);
     include '../fonction/employe.php';
     include '../fonction/connexion.php';
 

@@ -1,4 +1,5 @@
 <?php
+    $startTime = microtime(true);
     session_start();
 
     require('fonction/liaisonBD.php');

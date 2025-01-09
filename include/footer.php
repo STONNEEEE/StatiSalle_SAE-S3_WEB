@@ -61,8 +61,18 @@
             <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fa-brands fa-square-instagram fa-2x ms-2"></i></a>
             <a href="https://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fa-brands fa-linkedin fa-2x ms-2"></i></a>
         </div>
-    </div>
 
+        <div>
+            <p class="text-center text-white">
+                Temps de chargement :
+                <?php
+                $endTime = microtime(true);
+                $executionTime = round(($endTime - $startTime) * 1000, 2); // Temps en millisecondes
+                echo $executionTime . ' ms';
+                ?>
+            </p>
+        </div>
+    </div>
     <div class="col-12 col-md-4 d-flex justify-content-md-end justify-content-center">
         <!-- TODO changer le lien -->
         <a href="../index.php" title="Page d'accueil">

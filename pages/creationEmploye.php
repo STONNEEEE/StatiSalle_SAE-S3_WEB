@@ -1,4 +1,5 @@
 <?php
+    $startTime = microtime(true);
     require '../fonction/employe.php';
     require '../fonction/connexion.php';
 

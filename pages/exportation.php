@@ -1,5 +1,5 @@
 <?php
-
+    $startTime = microtime(true);
     require '../fonction/exportation.php';
     require '../fonction/connexion.php';
     session_start();
