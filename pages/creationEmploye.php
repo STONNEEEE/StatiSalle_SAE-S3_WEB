@@ -193,25 +193,28 @@
                             </div>
                         </div>
 
-                        <!-- Bouttons -->
+                        <!-- Boutons -->
                         <div class="row mt-4 offset-md-3">
-                            <!-- Boutton envoyer le formulaire -->
-                            <div class="col-12 col-md-6 mb-2">
+                            <!-- Bouton envoyer le formulaire -->
+                            <div class="col-12 col-md-8 mb-2">
                                 <button type="submit" class="btn-bleu rounded w-100">
                                         Créer le compte
                                 </button>
                             </div>
-                            <!-- Boutton retour -->
-                            <div class="col-12 col-md-2">
-                                <button class="btn-suppr rounded w-100" type="button"
-                                        onclick="window.location.href='affichageEmploye.php'">
-                                        Retour
-                                </button>
-                            </div>
                         </div>
                     </form>
+                    <br>
+                    <div class ="row offset-md-1">
+                        <!-- Bouton retour -->
+                        <div>
+                            <button class="btn-suppr rounded-2" type="button"
+                                    onclick="window.location.href='affichageReservation.php'">
+                                Retour
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <br><br>
+
             </div>
 
             <?php include '../include/footer.php'; ?>
