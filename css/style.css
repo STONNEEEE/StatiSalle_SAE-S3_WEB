@@ -28,8 +28,9 @@ body {
 /*                                                            */
 /* ---------------------------------------------------------- */
 
+/* faire apparaître le footer sur la page */
 .auth-row {
-    min-height: 69vh;
+    min-height: calc(100vh - 290px);
 }
 .auth-container {
     background-color: white;

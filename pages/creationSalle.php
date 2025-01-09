@@ -73,7 +73,7 @@
     <!-- Header de la page -->
     <?php include '../include/header.php'; ?>
 
-    <div class="full-screen">
+    <div class="full-screen mb-4">
         <!-- Contenu de la page -->
         <div class="row text-center padding-header">
             <h1>Création d'une salle</h1>
