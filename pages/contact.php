@@ -7,7 +7,7 @@ verif_session();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Accueil</title>
+    <title>StatiSalle - Contact</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -17,7 +17,7 @@ verif_session();
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
     <!-- Icon du site -->
-    <link rel="icon" href=" ../img/logo.ico">
+    <link rel="icon" href="../img/logo.ico">
 </head>
 <body>
 <div class="container-fluid">
@@ -25,19 +25,22 @@ verif_session();
     <?php include '../include/header.php'; ?>
 
     <div class="full-screen">
-        <div class="padding-header">
-            <!-- TODO A FINIR -->
-            test
+        <div class="row text-center padding-header">
+            <h1>Contactez-nous</h1>
         </div>
 
-        <div class="container">
-            <div class="contact-card">
-                <div class="contact-title">Contactez-nous</div>
-                <p>
-                    Pour nous contacter, veuillez envoyer un courriel à l'adresse suivante :
-                    <a href="mailto:contact@statisalle.fr" class="contact-email">contact@statisalle.fr</a>
+        <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5">
+            <div class="acc-container p-4 w-50 bg-light rounded shadow">
+                <h3 class="text-center mb-4">Nous sommes là pour vous aider</h3>
+                <p>Pour toute question ou demande d'information, veuillez nous écrire à l'adresse suivante :</p>
+                <p class="text-center">
+                    <a href="mailto:contact@statisalle.fr" class="btn btn-primary rounded-pill">
+                        <i class="fas fa-envelope"></i> contact@statisalle.fr
+                    </a>
                 </p>
-                <p>Nous vous répondrons dans les plus brefs délais.</p>
+                <p class="text-muted mt-4">
+                    Nos horaires : Lundi au Samedi, de 7h à 20h.
+                </p>
             </div>
         </div>
     </div>

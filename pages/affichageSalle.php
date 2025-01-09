@@ -82,7 +82,7 @@ $tabLogiciels = listeDesLogiciels();
         if($_SESSION['typeUtilisateur'] === 1 ){
             echo '<div class="row mb-3">
                         <div class="col-12 text-center text-md-end">
-                            <button class="btn-bleu rounded-2" onclick="window.location.href="creationSalle.php";">
+                                <button class="btn-bleu rounded-2" onclick="window.location.href=`creationSalle.php`;">
                                 <span class="fa-plus">
                                     Ajouter
                                 </span>
@@ -99,7 +99,7 @@ $tabLogiciels = listeDesLogiciels();
                     <option value=""  selected>Nom</option>
                     <?php
                     foreach ($tabNoms as $nom) { // On boucle sur les noms contenus dans le tableau
-                        echo "<option value=".$nom.">".$nom."</option>";
+                        echo '<option value="'.$nom.'">'.$nom.'</option>';
                     }
                     ?>
                 </select>
@@ -148,7 +148,7 @@ $tabLogiciels = listeDesLogiciels();
                     <option value="" selected>Logiciel</option>
                     <?php
                     foreach ($tabLogiciels as $logiciel) { // On boucle sur les logiciels contenus dans le tableau
-                        echo "<option value=".$logiciel.">".$logiciel."</option>";
+                        echo '<option value="'.$logiciel.'">'.$logiciel.'</option>';
                     }
                     ?>
                 </select>

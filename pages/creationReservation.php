@@ -152,8 +152,12 @@
                         <div class="form-group col-md-3">
                             <div class="row">
                                 <div class="form-group col-12">
-                                    <label for="heureDebut" class="petite-taille <?= isset($erreurs['heureDebut']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Heure début : *</a></label>
+                                    <label for="heureDebut" class="petite-taille <?= isset($erreurs['heureDebut']) ? 'erreur' : '' ;?>">
+                                        <a title="Champ Obligatoire">Heure début : *</a>
+                                    </label>
                                     <select id="heureDebut" name="heureDebut" class="form-select" required>
+                                        <!-- Option initiale vide -->
+                                        <option value="" disabled selected>00:00</option>
                                         <?php
                                         $heureDebutPossible = 7;
                                         $heureFinPossible = 20;
@@ -170,14 +174,22 @@
                                     </select>
                                 </div>
                             </div>
+
                             <br>
                         </div>
                         <div class="form-group col-md-3">
                             <div class="row">
                                 <div class="form-group col-12">
-                                    <label for="heureFin" class="petite-taille <?= isset($erreurs['heureFin']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Heure de fin : *</a></label>
+                                    <label for="heureFin" class="petite-taille <?= isset($erreurs['heureFin']) ? 'erreur' : '' ;?>">
+                                        <a title="Champ Obligatoire">Heure début : *</a>
+                                    </label>
                                     <select id="heureFin" name="heureFin" class="form-select" required>
+                                        <!-- Option initiale vide -->
+                                        <option value="" disabled selected>00:00</option>
                                         <?php
+                                        $heureDebutPossible = 7;
+                                        $heureFinPossible = 20;
+
                                         for ($heure = $heureDebutPossible; $heure < $heureFinPossible; $heure++) {
                                             for ($minute = 0; $minute < 60; $minute += 10) {
                                                 $heureFormatee = str_pad($heure, 2, '0', STR_PAD_LEFT);

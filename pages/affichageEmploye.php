@@ -150,7 +150,6 @@ if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
                                               <span class="fa-regular fa-pen-to-square"></span>
                                           </button>
                                       </form>';
-                                echo '</button>';
                                 echo '</div>';
                                 echo '</td>';
                                 echo '</tr>';
