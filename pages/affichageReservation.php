@@ -66,7 +66,7 @@
                 <?php endif; ?>
 
                 <!-- 1ère ligne avec le bouton "Réserver" -->
-                <div class="row mb-3 ">
+                <div class="row mb-3">
                     <div class="col-12 text-center text-md-end">
                         <button class="btn-bleu rounded-2" onclick="window.location.href='creationReservation.php';">
                             <i class="fa fa-calendar"></i>
@@ -75,24 +75,25 @@
                     </div>
                 </div>
 
+                <!-- Ligne des filtres -->
                 <div class="row g-1 justify-content-start">
                     <!-- Nom des employés -->
                     <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
                         <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom de l'employé">
                     </div>
                     <!-- Nom des salles -->
-                    <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
+                    <div class="col-12 col-md-2 mb-1 col-grand-reservation">
                         <select class="form-select select-nom" id="salles">
                             <option value=""  selected>Salle</option>
                             <?php
-                                foreach ($tabSalle as $salle) {
-                                    echo '<option value="' . $salle . '">' . $salle . "</option>";
-                                } // On boucle sur les noms des salles contenues dans le tableau
+                            foreach ($tabSalle as $salle) {
+                                echo '<option value="' . $salle . '">' . $salle . "</option>";
+                            } // On boucle sur les noms des salles contenues dans le tableau
                             ?>
                         </select>
                     </div>
                     <!-- Nom des activités -->
-                    <div class="col-12 col-md-1 mb-1 col-grand-reservation">
+                    <div class="col-12 col-md-1 mb-1 col-reduit-reservation">
                         <select class="form-select select-nom" id="activites">
                             <option value=""  selected>Activités</option>
                             <?php
@@ -153,6 +154,7 @@
                         </button>
                     </div>
                 </div>
+
                 <!-- Tableau des données -->
                 <div class="row mt-3">
                     <?php

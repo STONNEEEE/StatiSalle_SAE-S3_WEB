@@ -40,6 +40,8 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/footer.css">
+        <!-- Icon du site -->
+        <link rel="icon" href=" ../img/logo.ico">
     </head>
     <body>
         <div class="container-fluid">
@@ -73,9 +75,14 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
                     </div>
                 </div>
 
+                <!-- Ligne des filtres -->
                 <div class="row g-1 justify-content-start">
-                    <!-- Nom des salles -->
+                    <!-- Nom des employés -->
                     <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom de l'employé">
+                    </div>
+                    <!-- Nom des salles -->
+                    <div class="col-12 col-md-2 mb-1 col-grand-reservation">
                         <select class="form-select select-nom" id="salles">
                             <option value=""  selected>Salle</option>
                             <?php
@@ -86,7 +93,7 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
                         </select>
                     </div>
                     <!-- Nom des activités -->
-                    <div class="col-12 col-md-1 mb-1 col-grand-reservation">
+                    <div class="col-12 col-md-1 mb-1 col-reduit-reservation">
                         <select class="form-select select-nom" id="activites">
                             <option value=""  selected>Activités</option>
                             <?php
@@ -147,98 +154,99 @@ if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
                         </button>
                     </div>
                 </div>
+
                 <!-- Tableau des données -->
                 <div class="row mt-3">
                     <div class="table-responsive">
                         <table class="table table-striped text-center">
                             <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Salle</th>
-                                <th>Employe</th>
-                                <th>Activite</th>
-                                <th>Date</th>
-                                <th>Heure debut</th>
-                                <th>Heure fin</th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Salle</th>
+                                    <th>Employe</th>
+                                    <th>Activite</th>
+                                    <th>Date</th>
+                                    <th>Heure debut</th>
+                                    <th>Heure fin</th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            try {
-                                $listeReservation = affichageMesReservations($_SESSION['id_employe']);
-                            } catch (PDOException $e) {
-                            }
+                                <?php
+                                try {
+                                    $listeReservation = affichageMesReservations($_SESSION['id_employe']);
+                                } catch (PDOException $e) {
+                                }
 
-                            if (empty($listeReservation)) {
-                                echo '<tr><td colspan="8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
-                            } else {
-                                foreach ($listeReservation as $ligne) {
-                                    echo '<tr>';
-                                    echo '<td class="tab-trier">' . $ligne['id_reservation'] . '</td>';
-                                    echo '<td class="tab-trier">' . $ligne['nom_salle'] . '</td>';
-                                    echo '<td>' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
-                                    echo '<td class="tab-trier">';
-                                    echo $ligne['nom_activite'];
-                                    echo '<span class="fa-solid fa-circle-info info-icon">';
-                                    echo '<span class="tooltip">';
-                                    echo '<table class="table table-striped">';
-                                    try {
-                                        $listeType = affichageTypeReservation($ligne['id_reservation']);
-                                    } catch (PDOException $e) {
-                                        echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger les informations sur le type de reservation</td></tr>';
-                                    }
+                                if (empty($listeReservation)) {
+                                    echo '<tr><td colspan="8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
+                                } else {
+                                    foreach ($listeReservation as $ligne) {
+                                        echo '<tr>';
+                                        echo '<td class="tab-trier">' . $ligne['id_reservation'] . '</td>';
+                                        echo '<td class="tab-trier">' . $ligne['nom_salle'] . '</td>';
+                                        echo '<td class="tab-trier">' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
+                                        echo '<td class="tab-trier">';
+                                        echo $ligne['nom_activite'];
+                                        echo '<span class="fa-solid fa-circle-info info-icon">';
+                                        echo '<span class="tooltip">';
+                                        echo '<table class="table table-striped">';
+                                        try {
+                                            $listeType = affichageTypeReservation($ligne['id_reservation']);
+                                        } catch (PDOException $e) {
+                                            echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger les informations sur le type de reservation</td></tr>';
+                                        }
 
-                                    if (!empty($listeType)) {
-                                        // Filtrer les valeurs non vides
-                                        $listeSansVide = array_filter($listeType, function($valeur) {
-                                            return !empty($valeur);
-                                        });
+                                        if (!empty($listeType)) {
+                                            // Filtrer les valeurs non vides
+                                            $listeSansVide = array_filter($listeType, function($valeur) {
+                                                return !empty($valeur);
+                                            });
 
-                                        if (!empty($listeSansVide)) {
-                                            echo "<tr>";
-                                            foreach ($listeSansVide as $key => $valeur) {
-                                                echo "<td>" . $valeur . "</td>";
+                                            if (!empty($listeSansVide)) {
+                                                echo "<tr>";
+                                                foreach ($listeSansVide as $key => $valeur) {
+                                                    echo "<td>" . $valeur . "</td>";
+                                                }
+                                                echo "</tr>";
+                                            } else {
+                                                echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
                                             }
-                                            echo "</tr>";
                                         } else {
                                             echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='3'>Aucune donnée trouvée pour cette réservation</td></tr>";
+                                        echo ' </table>';
+                                        echo '</span>';
+                                        echo '</span>';
+                                        echo '</td>';
+                                        echo '<td class="tab-trier">' . $ligne['date'] . '</td>';
+                                        echo '<td class="tab-trier">' . $ligne['heure_debut'] . '</td>';
+                                        echo '<td class="tab-trier">' . $ligne['heure_fin'] . '</td>';
+
+                                        echo '<td class="btn-colonne">';
+                                        echo '<div class="d-flex justify-content-center gap-1">';
+                                        echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cette réservation ?\')">';
+                                        echo '    <input type="hidden" name="id_reservation" value="' . htmlspecialchars($ligne['id_reservation']) . '">';
+                                        echo '    <input type="hidden" name="supprimer" value="true">';
+                                        echo '    <button type="submit" class="btn-suppr rounded-2">';
+                                        echo '        <span class="fa-solid fa-trash"></span>';
+                                        echo '    </button>';
+                                        echo '</form>';
+
+                                        echo '<!-- Paramètre envoyé pour modifier la salle -->
+                                                      <form  method="post" action="modificationResa.php">';
+                                        // Vérifier que cette ligne prend bien l'id de la reservation
+                                        echo'       <input name="idReservation" type="hidden" value="' . htmlentities($ligne['id_reservation'], ENT_QUOTES) . '">
+                                                            <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
+                                                      </form>
+                                                      ';
+                                        echo '</button>';
+                                        echo '</div>';
+                                        echo '</td>';
+                                        echo '</tr>';
                                     }
-                                    echo ' </table>';
-                                    echo '</span>';
-                                    echo '</span>';
-                                    echo '</td>';
-                                    echo '<td class="tab-trier">' . $ligne['date'] . '</td>';
-                                    echo '<td class="tab-trier">' . $ligne['heure_debut'] . '</td>';
-                                    echo '<td class="tab-trier">' . $ligne['heure_fin'] . '</td>';
-
-                                    echo '<td class="btn-colonne">';
-                                    echo '<div class="d-flex justify-content-center gap-1">';
-                                    echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cette réservation ?\')">';
-                                    echo '    <input type="hidden" name="id_reservation" value="' . htmlspecialchars($ligne['id_reservation']) . '">';
-                                    echo '    <input type="hidden" name="supprimer" value="true">';
-                                    echo '    <button type="submit" class="btn-suppr rounded-2">';
-                                    echo '        <span class="fa-solid fa-trash"></span>';
-                                    echo '    </button>';
-                                    echo '</form>';
-
-                                    echo '<!-- Paramètre envoyé pour modifier la salle -->
-                                                  <form  method="post" action="modificationResa.php">';
-                                    // Vérifier que cette ligne prend bien l'id de la reservation
-                                    echo'       <input name="idReservation" type="hidden" value="' . htmlentities($ligne['id_reservation'], ENT_QUOTES) . '">
-                                                        <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
-                                                  </form>
-                                                  ';
-                                    echo '</button>';
-                                    echo '</div>';
-                                    echo '</td>';
-                                    echo '</tr>';
                                 }
-                            }
-                            ?>
+                                ?>
                             </tbody>
                         </table>
                     </div>

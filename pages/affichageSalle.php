@@ -172,22 +172,18 @@
             <div class="table-responsive">
                 <table class="table table-striped text-center">
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Capacité</th>
-                        <th>Vidéo Projecteur</th>
-                        <th>Écran XXL</th>
-                        <th>Nombre Ordinateurs</th>
-                        <th>Type</th>
-                        <th>Logiciels</th>
-                        <th>Imprimante</th>
-                        <?php
-                        if($_SESSION['typeUtilisateur'] === 1){
-                            echo '<th></th>';
-                        }
-                        ?>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Capacité</th>
+                            <th>Vidéo Projecteur</th>
+                            <th>Écran XXL</th>
+                            <th>Nombre Ordinateurs</th>
+                            <th>Type</th>
+                            <th>Logiciels</th>
+                            <th>Imprimante</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                     <?php
