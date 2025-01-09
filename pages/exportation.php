@@ -93,14 +93,14 @@
             <!-- Header de la page -->
             <?php include '../include/header.php'; ?>
 
-            <div class="full-screen padding-header mb-4">
+            <div class="full-screen padding-header mt-2">
                 <!-- Titre de la page -->
-                <div class="row text-center">
+                <div class="row text-center mb-5">
                     <h1>Téléchargement des données</h1>
                 </div>
 
                 <!-- Contenu -->
-                <div class="row d-flex justify-content-center align-items-start w-100 acc-row mt-3">
+                <div class="row d-flex justify-content-center align-items-start w-100 acc-row mt-5">
                     <div class="acc-container p-4 w-50">
                         <p>
                             Vous pouvez télécharger les données actuelles au format CSV pour les différentes catégories
@@ -110,31 +110,31 @@
                             <div class="col-md-6 col-sm-12 mb-3">
                                 <button type="button" class="btn-bleu rounded w-100"
                                         onclick="window.location.href='?action=reservations'">
-                                    Télécharger le fichier Réservations
+                                    Télécharger le fichier Réservations <i class="fa-solid fa-download"></i>
                                 </button>
                             </div>
                             <div class="col-md-6 col-sm-12 mb-3">
                                 <button type="button" class="btn-bleu rounded w-100"
                                         onclick="window.location.href='?action=salles'">
-                                    Télécharger le fichier Salles
+                                    Télécharger le fichier Salles <i class="fa-solid fa-download"></i>
                                 </button>
                             </div>
                             <div class="col-md-6 col-sm-12 mb-3">
                                 <button type="button" class="btn-bleu rounded w-100"
                                         onclick="window.location.href='?action=employes'">
-                                    Télécharger le fichier Employés
+                                    Télécharger le fichier Employés <i class="fa-solid fa-download"></i>
                                 </button>
                             </div>
                             <div class="col-md-6 col-sm-12 mb-3">
                                 <button type="button" class="btn-bleu rounded w-100"
                                         onclick="window.location.href='?action=activites'">
-                                    Télécharger le fichier Activités
+                                    Télécharger le fichier Activités <i class="fa-solid fa-download"></i>
                                 </button>
                             </div>
                             <div class="col-12 mb-3">
                                 <button type="button" class="btn-bleu rounded w-100"
                                         onclick="window.location.href='?action=tous'">
-                                    Télécharger tous les fichiers
+                                    Télécharger tous les fichiers <i class="fa-solid fa-download"></i>
                                 </button>
                             </div>
                         </div>
