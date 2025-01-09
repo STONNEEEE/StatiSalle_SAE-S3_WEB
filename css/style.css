@@ -30,7 +30,7 @@ body {
 
 /* faire apparaître le footer sur la page */
 .auth-row {
-    min-height: calc(100vh - 290px);
+    min-height: calc(100vh - 330px);
 }
 .auth-container {
     background-color: white;
