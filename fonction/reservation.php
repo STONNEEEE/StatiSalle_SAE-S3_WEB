@@ -6,15 +6,15 @@
     function affichageReservation() {
         global $pdo;
         $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
-                        employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
-                        as date, reservation.heure_debut as heure_debut, reservation.heure_fin as heure_fin
-                        FROM reservation
-                        JOIN salle
-                        ON reservation.id_salle = salle.id_salle
-                        JOIN employe
-                        ON reservation.id_employe = employe.id_employe
-                        JOIN activite
-                        ON reservation.id_activite = activite.id_activite";
+                    employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
+                    as date, reservation.heure_debut as heure_debut, reservation.heure_fin as heure_fin
+                    FROM reservation
+                    JOIN salle
+                    ON reservation.id_salle = salle.id_salle
+                    JOIN employe
+                    ON reservation.id_employe = employe.id_employe
+                    JOIN activite
+                    ON reservation.id_activite = activite.id_activite";
         $requete = $pdo->prepare($requete);
         $requete->execute();
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -354,26 +354,6 @@
 
         } catch (PDOException $e) {
             return "Erreur lors de l'insertion de la réservation : " . $e->getMessage();
-        }
-    }
-
-    // Fonction pour récupérer les salles disponibles
-    function listeDesSalles() {
-        global $pdo;
-        // Retourne la liste des noms de salles dans un tableau
-        $tableauRetour = array(); // Tableau qui sera retourné
-        try {
-            $maRequete = $pdo->prepare("SELECT DISTINCT nom FROM salle ORDER BY nom ASC");
-
-            if ($maRequete->execute()) {
-                while ($ligne = $maRequete->fetch()) {
-                    $tableauRetour[] = $ligne->nom;
-                }
-            }
-            return $tableauRetour;
-        } catch (Exception $e) {
-            // Erreur de BD
-            throw new PDOException($e->getMessage(), $e->getCode());
         }
     }
 
