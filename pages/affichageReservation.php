@@ -1,18 +1,18 @@
 <?php
-    require ('../fonction/connexion.php');
+    require '../fonction/connexion.php';
     session_start();
 
     $message = '';
     verif_session();
     include '../fonction/fonctionAffichageReservation.php';
 
-    $tabEmployeNom = listeEmployesNom();
+    $tabEmployeNom    = listeEmployesNom();
     $tabEmployePrenom = listeEmployesPrenom();
-    $tabSalle = listeSalles();
-    $tabActivite = listeActivites();
-    $tabDate = listeDate();
-    $heureDebut = listeHeureDebut();
-    $heureFin = listeHeureFin();
+    $tabSalle         = listeSalles();
+    $tabActivite      = listeActivites();
+    $tabDate          = listeDate();
+    $heureDebut       = listeHeureDebut();
+    $heureFin         = listeHeureFin();
 
     if (isset($_POST['id_reservation']) && $_POST['supprimer'] == "true") {
         $id_reservation = $_POST['id_reservation'];
@@ -66,7 +66,7 @@
                 <?php endif; ?>
 
                 <!-- 1ère ligne avec le bouton "Réserver" -->
-                <div class="row mb-3 ">
+                <div class="row mb-3">
                     <div class="col-12 text-center text-md-end">
                         <button class="btn-bleu rounded-2" onclick="window.location.href='creationReservation.php';">
                             <i class="fa fa-calendar"></i>
@@ -75,85 +75,74 @@
                     </div>
                 </div>
 
+                <!-- Ligne des filtres -->
                 <div class="row g-1 justify-content-start">
                     <!-- Nom des employés -->
                     <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
-                        <select class="form-select" id="employes">
-                            <option selected>Employé</option>
-                            <?php
-                            for ($i = 0; $i < count($tabEmployeNom); $i++) {
-                                $nom = $tabEmployeNom[$i];      // Nom de l'employé à l'indice $i
-                                $prenom = $tabEmployePrenom[$i]; // Prénom de l'employé à l'indice $i
-
-                                echo "<option value='" . $nom . " " . $prenom . "'>" . $nom . " " . $prenom . "</option>";
-                            }
-                            ?>
-
-                        </select>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom de l'employé">
                     </div>
                     <!-- Nom des salles -->
-                    <div class="col-12 col-md-2 mb-1 col-reduit-reservation">
-                        <select class="form-select" id="salles">
-                            <option selected>Salle</option>
+                    <div class="col-12 col-md-2 mb-1 col-grand-reservation">
+                        <select class="form-select select-nom" id="salles">
+                            <option value=""  selected>Salle</option>
                             <?php
-                                foreach ($tabSalle as $salle){
-                                    echo "<option value=" . $salle . ">" . $salle . "</option>";
-                                }// On boucle sur les noms des salles contenues dans le tableau
+                            foreach ($tabSalle as $salle) {
+                                echo '<option value="' . $salle . '">' . $salle . "</option>";
+                            } // On boucle sur les noms des salles contenues dans le tableau
                             ?>
                         </select>
                     </div>
                     <!-- Nom des activités -->
-                    <div class="col-12 col-md-1 mb-1 col-grand-reservation">
-                        <select class="form-select" id="activites">
-                            <option selected>Activités</option>
+                    <div class="col-12 col-md-1 mb-1 col-reduit-reservation">
+                        <select class="form-select select-nom" id="activites">
+                            <option value=""  selected>Activités</option>
                             <?php
                             foreach ($tabActivite as $activite){ // On boucle sur les différentes activités contenues dans le tableau
-                                echo "<option value=" . $activite . ">" . $activite . "</option>";
+                                echo '<option value="' . $activite . '">' . $activite . "</option>";
                             }
                             ?>
                         </select>
                     </div>
-
                     <!-- Date début -->
                     <div class=" col-grand-reservation col-12 col-md-1 mb-1">
-                        <select class="form-select" id="date_debut">
-                            <option selected>Date Début</option>
+                        <select class="form-select select-nom" id="date_debut">
+                            <option value=""  selected>Date Début</option>
                             <?php
                             foreach ($tabDate as $date){ // On boucle sur les différentes dates contenues dans le tableau
-                                echo "<option value=" . $date . ">" . $date . "</option>";
+                                echo '<option value="' . $date . '">' . $date . "</option>";
                             }
                             ?>
                         </select>
                     </div>
                     <!-- Date fin -->
                     <div class="col-grand-reservation col-12 col-md-1 mb-1">
-                        <select class="form-select" id="date_fin">
-                            <option selected>Date Fin</option>
+                        <select class="form-select select-nom" id="date_fin">
+                            <option value=""  selected>Date Fin</option>
                             <?php
                             foreach ($tabDate as $date){ // On boucle sur les différentes dates contenues dans le tableau
-                                echo "<option value=" . $date . ">" . $date . "</option>";
+                                echo '<option value="' . $date . '">' . $date . "</option>";
                             }
                             ?>
                         </select>
                     </div>
                     <!-- Heure début -->
                     <div class="col-grand-reservation col-12 col-md-1 mb-1">
-                        <select class="form-select" id="heure_debut">
-                            <option selected>Heure début</option>
+                        <select class="form-select select-nom" id="heure_debut">
+                            <option value=""  selected>Heure début</option>
                             <?php
                             foreach ($heureDebut as $heure){ // On boucle sur les différentes dates contenues dans le tableau
-                                echo "<option value=" . $heure . ">" . $heure . "</option>";
+                                echo '<option value="' . $heure . '">' . $heure . "</option>";
                             }
                             ?>
                         </select>
                     </div>
                     <!-- Heure fin -->
                     <div class="col-grand-reservation col-12 col-md-1 mb-1">
-                        <select class="form-select" id="heure_fin">
-                            <option selected>Heure fin</option>
+                        <select class="form-select select-nom" id="heure_fin">
+                            <option value=""  selected>Heure fin</option>
                             <?php
                             foreach ($heureFin as $heure){ // On boucle sur les différentes dates contenues dans le tableau
-                                echo "<option value=" . $heure . ">" . $heure . "</option>";
+                                echo '<option value="' . $heure . '">' . $heure . "</option>";
                             }
                             ?>
                         </select>
@@ -165,6 +154,7 @@
                         </button>
                     </div>
                 </div>
+
                 <!-- Tableau des données -->
                 <div class="row mt-3">
                     <?php
@@ -178,7 +168,7 @@
                     ?>
 
                     <div class="col-12 text-center mb-3">
-                        <p class="fw-bold">
+                        <p class="fw-bold result-count">
                             Nombre de réservation trouvée(s) : <?= $nombreReservations ?>
                         </p>
                     </div>
@@ -206,14 +196,14 @@
                                 }
 
                                 if (empty($listeReservation)) {
-                                    echo '<tr><td colspan="5" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
+                                    echo '<tr><td colspan=8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
                                 } else {
                                     foreach ($listeReservation as $ligne) {
                                         echo '<tr>';
-                                            echo '<td>' . $ligne['id_reservation'] . '</td>';
-                                            echo '<td>' . $ligne['nom_salle'] . '</td>';
-                                            echo '<td>' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
-                                            echo '<td>';
+                                            echo '<td class="tab-trier">' . $ligne['id_reservation'] . '</td>';
+                                            echo '<td class="tab-trier">' . $ligne['nom_salle'] . '</td>';
+                                            echo '<td class="tab-trier">' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
+                                            echo '<td class="tab-trier">';
                                                 echo $ligne['nom_activite'];
                                                 echo '<span class="fa-solid fa-circle-info info-icon">';
                                                 echo '<span class="tooltip">';
@@ -246,9 +236,9 @@
                                                 echo '</span>';
                                                 echo '</span>';
                                             echo '</td>';
-                                            echo '<td>' . $ligne['date'] . '</td>';
-                                            echo '<td>' . $ligne['heure_debut'] . '</td>';
-                                            echo '<td>' . $ligne['heure_fin'] . '</td>';
+                                            echo '<td class="tab-trier">' . $ligne['date'] . '</td>';
+                                            echo '<td class="tab-trier">' . $ligne['heure_debut'] . '</td>';
+                                            echo '<td class="tab-trier">' . $ligne['heure_fin'] . '</td>';
 
                                             echo '<td class="btn-colonne">';
                                             echo '<div class="d-flex justify-content-center gap-1">';
@@ -277,6 +267,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- Pagination -->
                     <div class="d-flex justify-content-between align-items-center my-3">
                         <div>
                             <button class="btn-pagination rounded rows-per-page" data-rows="10">5 lignes</button>
@@ -289,150 +280,6 @@
             </div>
             <?php include '../include/footer.php'; ?>
         </div>
-        <script>
-            // ---------------- PAGINATION ----------------
-            document.addEventListener("DOMContentLoaded", function () {
-                const rows = Array.from(document.querySelectorAll("table.table-striped tbody tr"));
-                const paginationContainer = document.querySelector("#pagination");
-                const rowsPerPageOptions = document.querySelectorAll(".rows-per-page");
-                let rowsPerPage = 10; // Par défaut, 10 lignes par page
-                let currentPage = 1;
-
-                function generatePageLinks(totalPages, currentPage) {
-                    const pages = [];
-
-                    // Ajouter la première page
-                    pages.push(1);
-
-                    // Ajouter une ellipse si la page actuelle est éloignée du début
-                    if (currentPage > 3) {
-                        pages.push('...');
-                    }
-
-                    // Ajouter les pages proches de la page actuelle
-                    for (let i = Math.max(2, currentPage - 2); i <= Math.min(totalPages - 1, currentPage + 2); i++) {
-                        pages.push(i);
-                    }
-
-                    // Ajouter une ellipse si la page actuelle est éloignée de la fin
-                    if (currentPage < totalPages - 2) {
-                        pages.push('...');
-                    }
-
-                    // Ajouter la dernière page si elle n'est pas déjà dans la liste
-                    if (totalPages > 1) {
-                        pages.push(totalPages);
-                    }
-
-                    return pages;
-                }
-
-                function renderTable() {
-                    const totalRows = rows.length;
-                    const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-                    // Calculer les limites de lignes visibles
-                    const startRow = (currentPage - 1) * rowsPerPage;
-                    const endRow = startRow + rowsPerPage;
-
-                    // Afficher ou masquer les lignes selon la pagination
-                    rows.forEach((row, index) => {
-                        row.style.display = index >= startRow && index < endRow ? "" : "none";
-                    });
-
-                    // Générer les boutons de pagination
-                    paginationContainer.innerHTML = "";
-
-                    // Générer les liens de pages à afficher
-                    const pageLinks = generatePageLinks(totalPages, currentPage);
-
-                    // Bouton "Aller au début"
-                    const firstButton = document.createElement("button");
-                    firstButton.textContent = "<<";
-                    firstButton.className = currentPage === 1
-                        ? "btn-pagination-disabled rounded"
-                        : "btn-pagination rounded";
-                    if (currentPage !== 1) {
-                        firstButton.addEventListener("click", () => {
-                            currentPage = 1;
-                            renderTable();
-                        });
-                    }
-                    paginationContainer.appendChild(firstButton);
-
-                    // Bouton "Page précédente"
-                    const prevButton = document.createElement("button");
-                    prevButton.textContent = "<";
-                    prevButton.className = currentPage === 1
-                        ? "btn-pagination-disabled rounded"
-                        : "btn-pagination rounded";
-                    if (currentPage !== 1) {
-                        prevButton.addEventListener("click", () => {
-                            currentPage -= 1;
-                            renderTable();
-                        });
-                    }
-                    paginationContainer.appendChild(prevButton);
-
-                    // Boutons pour chaque page
-                    pageLinks.forEach(link => {
-                        const button = document.createElement("button");
-                        button.textContent = link;
-                        if (link === "...") {
-                            button.className = "btn-pagination btn-points disabled rounded"; // Style pour les ellipses
-                        } else {
-                            button.className = `btn-pagination rounded ${link === currentPage ? "active" : ""}`;
-                            button.addEventListener("click", () => {
-                                currentPage = link;
-                                renderTable();
-                            });
-                        }
-                        paginationContainer.appendChild(button);
-                    });
-
-                    // Bouton "Page suivante"
-                    const nextButton = document.createElement("button");
-                    nextButton.textContent = ">";
-                    nextButton.className = currentPage === totalPages
-                        ? "btn-pagination-disabled rounded"
-                        : "btn-pagination rounded";
-                    if (currentPage !== totalPages) {
-                        nextButton.addEventListener("click", () => {
-                            currentPage += 1;
-                            renderTable();
-                        });
-                    }
-                    paginationContainer.appendChild(nextButton);
-
-                    // Bouton "Aller à la fin"
-                    const lastButton = document.createElement("button");
-                    lastButton.textContent = ">>";
-                    lastButton.className = currentPage === totalPages
-                        ? "btn-pagination-disabled rounded"
-                        : "btn-pagination rounded";
-                    if (currentPage !== totalPages) {
-                        lastButton.addEventListener("click", () => {
-                            currentPage = totalPages;
-                            renderTable();
-                        });
-                    }
-                    paginationContainer.appendChild(lastButton);
-                }
-
-                // Mise à jour des lignes par page
-                rowsPerPageOptions.forEach(option => {
-                    option.addEventListener("click", function () {
-                        rowsPerPage = parseInt(this.dataset.rows, 10);
-                        currentPage = 1; // Revenir à la première page
-                        renderTable();
-                    });
-                });
-
-                renderTable();
-            });
-
-            // ---------------- FILTRE ----------------
-            // TODO
-        </script>
+        <script defer src="../fonction/filtre.js"></script>
     </body>
 </html>
