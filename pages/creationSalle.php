@@ -123,9 +123,9 @@
                     <div class="row"> <!-- Vidéo projecteur -->
                         <div class="form-group col-12">
                             <label for="videoProjecteur" class="<?= isset($erreurs['videoProjecteur']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Vidéo projecteur : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="videoProjecteur" value="1" <?= $videoProjecteur == '1' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="OuiVideoProj" name="videoProjecteur" value="1" <?= $videoProjecteur == '1' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="videoProjecteur" value="0" <?= $videoProjecteur == '0' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="NonVideoProj" name="videoProjecteur" value="0" <?= $videoProjecteur == '0' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -134,9 +134,9 @@
                     <div class="row"> <!-- Ordinateur XXL -->
                         <div class="form-group col-md-12">
                             <label for="ordinateurXXL" class="<?= isset($erreurs['ordinateurXXL']) ? 'erreur' : ' ' ?>"><a title="Champ Obligatoire">Ordinateur XXL : *</a></label>
-                            <input type="radio" class="form-check-input" id="OUI" name="ordinateurXXL" value="1" <?= $ordinateurXXL == '1' ? 'checked' : '' ?> required>
+                            <input type="radio" class="form-check-input" id="OuiOrdinateurXXL" name="ordinateurXXL" value="1" <?= $ordinateurXXL == '1' ? 'checked' : '' ?> required>
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="ordinateurXXL" value="0" <?= $ordinateurXXL == '0' ? 'checked' : '' ?> required >
+                            <input type="radio" class="form-check-input" id="NonOrdinateurXXL" name="ordinateurXXL" value="0" <?= $ordinateurXXL == '0' ? 'checked' : '' ?> required >
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>
@@ -167,9 +167,9 @@
                     <div class="row"> <!-- Imprimante -->
                         <div class="form-group col-md-12">
                             <label for="imprimante">Imprimante : </label>
-                            <input type="radio" class="form-check-input" id="OUI" name="imprimante" value="1">
+                            <input type="radio" class="form-check-input" id="OuiImprimante" name="imprimante" value="1">
                             <label class="form-check-label" for="OUI">Oui</label>
-                            <input type="radio" class="form-check-input" id="NON" name="imprimante" value="0">
+                            <input type="radio" class="form-check-input" id="NonImprimante" name="imprimante" value="0">
                             <label class="form-check-label" for="NON">Non</label>
                         </div>
                     </div>

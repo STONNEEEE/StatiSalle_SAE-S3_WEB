@@ -1,173 +1,105 @@
 <?php
-    require("liaisonBD.php");
+require("liaisonBD.php");
 
-    $pdo = connecteBD();
+$pdo = connecteBD();
 
-    // Récupération des données depuis la base de données
-    // FIXME Enlever les guillemets sur les String avec des espaces
-    function recupererDonnees($table) {
-        global $pdo;
+// Récupération des données depuis la base de données
+function recupererDonnees($table): array {
+    global $pdo;
 
-        // Requête pour récupérer toutes les données de la table
+    $donnees = [];
+    try {
         $requete = "SELECT * FROM $table";
         $resultat = $pdo->query($requete);
         $donnees = $resultat->fetchAll(PDO::FETCH_ASSOC);
 
-        // Vérifie quelle table est récupérée et applique le format nécessaire
-        switch($table) {
-            case 'activite':
-                // Formate les noms d'activités sans guillemets
-                // FIXME Fonctionne pas
-                foreach ($donnees as &$ligne) {
-                    $ligne['nom_activite'] = str_replace('"', '', $ligne['nom_activite']); // Supprime les guillemets si présents
-                }
-                break;
-
+        switch ($table) {
             case 'reservation':
                 foreach ($donnees as &$ligne) {
-                    // Formate l'ID des salles à 8 chiffres
                     $ligne['id_salle'] = str_pad($ligne['id_salle'], 8, '0', STR_PAD_LEFT);
-
-                    // Formate la date en jj/mm/aaaa
                     $ligne['date_reservation'] = date("d/m/Y", strtotime($ligne['date_reservation']));
+                    $ligne['heure_debut'] = date("H\hi", strtotime($ligne['heure_debut']));
+                    $ligne['heure_fin'] = date("H\hi", strtotime($ligne['heure_fin']));
 
-                    // Formate l'heure en HHhmm (sans les secondes)
-                    $ligne['heure_debut'] = str_replace(':', 'h', date("H:i", strtotime($ligne['heure_debut'])));
-                    $ligne['heure_fin'] = str_replace(':', 'h', date("H:i", strtotime($ligne['heure_fin'])));
-
-                    // Récupére les détails de l'activité associée
                     $id_activite = $ligne['id_activite'];
-                    $requete_activite = "SELECT nom_activite FROM activite WHERE id_activite = ?";
-                    $stmt_activite = $pdo->prepare($requete_activite);
+                    $stmt_activite = $pdo->prepare("SELECT nom_activite FROM activite WHERE id_activite = ?");
                     $stmt_activite->execute([$id_activite]);
                     $activite = $stmt_activite->fetch(PDO::FETCH_ASSOC);
-                    $ligne['id_activite'] = $activite['nom_activite']; // Met le nom de l'activité au lieu de la clé étrangère pour respecter le format CSV
 
-                    // Récupérer les détails des activités spécifiques
-                    switch ($activite['nom_activite']) {
-                        case 'Réunion':
-                            $requete_details = "SELECT objet FROM reservation_reunion WHERE id_reservation = ?";
-                            break;
-                        case 'Formation':
-                            $requete_details = "SELECT sujet, nom_formateur, prenom_formateur, num_tel_formateur FROM reservation_formation WHERE id_reservation = ?";
-                            break;
-                        case 'Entretien de la salle':
-                            $requete_details = "SELECT nature FROM reservation_entretien WHERE id_reservation = ?";
-                            break;
-                        case 'Autre':
-                            $requete_details = "SELECT description FROM reservation_autre WHERE id_reservation = ?";
-                            break;
-                        case 'Location' || 'Prét':
-                            $requete_details = "SELECT nom_organisme, nom_interlocuteur, prenom_interlocuteur, num_tel_interlocuteur, type_activite FROM reservation_pret_louer WHERE id_reservation = ?";
-                            break;
-                    }
+                    if ($activite) {
+                        $ligne['id_activite'] = $activite['nom_activite'];
+                        $requete_details = match ($activite['nom_activite']) {
+                            'Réunion' => "SELECT objet FROM reservation_reunion WHERE id_reservation = ?",
+                            'Formation' => "SELECT sujet, nom_formateur, prenom_formateur, num_tel_formateur FROM reservation_formation WHERE id_reservation = ?",
+                            'Entretien de la salle' => "SELECT nature FROM reservation_entretien WHERE id_reservation = ?",
+                            'Autre' => "SELECT description FROM reservation_autre WHERE id_reservation = ?",
+                            default => null,
+                        };
 
-                    // Exécute la requête pour récupérer les informations supplémentaires à la réservation
-                    $stmt = $pdo->prepare($requete_details);
-                    $stmt->execute([$ligne['id_reservation']]);
-                    $details = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    // Ajoute les informations supplémentaires à chaque réservation
-                    switch ($activite['nom_activite']) {
-                        case 'Réunion':
-                            $ligne['club_gym'] = $details['objet'];
-                            break;
-                        case 'Formation':
-                            $ligne['sujet'] = $details['sujet'];
-                            $ligne['nom_formateur'] = $details['nom_formateur'];
-                            $ligne['prenom_formateur'] = $details['prenom_formateur'];
-                            $ligne['num_tel_formateur'] = $details['num_tel_formateur'];
-                            break;
-                        case 'Entretien de la salle':
-                            $ligne['nature'] = $details['nature'];
-                            break;
-                        case 'Autre':
-                            $ligne['description'] = $details['description'];
-                            break;
-                        case 'Location' || 'Prét':
-                            $ligne['nom_organisme'] = $details['nom_organisme'];
-                            $ligne['nom_interlocuteur'] = $details['nom_interlocuteur'];
-                            $ligne['prenom_interlocuteur'] = $details['prenom_interlocuteur'];
-                            $ligne['num_tel_interlocuteur'] = $details['num_tel_interlocuteur'];
-                            $ligne['type_activite'] = $details['type_activite'];
-                            break;
+                        if ($requete_details) {
+                            $stmt_details = $pdo->prepare($requete_details);
+                            $stmt_details->execute([$ligne['id_reservation']]);
+                            $details = $stmt_details->fetch(PDO::FETCH_ASSOC);
+                            $ligne = array_merge($ligne, $details ?: []);
+                        }
                     }
                 }
                 break;
 
             case 'salle':
-                // Convertit les booléens pour videoproj, ecranXXL, imprimante
                 foreach ($donnees as &$ligne) {
-                    $ligne['videoproj'] = ($ligne['videoproj'] == 1) ? 'oui' : 'non';
-                    $ligne['ecran_xxl'] = ($ligne['ecran_xxl'] == 1) ? 'oui' : 'non';
-                    $ligne['imprimante'] = ($ligne['imprimante'] == 1) ? 'oui' : 'non';
-
-                    // Formate l'ID des salles à 8 chiffres
+                    $ligne['videoproj'] = $ligne['videoproj'] ? 'oui' : 'non';
+                    $ligne['ecran_xxl'] = $ligne['ecran_xxl'] ? 'oui' : 'non';
+                    $ligne['imprimante'] = $ligne['imprimante'] ? 'oui' : 'non';
                     $ligne['id_salle'] = str_pad($ligne['id_salle'], 8, '0', STR_PAD_LEFT);
-
-                    $ligne['nom'] = str_replace('"', '', $ligne['nom']);
                 }
                 break;
         }
-
-        $maxColonnes = count($donnees[0]);
-
-        foreach ($donnees as &$ligne) {
-            while (count($ligne) < $maxColonnes) {
-                $ligne[] = ''; // Ajout de colonnes vides pour le format CSV
-            }
-        }
-
-        return $donnees;
+    } catch (Exception $e) {
+        error_log("Erreur lors de la récupération des données : " . $e->getMessage());
     }
 
-    // Fonction pour générer un fichier CSV à partir de données
-    function genererCSV($nomFichier, $colonnes, $donnees) : void {
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="' . $nomFichier . '"');
-        $fichier = fopen('php://output', 'w');
-        if ($fichier) {
-            // Ajouter les colonnes au fichier
-            fputcsv($fichier, $colonnes, ';');
-            // Ajouter les données
-            foreach ($donnees as $ligne) {
-                fputcsv($fichier, $ligne, ';');
-            }
-            fclose($fichier);
-        }
-        exit();
-    }
+    return $donnees;
+}
 
-    function genererCSVString($colonnes, $donnees) {
-        ob_start();
-        $fichier = fopen('php://output', 'w');
+function genererCSV($nomFichier, $colonnes, $donnees): void {
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $nomFichier . '"');
+
+    $fichier = fopen('php://output', 'w');
+    if ($fichier) {
         fputcsv($fichier, $colonnes, ';');
+
         foreach ($donnees as $ligne) {
+            $ligne = array_map(fn($val) => $val ?? '', $ligne); // Remplace les valeurs nulles par des chaînes vides
             fputcsv($fichier, $ligne, ';');
         }
+
         fclose($fichier);
-        return ob_get_clean();
+    } else {
+        error_log("Erreur lors de la création du fichier CSV.");
     }
+    exit();
+}
 
-    function genererZip($nomZip, $fichiers) {
-        $zipTemp = tempnam(sys_get_temp_dir(), 'zip'); // Crée un fichier temporaire
-        $zip = new ZipArchive();
+function genererZip($nomZip, $fichiers): void {
+    $zipTemp = tempnam(sys_get_temp_dir(), 'zip');
+    $zip = new ZipArchive();
 
-        if ($zip->open($zipTemp, ZipArchive::CREATE) === TRUE) {
-            foreach ($fichiers as $nomFichier => $contenu) {
-                $zip->addFromString($nomFichier, $contenu);
-            }
-            $zip->close();
-
-            // Envoyer le fichier ZIP à l'utilisateur
-            header('Content-Type: application/zip');
-            header('Content-Disposition: attachment; filename="' . $nomZip . '"');
-            header('Content-Length: ' . filesize($zipTemp));
-
-            // Lire le fichier temporaire et l'envoyer à l'utilisateur
-            readfile($zipTemp);
-            unlink($zipTemp); // Supprimer le fichier temporaire
+    if ($zip->open($zipTemp, ZipArchive::CREATE) === TRUE) {
+        foreach ($fichiers as $nomFichier => $contenu) {
+            $zip->addFromString($nomFichier, $contenu);
         }
-        exit();
+        $zip->close();
+
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment; filename="' . $nomZip . '"');
+        header('Content-Length: ' . filesize($zipTemp));
+        readfile($zipTemp);
+        unlink($zipTemp);
+    } else {
+        error_log("Erreur lors de la création du fichier ZIP.");
     }
+    exit();
+}
 ?>
