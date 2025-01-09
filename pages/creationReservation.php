@@ -55,6 +55,33 @@
         }
     }
 
+    /*
+     * Structuration des réservations par salle et par date
+     * afin de faciliter leur utilisation en JavaScript
+     * (griser les heures déjà prises selon la salle et la date)
+     */
+    $reservationsParSalle = [];
+    foreach ($tabReservation as $reservation) {
+        $salle = $reservation['nom_salle'];
+        $dateReservation = $reservation['date'];
+        $heureDebut = $reservation['heure_debut'];
+        $heureFin = $reservation['heure_fin'];
+
+        if (!isset($reservationsParSalle[$salle])) {
+            $reservationsParSalle[$salle] = [];
+        }
+
+        if (!isset($reservationsParSalle[$salle][$dateReservation])) {
+            $reservationsParSalle[$salle][$dateReservation] = [];
+        }
+
+        // Ajouter les plages horaires réservées
+        $reservationsParSalle[$salle][$dateReservation][] = [
+            'heureDebut' => $heureDebut,
+            'heureFin' => $heureFin
+        ];
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -155,6 +182,7 @@
                                 <div class="form-group col-12">
                                     <label for="heureDebut" class="petite-taille <?= isset($erreurs['heureDebut']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Heure début : *</a></label>
                                     <select id="heureDebut" name="heureDebut" class="form-select" required>
+                                        <option value="" disabled selected>00:00</option>
                                         <?php
                                         $heureDebutPossible = 7;
                                         $heureFinPossible = 20;
@@ -178,6 +206,7 @@
                                 <div class="form-group col-12">
                                     <label for="heureFin" class="petite-taille <?= isset($erreurs['heureFin']) ? 'erreur' : '' ;?>"><a title="Champ Obligatoire">Heure de fin : *</a></label>
                                     <select id="heureFin" name="heureFin" class="form-select" required>
+                                        <option value="" disabled selected>00:00</option>
                                         <?php
                                         for ($heure = $heureDebutPossible; $heure < $heureFinPossible; $heure++) {
                                             for ($minute = 0; $minute < 60; $minute += 10) {
@@ -331,7 +360,8 @@
 
     activiteSelect.addEventListener('change', afficherChampsSupplementaires);
 
-    // Vérification que l'heure de fin plus tard que l'heure de début
+    // Vérification que l'heure de fin est plus tard que l'heure de début quand il n'y a pas de réservation sur la salle
+    // à un jour précis
     const heureDebut = document.getElementById('heureDebut');
     const heureFin = document.getElementById('heureFin');
 
@@ -350,6 +380,75 @@
 
     heureDebut.addEventListener('change', verifierHeures);
     heureFin.addEventListener('change', verifierHeures);
+
+    //------------------------------------------
+    const reservationsParSalle = <?= json_encode($reservationsParSalle, JSON_HEX_TAG); ?>;
+
+    // Récupération des éléments
+    const salleSelect =      document.getElementById('salle');
+    const dateInput =        document.getElementById('date');
+    const heureDebutSelect = document.getElementById('heureDebut');
+    const heureFinSelect =   document.getElementById('heureFin');
+
+    // Fonction pour griser ou supprimer les plages horaires
+    function mettreAJourPlagesHoraires() {
+        const salle = salleSelect.value;
+        const date = dateInput.value;
+
+        // Réinitialiser les options pour heureDebut et heureFin
+        for (let option of heureDebutSelect.options) {
+            option.disabled = false;
+        }
+        for (let option of heureFinSelect.options) {
+            option.disabled = false;
+        }
+
+        if (salle && date && reservationsParSalle[salle] && reservationsParSalle[salle][date]) {
+            const reservations = reservationsParSalle[salle][date];
+
+            // Désactive les créneaux dans heureDebut qui chevauchent une réservation
+            for (let option of heureDebutSelect.options) {
+                const debutValue = option.value;
+                if (reservations.some(reservation => debutValue >= reservation.heureDebut && debutValue < reservation.heureFin)) {
+                    option.disabled = true;
+                }
+            }
+
+            // Désactive les créneaux dans heureFin qui chevauchent une réservation
+            function mettreAJourHeureFin() {
+                for (let option of heureFinSelect.options) {
+                    option.disabled = false; // Réinitialiser avant recalcul
+                }
+
+                const debutValue = heureDebutSelect.value;
+
+                for (let option of heureFinSelect.options) {
+                    const finValue = option.value;
+
+                    // Désactive si fin <= début sélectionné
+                    if (finValue <= debutValue) {
+                        option.disabled = true;
+                    }
+
+                    // Désactive si le créneau chevauche une réservation
+                    if (reservations.some(reservation => debutValue < reservation.heureFin && finValue > reservation.heureDebut)) {
+                        option.disabled = true;
+                    }
+                }
+            }
+
+            // Appeler mettreAJourHeureFin à chaque changement d'heureDebut
+            heureDebutSelect.addEventListener('change', mettreAJourHeureFin);
+
+            // Appeler une fois pour synchroniser
+            mettreAJourHeureFin();
+        }
+    }
+
+    // Mettre à jour les plages horaires lorsque la salle ou la date change
+    salleSelect.addEventListener('change', mettreAJourPlagesHoraires);
+    dateInput.addEventListener('change', mettreAJourPlagesHoraires);
+
 </script>
 </body>
 </html>
