@@ -194,7 +194,7 @@
                                     echo '<tr><td colspan="8" class="text-center fw-bold">Aucune reservation n’est enregistrée ici !</td></tr>';
                                 } else {
                                     foreach ($listeReservation as $ligne) {
-                                        echo '<tr>';
+                                        echo '<tr class="tab-trier">';
                                         echo '<td class="tab-trier">' . $ligne['id_reservation'] . '</td>';
                                         echo '<td class="tab-trier">' . $ligne['nom_salle'] . '</td>';
                                         echo '<td class="tab-trier">' . $ligne['nom_employe'] . ' ' .  $ligne['prenom_employe'] . '</td>';
