@@ -8,6 +8,7 @@
         'index'                   => '   pagesAides/aideIndex.php',
         'accueil'                 => '../pagesAides/aideAccueil.php',
         'contact'                 => '../pagesAides/aideContact.php',
+        'exportation'             => '../pagesAides/aideExportation.php',
 
         'affichageEmploye'        => '../pagesAides/aideAffichageEmploye.php',
         'affichageSalle'          => '../pagesAides/aideAffichageSalle.php',
