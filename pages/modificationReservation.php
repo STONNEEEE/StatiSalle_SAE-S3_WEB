@@ -152,7 +152,7 @@
             <!-- Header de la page -->
             <?php include '../include/header.php'; ?>
 
-            <div class="full-screen">
+            <div class="full-screen mb-5">
                 <!-- Contenu de la page -->
                 <div class="row text-center padding-header">
                     <h1>Modifiez votre réservation</h1>
@@ -330,27 +330,23 @@
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-md-6 offset-md-3">
-                            <button type="submit" class="btn-bleu rounded-2" id="submit" name="submit">
-                                Mise à jour de la réservation
+                    <br class="d-md-block d-none">
+                    <div class="row mb-3">
+                        <div class="col-12 col-sm-7 offset-sm-3 col-md-4 offset-md-4">
+                            <button type="submit" class="btn-bleu rounded w-100" id="submit">
+                                Mise à jour de la salle
                             </button>
                         </div>
                     </div>
-
                 </form>
-
-                <div class="row col-12 col-md-6 offset-md-3">
-                    <div>
-                        <button class="btn-suppr rounded-2" type="button"
-                                onclick="window.location.href='affichageReservation.php';">
+                <div class ="row offset-md-2">
+                    <div class="col-12 col-sm-7 offset-sm-3 col-md-2 offset-md-0">
+                        <button class="btn-suppr rounded w-100" type="button" onclick="window.location.href='affichageSalle.php'">
                             Retour
                         </button>
                     </div>
                 </div>
             </div>
-
             <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
