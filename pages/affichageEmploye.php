@@ -135,11 +135,11 @@
                             <tbody>
                                 <?php
                                     // Vérifier si le tableau est vide
-                                    if (empty($employes)) {
+                                    if (empty($listeEmploye)) {
                                         echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
                                     } else {
                                         // Afficher les employés
-                                        foreach ($employes as $employe) {
+                                        foreach ($listeEmploye as $employe) {
                                             echo '<tr>';
                                             echo '<td>' . $employe->nom . '</td>';
                                             echo '<td>' . $employe->prenom . '</td>';
