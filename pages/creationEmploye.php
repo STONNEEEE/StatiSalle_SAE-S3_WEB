@@ -5,7 +5,6 @@
     session_start();
     verif_session();
 
-
     // Initialisation des variables et messages d'erreur
     $nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
     $erreurs = [];
@@ -208,7 +207,7 @@
                         <!-- Bouton retour -->
                         <div>
                             <button class="btn-suppr rounded-2" type="button"
-                                    onclick="window.location.href='affichageReservation.php'">
+                                    onclick="window.location.href='affichageEmploye.php'">
                                 Retour
                             </button>
                         </div>

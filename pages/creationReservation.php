@@ -11,16 +11,16 @@
     $tabActivites = listeDesActivites();
 
     // Vérification des variables du formulaire
-    $nomSalle =         isset($_POST['nomSalle'])       ? $_POST['nomSalle'] : '';
-    $nomActivite =      isset($_POST['nomActivite'])    ? $_POST['nomActivite'] : '';
-    $date =             isset($_POST['date'])           ? $_POST['date'] : '';
-    $heureDebut =       isset($_POST['heureDebut'])     ? $_POST['heureDebut'] : '';
-    $heureFin =         isset($_POST['heureFin'])       ? $_POST['heureFin'] : '';
-    $objet =            isset($_POST['objet'])          ? $_POST['objet'] : '';
-    $nom =              isset($_POST['nom'])            ? $_POST['nom'] : '';
-    $prenom =           isset($_POST['prenom'])         ? $_POST['prenom'] : '';
-    $numTel =           isset($_POST['numTel'])         ? $_POST['numTel'] : '';
-    $precisActivite =   isset($_POST['precisActivite']) ? $_POST['precisActivite'] : '';
+    $nomSalle =         isset($_POST['nomSalle'])       ? htmlspecialchars($_POST['nomSalle']) : '';
+    $nomActivite =      isset($_POST['nomActivite'])    ? htmlspecialchars($_POST['nomActivite']) : '';
+    $date =             isset($_POST['date'])           ? htmlspecialchars($_POST['date']) : '';
+    $heureDebut =       isset($_POST['heureDebut'])     ? htmlspecialchars($_POST['heureDebut']) : '';
+    $heureFin =         isset($_POST['heureFin'])       ? htmlspecialchars($_POST['heureFin']) : '';
+    $objet =            isset($_POST['objet'])          ? htmlspecialchars($_POST['objet']) : '';
+    $nom =              isset($_POST['nom'])            ? htmlspecialchars($_POST['nom']) : '';
+    $prenom =           isset($_POST['prenom'])         ? htmlspecialchars($_POST['prenom']) : '';
+    $numTel =           isset($_POST['numTel'])         ? htmlspecialchars($_POST['numTel']) : '';
+    $precisActivite =   isset($_POST['precisActivite']) ? htmlspecialchars($_POST['precisActivite']) : '';
 
     // Tableau pour stocker les erreurs
     $erreurs = [];
@@ -53,7 +53,6 @@
             $messageErreur = "Une erreur est survenue lors de la réservation.";
         }
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
