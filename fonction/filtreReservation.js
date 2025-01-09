@@ -1,5 +1,6 @@
 // ---------------- FILTRE RESERVATION ----------------
 document.addEventListener("DOMContentLoaded", function () {
+    // Récupération des champs de filtre
     const filters = {
         nom: document.getElementById("nom"),
         salles: document.getElementById("salles"),
@@ -10,44 +11,31 @@ document.addEventListener("DOMContentLoaded", function () {
         heure_fin: document.getElementById("heure_fin"),
     };
 
-    const rows = document.querySelectorAll("table.table-striped tbody tr");
+    // Récupération des lignes du tableau
+    const rows = document.querySelectorAll("table.table-striped tbody tr.tab-trier");
 
-    function areFiltersEmpty() {
-        return Object.values(filters).every(filter => {
-            if (filter.tagName === "SELECT") {
-                return filter.selectedIndex === 0;
-            }
-            return filter.value.trim() === "";
-        });
-    }
+    // Ajout d'une ligne par défaut pour les résultats vides
+    const tbody = document.querySelector("table.table-striped tbody");
+    const noResultRow = document.createElement("tr");
+    noResultRow.innerHTML = `<td colspan="7" class="text-center text-danger fst-italic">Aucune réservation trouvée.</td>`;
+    noResultRow.style.display = "none"; // Cachée par défaut
+    tbody.appendChild(noResultRow);
 
+    // Récupération de l'élément compteur
+    const compteur = document.querySelector(".compteur-reservation");
+
+    // Fonction de filtrage
     function filterTable() {
-        let visibleRowCount = 0;
-        let noResultsFound = true;
-
-        if (areFiltersEmpty()) {
-            rows.forEach(row => {
-                row.style.display = "";
-            });
-            updateResultCount(rows.length);
-            supprimerLigneResultatNul();
-            return;
-        }
+        let visibleCount = 0; // Compteur des réservations visibles
 
         rows.forEach(row => {
             const columns = row.querySelectorAll("td.tab-trier");
 
-            // Vérification si les colonnes sont correctement récupérées
-            if (!columns || columns.length === 0) {
-                row.style.display = "none";
-                return;
-            }
-
             const values = {
-                salles: columns[1]?.innerText.trim().toLowerCase() || "",
-                nom: columns[2]?.innerText.trim().toLowerCase() || "",
+                salles:    columns[1]?.innerText.trim().toLowerCase() || "",
+                nom:       columns[2]?.innerText.trim().toLowerCase() || "",
                 activites: columns[3]?.childNodes[0]?.textContent.trim().toLowerCase() || "",
-                date: columns[4]?.textContent.trim() || "",
+                date:      columns[4]?.textContent.trim() || "",
                 heure_debut: columns[5]?.textContent.trim() || "",
                 heure_fin: columns[6]?.textContent.trim() || "",
             };
@@ -92,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return isStartInRange && isEndInRange;
             })();
 
-            const matchesFilters = Object.keys(filters).every(key => {
+            const visible = Object.keys(filters).every(key => {
                 if (!filters[key]) return true;
 
                 const filterValue = filters[key]?.value.trim().toLowerCase();
@@ -105,64 +93,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (key === "date_debut" || key === "date_fin" || key === "heure_debut" || key === "heure_fin") {
-                    return true;
+                    return true; // Ces champs sont déjà gérés séparément
                 }
 
                 return values[key]?.includes(filterValue) ?? false;
-            });
+            }) && isDateInRange && isTimeInRange;
 
-            const isVisible = matchesFilters && isDateInRange && isTimeInRange;
-            row.style.display = isVisible ? "" : "none";
-
-            if (isVisible) {
-                visibleRowCount++;
-                noResultsFound = false;
-            }
+            row.style.display = visible ? "" : "none";
+            if (visible) visibleCount++;
         });
 
-        updateResultCount(visibleRowCount);
-
-        if (noResultsFound) {
-            ajouterLigneresultatNul();
-        } else {
-            supprimerLigneResultatNul();
+        // Met à jour le compteur de réservations visibles
+        if (compteur) {
+            compteur.textContent = `Nombre de réservations trouvée(s) : ${visibleCount}`;
         }
+
+        // Gère l'affichage de la ligne "Aucun résultat trouvé"
+        noResultRow.style.display = visibleCount === 0 ? "" : "none";
     }
 
-    function updateResultCount(count) {
-        const resultCountElement = document.querySelector(".compteur-reservation");
-        if (resultCountElement) {
-            resultCountElement.textContent = `Nombre de réservation trouvée(s) : ${count}`;
-        }
-    }
+    // Ajout d'écouteurs d'événements pour chaque filtre
+    Object.values(filters).forEach(filter => {
+        filter.addEventListener("input", filterTable);
+    });
 
-    function ajouterLigneresultatNul() {
-        const tbody = document.querySelector("table.table-striped tbody");
-        if (!document.querySelector(".no-results-row")) {
-            const row = document.createElement("tr");
-            row.classList.add("no-results-row");
-            row.innerHTML = `<td colspan="8" class="text-center text-danger fst-italic">Aucune réservation trouvée</td>`;
-            tbody.appendChild(row);
-        }
-    }
-
-    function supprimerLigneResultatNul() {
-        const noResultsRow = document.querySelector(".no-results-row");
-        if (noResultsRow) {
-            noResultsRow.remove();
-        }
-    }
-
-    Object.values(filters)
-        .filter(filter => filter instanceof HTMLElement) // Vérifie que c'est un élément HTML
-        .forEach(filter => {
-            const eventType = filter.tagName === "SELECT" ? "change" : "input";
-            filter.addEventListener(eventType, filterTable);
-        });
-
+    // Bouton de réinitialisation
     const resetButton = document.querySelector('.btn-reset');
     if (resetButton) {
         resetButton.addEventListener('click', function () {
+            // Réinitialisation des champs de filtre
             Object.values(filters).forEach(filter => {
                 if (filter?.tagName === "SELECT") {
                     filter.selectedIndex = 0;
@@ -170,7 +129,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     filter.value = "";
                 }
             });
-            filterTable();
+            filterTable(); // Met à jour l'affichage du tableau
         });
     }
+
+    // Initialisation du compteur et du tableau
+    filterTable();
 });

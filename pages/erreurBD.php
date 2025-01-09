@@ -1,8 +1,5 @@
 <?php
-    require("../fonction/connexion.php");
-
     session_start();
-    verif_session();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,12 +24,13 @@
 
             <div class="full-screen">
                 <div class="row text-center padding-header">
-                    <h1>Erreur de la base de données</h1>
+                    <h1>Erreur de connexion à la base de données</h1>
                 </div>
 
-                <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5 " >
-                    <div class="acc-container p-4 w-50 ">
-                        <h3> Une erreur est survenu lors du chargement de la base de données</h3>
+                <div class="row d-flex justify-content-center align-items-start w-100 acc-row mb-5">
+                    <div class="acc-container p-4 w-50">
+                        <h3>Une erreur s'est produite lors du chargement des données. Veuillez vérifier votre
+                            connexion réseau ou contactez l'administrateur système si le problème persiste.</h3>
                     </div>
                 </div>
             </div>
