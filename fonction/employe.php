@@ -174,24 +174,42 @@
 
     function modifierEmploye($id, $nom, $prenom, $login, $telephone, $mdp, $id_type) {
         global $pdo;
-        $requete = "UPDATE login 
-                    SET login = :login, mdp = :mdp, id_type = :id_type
-                    WHERE id_employe = :id_employe";
-        $stmt = $pdo->prepare($requete);
-        $stmt->bindParam(':login', $login);
-        $stmt->bindParam(':mdp', $mdp);
-        $stmt->bindParam(':id_type', $id_type);
-        $stmt->bindParam(':id_employe', $id);
-        $stmt->execute();
-        $requete = "UPDATE employe
-                    SET nom = :nom, prenom = :prenom, telephone = :telephone
-                    WHERE id_employe = :id_employe";
-        $stmt = $pdo->prepare($requete);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':prenom', $prenom);
-        $stmt->bindParam(':telephone', $telephone);
-        $stmt->bindParam(':id_employe', $id);
-        $stmt->execute();
+        try {
+            // Début de la transaction
+            $pdo->beginTransaction();
+
+            // Première requête : mise à jour des informations de connexion
+            $requete = "UPDATE login 
+                SET login = :login, mdp = :mdp, id_type = :id_type
+                WHERE id_employe = :id_employe";
+            $stmt = $pdo->prepare($requete);
+            $stmt->bindParam(':login', $login);
+            $stmt->bindParam(':mdp', $mdp);
+            $stmt->bindParam(':id_type', $id_type);
+            $stmt->bindParam(':id_employe', $id);
+            $stmt->execute();
+
+            // Deuxième requête : mise à jour des informations personnelles
+            $requete = "UPDATE employe
+                SET nom = :nom, prenom = :prenom, telephone = :telephone
+                WHERE id_employe = :id_employe";
+            $stmt = $pdo->prepare($requete);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':telephone', $telephone);
+            $stmt->bindParam(':id_employe', $id);
+            $stmt->execute();
+
+            // Validation de la transaction
+            $pdo->commit();
+
+            echo "Mise à jour réussie.";
+        } catch (Exception $e) {
+            // Annulation de la transaction en cas d'erreur
+            $pdo->rollBack();
+            echo "Une erreur est survenue : " . $e->getMessage();
+        }
+
     }
 
     function verifIdType($id_type) {
