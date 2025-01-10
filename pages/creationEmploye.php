@@ -90,7 +90,7 @@
             <!-- Header de la page -->
             <?php include '../include/header.php'; ?>
 
-            <div class="full-screen">
+            <div class="full-screen mb-4">
                 <!-- Titre de la page -->
                 <div class="padding-header row">
                     <div class="text-center">
@@ -214,7 +214,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <?php include '../include/footer.php'; ?>
