@@ -67,7 +67,7 @@
                             $ligne['sujet'] = $details['sujet'];
                             $ligne['nom_formateur'] = $details['nom_formateur'];
                             $ligne['prenom_formateur'] = $details['prenom_formateur'];
-                            $ligne['num_tel_formateur'] = $details['num_tel_formateur'];
+                            $ligne['num_tel_formateur'] = "'" . $details['num_tel_formateur'];
                             break;
                         case 'Entretien de la salle':
                             $ligne['nature'] = $details['nature'];
@@ -79,7 +79,7 @@
                             $ligne['nom_organisme'] = $details['nom_organisme'];
                             $ligne['nom_interlocuteur'] = $details['nom_interlocuteur'];
                             $ligne['prenom_interlocuteur'] = $details['prenom_interlocuteur'];
-                            $ligne['num_tel_interlocuteur'] = $details['num_tel_interlocuteur'];
+                            $ligne['num_tel_interlocuteur'] = "'" . $details['num_tel_interlocuteur'];
                             $ligne['type_activite'] = $details['type_activite'];
                             break;
                     }
@@ -89,8 +89,8 @@
             case 'salle':
                 // Convertit les booléens pour videoproj, ecranXXL, imprimante
                 foreach ($donnees as &$ligne) {
-                    $ligne['videoproj'] = ($ligne['videoproj'] == 1) ? 'oui' : 'non';
-                    $ligne['ecran_xxl'] = ($ligne['ecran_xxl'] == 1) ? 'oui' : 'non';
+                    $ligne['videoproj'] =  ($ligne['videoproj'] == 1) ? 'oui' : 'non';
+                    $ligne['ecran_xxl'] =  ($ligne['ecran_xxl'] == 1) ? 'oui' : 'non';
                     $ligne['imprimante'] = ($ligne['imprimante'] == 1) ? 'oui' : 'non';
 
                     // Formate l'ID des salles à 8 chiffres
