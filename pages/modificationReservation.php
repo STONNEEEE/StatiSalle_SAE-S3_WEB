@@ -94,7 +94,7 @@
     // Si aucun champ n'a d'erreur, on tente l'insertion
     if (empty($erreurs) && $mettreAJour == 1) {
         try {
-            modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $valeurChamp1, $valeurChamp2, $valeurChamp3, $valeurChamp4, $precisActivite, $idLogin, $nomActivitePrecedent);
+            modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $valeurChamp1, $valeurChamp2, $valeurChamp3, $valeurChamp4, $precisActivite, $nomActivitePrecedent);
             $messageSucces = "Modification effectuée avec succès!";
         } catch (PDOException $e) {
             $erreurs[] = "Impossible de modifier la réservation dans la base de données : " . $e->getMessage();

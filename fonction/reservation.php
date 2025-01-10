@@ -12,7 +12,7 @@
         global $pdo;
         $requete = "SELECT reservation.id_reservation as id_reservation, salle.nom as nom_salle, employe.nom as nom_employe,
                     employe.prenom as prenom_employe, activite.nom_activite as nom_activite, reservation.date_reservation 
-                    as date, reservation.heure_debut as heure_debut, reservation.heure_fin as heure_fin
+                    as date, reservation.heure_debut as heure_debut, reservation.heure_fin as heure_fin, reservation.id_employe as id_employe
                     FROM reservation
                     JOIN salle
                     ON reservation.id_salle = salle.id_salle
@@ -67,10 +67,10 @@
 
     function affichageTypeReservation($idReservation){
         global $pdo;
-        $requete = "SELECT reservation_entretien.*, 
-                           reservation_formation.*, 
-                           reservation_pret_louer.*, 
-                           reservation_autre.*, 
+        $requete = "SELECT reservation_entretien.nature, 
+                           reservation_formation.sujet, reservation_formation.nom_formateur, reservation_formation.prenom_formateur, reservation_formation.num_tel_formateur, 
+                           reservation_pret_louer.nom_organisme, reservation_pret_louer.nom_interlocuteur, reservation_pret_louer.prenom_interlocuteur, reservation_pret_louer.num_tel_interlocuteur, reservation_pret_louer.type_activite, 
+                           reservation_autre.description, 
                            reservation_reunion.objet
                     FROM reservation
                     LEFT JOIN reservation_entretien
@@ -448,11 +448,10 @@
      * @param $prenom
      * @param $numTel
      * @param $precisActivite
-     * @param $idLogin
      * @param $nomActivitePrecedent
      * @return string
      */
-    function modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin, $nomActivitePrecedent) {
+    function modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $nomActivitePrecedent) {
         global $pdo;
 
         try {
@@ -470,17 +469,6 @@
                 throw new Exception("Salle introuvable");
             }
 
-            // Récupère l'identifiant de l'employé
-            $sqlEmploye = "SELECT id_employe FROM login WHERE id_login = :idLogin";
-            $stmtEmploye = $pdo->prepare($sqlEmploye);
-            $stmtEmploye->bindParam(':idLogin', $idLogin);
-            $stmtEmploye->execute();
-            $idEmploye = $stmtEmploye->fetchColumn();
-
-            if (!$idEmploye) {
-                throw new Exception("Employé introuvable");
-            }
-
             // Récupère l'identifiant de l'activité
             $sqlActivite = "SELECT id_activite FROM activite WHERE nom_activite = :nomActivite";
             $stmtActivite = $pdo->prepare($sqlActivite);
@@ -494,13 +482,12 @@
 
             // Mise à jour dans la table reservation
             $sqlReservation = "UPDATE reservation
-                                   SET id_salle = :idSalle, id_employe = :idEmploye, id_activite = :idActivite,
+                                   SET id_salle = :idSalle, id_activite = :idActivite,
                                        date_reservation = :dateReservation, heure_debut = :heureDebut, heure_fin = :heureFin
                                    WHERE id_reservation = :idReservation";
             $stmtReservation = $pdo->prepare($sqlReservation);
             $stmtReservation->bindParam(':idReservation', $idResa);
             $stmtReservation->bindParam(':idSalle', $idSalle);
-            $stmtReservation->bindParam(':idEmploye', $idEmploye);
             $stmtReservation->bindParam(':idActivite', $idActivite);
             $stmtReservation->bindParam(':dateReservation', $date);
             $stmtReservation->bindParam(':heureDebut', $heureDebut);
