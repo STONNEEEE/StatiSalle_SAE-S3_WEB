@@ -24,7 +24,7 @@
 
                     // Formate l'heure en HHhmm (sans les secondes)
                     $ligne['heure_debut'] = str_replace(':', 'h', date("H:i", strtotime($ligne['heure_debut'])));
-                    $ligne['heure_fin'] = str_replace(':', 'h', date("H:i", strtotime($ligne['heure_fin'])));
+                    $ligne['heure_fin']   = str_replace(':', 'h', date("H:i", strtotime($ligne['heure_fin'])));
 
                     // Récupére les détails de l'activité associée
                     $id_activite = $ligne['id_activite'];
@@ -110,34 +110,41 @@
         return $donnees;
     }
 
-    function genererCSV($nomFichier, $colonnes, $donnees): void {
-        header('Content-Type: text/csv; charset=utf-8');
+    // Fonction pour générer un fichier CSV à partir de données
+    function genererCSV($nomFichier, $colonnes, $donnees) : void {
+        header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $nomFichier . '"');
-
         $fichier = fopen('php://output', 'w');
         if ($fichier) {
-            fputcsv($fichier, $colonnes, ';');
-
-        function genererCSVString($colonnes, $donnees) {
-            ob_start();
-            $fichier = fopen('php://output', 'w');
-            fputcsv($fichier, $colonnes, ';');
+            // Ajouter les colonnes au fichier manuellement
+            fwrite($fichier, implode(';', $colonnes) . "\n");
+            // Ajouter les données
             foreach ($donnees as $ligne) {
-                fputcsv($fichier, $ligne, ';');
+                // Formater la ligne manuellement
+                fwrite($fichier, implode(';', $ligne) . "\n");
             }
             fclose($fichier);
-            return ob_get_clean();
-        }
-            foreach ($donnees as $ligne) {
-                $ligne = array_map(fn($val) => $val ?? '', $ligne); // Remplace les valeurs nulles par des chaînes vides
-                fputcsv($fichier, $ligne, ';');
-            }
-
-            fclose($fichier);
-        } else {
-            error_log("Erreur lors de la création du fichier CSV.");
         }
         exit();
+    }
+
+    function genererCSVString($colonnes, $donnees) {
+        // Utilisation d'un tampon de sortie pour capturer le contenu CSV
+        ob_start();
+        $fichier = fopen('php://output', 'w');
+
+        // Écrire les en-têtes
+        fwrite($fichier, implode(';', $colonnes) . "\n");
+
+        // Écrire les lignes de données
+        foreach ($donnees as $ligne) {
+            fwrite($fichier, implode(';', $ligne) . "\n");
+        }
+
+        fclose($fichier);
+
+        // Retourner le contenu CSV sous forme de chaîne
+        return ob_get_clean();
     }
 
     function genererZip($nomZip, $fichiers) {
