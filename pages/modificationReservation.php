@@ -341,7 +341,7 @@
                 </form>
                 <div class="row mb-3">
                     <div class="col-12 col-sm-7 offset-sm-3 col-md-1 offset-md-2">
-                        <button class="btn-suppr rounded w-100" type="button" onclick="window.location.href='affichageSalle.php'">
+                        <button class="btn-suppr rounded w-100" type="button" onclick="window.location.href='affichageReservation.php'">
                             Retour
                         </button>
                     </div>
