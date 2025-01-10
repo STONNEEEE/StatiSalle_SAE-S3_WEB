@@ -5,7 +5,7 @@
 
     // Associer les pages d'aide aux noms de pages
     $aides = [
-        'index'                   => '   pagesAides/aideIndex.php',
+        'index'                   => '../pagesAides/aideIndex.php',
         'accueil'                 => '../pagesAides/aideAccueil.php',
         'contact'                 => '../pagesAides/aideContact.php',
         'exportation'             => '../pagesAides/aideExportation.php',
@@ -23,7 +23,25 @@
         'modificationEmploye'     => '../pagesAides/aideModificationEmploye.php',
         'modificationSalle'       => '../pagesAides/aideModificationSalle.php',
         'modificationReservation' => '../pagesAides/aideModificationReservation.php',
+
+        // Pages d'aide vers elles-mêmes
+        'aideAccueil'                 => '../pagesAides/aideAccueil.php',
+        'aideAffichageEmploye'        => '../pagesAides/aideAffichageEmploye.php',
+        'aideAffichageReservation'    => '../pagesAides/aideAffichageReservation.php',
+        'aideAffichageSalle'          => '../pagesAides/aideAffichageSalle.php',
+        'aideContact'                 => '../pagesAides/aideContact.php',
+        'aideCreationEmploye'         => '../pagesAides/aideCreationEmploye.php',
+        'aideCreationReservation'     => '../pagesAides/aideCreationReservation.php',
+        'aideCreationSalle'           => '../pagesAides/aideCreationSalle.php',
+        'aideErreurBD'                => '../pagesAides/aideErreurBD.php',
+        'aideExportation'             => '../pagesAides/aideExportation.php',
+        'aideIndex'                   => '../pagesAides/aideIndex.php',
+        'aideMesReservation'          => '../pagesAides/aideMesReservation.php',
+        'aideModificationEmploye'     => '../pagesAides/aideModificationEmploye.php',
+        'aideModificationReservation' => '../pagesAides/aideModificationReservation.php',
+        'aideModificationSalle'       => '../pagesAides/aideModificationSalle.php',
     ];
+
 
     $page_aide = isset($aides[$_SESSION['nom_page']]) ? $aides[$_SESSION['nom_page']] : 'aideAccueil.php';
     ?>
@@ -33,7 +51,7 @@
     </script>
     <div class="col-12 col-sm-6 col-md-4 d-flex flex-column gap-2 align-items-center align-items-sm-start justify-content-center mb-md-0 mb-3">
         <button class="rounded bouton-footer"
-                 type="button" onclick="window.open(pageAide, '_blank');"
+                 type="button" onclick="window.location.href = pageAide;"
                  aria-label="Ouvrir la page d'aide">
             Besoin d'aide ?
         </button>
