@@ -33,7 +33,7 @@ verif_session();
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
                 <p>
-                    Tout d’abord le formulaire est en deux parties, la première est une partie obligatoire que l’administrateur se doit de remplir s'il veut créer une nouvelle salle. Il contient le nom de la salle, l’activité qui va être exercée durant le créneau de la réservation, la date et le créneau horaire. Sachant que qu'une réservation ne peut pas être effectuée le dimanche. Les champs obligatoires sont caractérisés par une étoile rouge.
+                    Tout d’abord le formulaire est en deux parties, la première est une partie obligatoire que l’administrateur se doit de remplir s'il veut créer une nouvelle salle. Il contient le nom de la salle, l’activité qui va être exercée durant le créneau de la réservation, la date et le créneau horaire. Les champs obligatoires sont caractérisés par une étoile rouge. Sachant qu'une réservation ne peut pas être effectuée le dimanche.
                 </p>
                 <div class="row"> <!-- Salle -->
                     <div class="form-group col-md-12">
@@ -85,7 +85,7 @@ verif_session();
                     </div>
                 </div>
                 <p>
-                    Il y a une particularité, c'est que quand une activité est ajoutée il y a des précisions qui peuvent être apportées sur la réservation par exemple si c’est une formation, nous pouvons mettre le sujet de la formation le nom et prénom du formateur, mais aussi son numéro de téléphone.
+                    Il y a une particularité, c'est que quand une activité est ajoutée il y a des précisions qui peuvent être apportées sur la réservation par exemple, si c’est une formation, nous pouvons mettre le sujet de la formation le nom et prénom du formateur, mais aussi son numéro de téléphone.
                 </p>
                 <div class="form-group col-md-4"> <!-- Informations supplémentaires -->
                     <br>

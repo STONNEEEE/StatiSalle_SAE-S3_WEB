@@ -34,7 +34,7 @@ verif_session();
             <div class="acc-container p-4 w-50">
                 <table class="table table-striped">
                     <p>
-                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations que vous avez effectuées. En plus de l’affichage il y a les boutons de modification et de suppression. Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le<span class="fa-solid fa-circle-info info-icon"></span>
+                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations que vous avez effectuées. En plus de l’affichage il y a les boutons de modification et de suppression. Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le<span class="fa-solid fa-circle-info info-icon"></span>.
                     </p>
                     <tr>
                         <th>ID</th>

@@ -33,8 +33,8 @@ verif_session();
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
                 <p>
-                    Tout d’abord pour l’affichage des employés, nous avons le nom, prénom, identifiant et numéro de téléphone de l’employé. Mais nous avons aussi un bouton pour la modification de l’employé qui redirige une nouvelle page contenant un formulaire pour la modification. Pour plus d’informations, vous pouvez aller voir la page d’aide de la modification.
-                    Il y a également un bouton pour supprimer l’utilisateur. Nous avons aussi mis un petit bouclier pour montrer que l’utilisateur est un administrateur.
+                    Tout d’abord pour l’affichage des employés, nous avons le nom, prénom, identifiant et numéro de téléphone de l’employé. Mais nous avons aussi un bouton pour la modification de l’employé qui redirige sur une nouvelle page contenant un formulaire pour la modification. Pour plus d’informations, vous pouvez aller voir la page d’aide de la modification.
+                    Il y a également un bouton pour supprimer l’utilisateur. Cependant, si l'employé que vous avez essayé de supprimer a effectué une réservation alors la suppression et impossible, il faudra supprimer la réservation en premier. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas un employé par inadvertence. Nous avons aussi mis un petit bouclier pour montrer que l’utilisateur est un administrateur.
                 </p>
                 <table class="table table-striped">
                     <tr>
@@ -60,7 +60,7 @@ verif_session();
                     </tr>
                 </table>
                 <p>
-                    Ensuite, il y a des filtres qui permettent de faciliter la recherche d’un employé avec le nom, le prénom le compte employé qui signifie l’identifiant et le numéro de téléphone.
+                    Ensuite, il y a des filtres qui permettent de faciliter la recherche d’un employé avec le nom, le prénom le compte employé qui signifie l’identifiant et le numéro de téléphone. Si aucun employé ne correspond au filtre que vous appliquez alors un message s'affiche disant : "Aucun compte trouvé".
                 </p>
                 <!-- Champs de filtres -->
                 <div class="row g-1 justify-content-start">
@@ -82,7 +82,7 @@ verif_session();
                     </div>
                 </div>
                 <p>
-                    Pour supprimer le contenu de tous les filtres il vous suffit de cliquer sur le bouton réinitialiser filtre.
+                    Pour supprimer le contenu de tous les filtres, il vous suffit de cliquer sur le bouton réinitialiser filtre.
                 </p>
                 <!-- Bouton de soumission -->
                 <div class="col-4">

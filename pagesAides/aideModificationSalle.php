@@ -29,7 +29,7 @@ require("../fonction/connexion.php");
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
                 <p>
-                    Pour effectuer une modification, il suffit de renseigner uniquement le champ que vous souhaitez modifier parmi les informations disponibles sur l'utilisateur. Par exemple, dans le cas d'une salle, vous pouvez changer son nom, sa capacité, indiquer si elle contient un vidéoprojecteur ou un ordinateur XXL, préciser le nombre d'ordinateurs présents, le type de matériel disponible, les logiciels installés sur les ordinateurs, ou encore si la salle est équipée d'une imprimante.
+                    Pour effectuer une modification, il suffit de renseigner uniquement le champ que vous souhaitez modifier parmi les informations disponibles sur l'utilisateur. Par exemple, dans le cas d'une salle, vous pouvez changer son nom, sa capacité, indiquer si elle contient un vidéoprojecteur ou un ordinateur XXL, préciser le nombre d'ordinateurs présents, le type de matériel disponible, les logiciels installés sur les ordinateurs, ou encore si la salle est équipée d'une imprimante. Si on essaye de modifier le nom d'une salle pour mettre le nom d'une salle déjà existante.
                 </p>
             </div>
         </div>

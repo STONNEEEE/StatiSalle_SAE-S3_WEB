@@ -8,7 +8,7 @@ verif_session();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>StatiSalle - Aides Generale</title>
+    <title>StatiSalle - Aides Generales</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- FontAwesome -->
@@ -36,17 +36,17 @@ verif_session();
                     <!-- Lien vers la page pour faire une réservation -->
                     La page d'accueil permet de montrer les différents types de fonctionnalités présentes dans l’application.
                     <br>En commençant avec la possibilité d’effectuer une réservation
-                    <br><a href="#" target="blank" class="text-decoration-none">🕒 Nouvelle réservation (ajout rapide).</a>
+                    <br><a href="#" class="text-decoration-none">🕒 Nouvelle réservation (ajout rapide).</a>
 
                 </p>
                 <p>
                     <!-- Lien vers la page pour afficher les réservations -->
-                    <a href="#" target="blank" class="text-decoration-none">
+                    <a href="#" class="text-decoration-none">
                         <?php
                         // si l'utilisateur est un admin alors, il peut accéder à la liste des employés
                         if ($_SESSION['typeUtilisateur'] === 1) {
                             echo '📅 Gérer les réservations. </a>';
-                            echo " <br> Ceci correspond à l'affichage de toutes les reservations cela correspond également à l'endroit où l'administrateur peut gérer les salles";
+                            echo " <br> Ceci correspond à l'affichage de toutes les reservations, mais c'est aussi l'endroit où l'administrateur peut gérer les salles.";
                         }
                         ?>
                     </a>
@@ -54,12 +54,12 @@ verif_session();
                 </p>
                 <p>
                     <!-- Lien vers la page pour afficher les réservations relié au compte -->
-                    <a href="#" target="blank" class="text-decoration-none">✏️ Gérer mes réservations.</a>
+                    <a href="#" class="text-decoration-none">✏️ Gérer mes réservations.</a>
                     <br>Ensuite, nous avons l’affichage des réservations que vous avez effectuées avec votre compte.
                 </p>
                 <p>
                     <!-- Lien vers la page pour afficher ou gérer les salles -->
-                    <a href="#" target="blank" class="text-decoration-none">
+                    <a href="#" class="text-decoration-none">
                         <?php
                         // si l'utilisateur est un admin alors, il peut accéder à la liste des employés
                         if ($_SESSION['typeUtilisateur'] === 1) {
@@ -73,15 +73,15 @@ verif_session();
                 </p>
                 <p>
                     <!-- Lien vers la page pour exporter les données -->
-                    <a href="#" target="blank" class="text-decoration-none">📊 Exporter des données.</a>
-                    <br> Pour finir, nous avons la fonctionnalité d’exportation des données en fichier en format CSV.
+                    <a href="#" class="text-decoration-none">📊 Exporter des données.</a>
+                    <br> Nous avons la fonctionnalité d’exportation des données en fichier au format CSV.
                 </p>
                 <p>
                     <?php
                     //si l'utilisateur est un admin alors, il peut accéder à la liste des employés
                     if($_SESSION['typeUtilisateur'] === 1){
-                        echo '<a href="#" target="blank" class="text-decoration-none">👥 Gérer les utilisateurs.</a>';
-                        echo "<br> Pour finir, nous avons l'affichage de tous les utilisateurs mais aussi la possibilité pour un administrateur de modifier ou supprimer un utilisateur.";
+                        echo '<a href="#" class="text-decoration-none">👥 Gérer les utilisateurs.</a>';
+                        echo "<br> Pour finir, nous avons l'affichage de tous les utilisateurs, mais aussi la possibilité pour un administrateur de modifier ou supprimer un utilisateur.";
                     }
                     ?>
                 </p>
