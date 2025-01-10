@@ -19,7 +19,8 @@
                     JOIN employe
                     ON reservation.id_employe = employe.id_employe
                     JOIN activite
-                    ON reservation.id_activite = activite.id_activite";
+                    ON reservation.id_activite = activite.id_activite
+                    ORDER BY date DESC";
         $requete = $pdo->prepare($requete);
         $requete->execute();
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -344,8 +345,7 @@
      * @param $id_Resa
      * @return mixed|null
      */
-    function recupAttributReservation($id_Resa)
-    {
+    function recupAttributReservation($id_Resa) {
         global $pdo;
 
         try {
@@ -452,8 +452,7 @@
      * @param $nomActivitePrecedent
      * @return string
      */
-    function modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin, $nomActivitePrecedent)
-    {
+    function modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin, $nomActivitePrecedent) {
         global $pdo;
 
         try {
@@ -478,7 +477,6 @@
             $stmtEmploye->execute();
             $idEmploye = $stmtEmploye->fetchColumn();
 
-            // Si l'id de l'employé n'est pas connu, alors propagation d'une exception
             if (!$idEmploye) {
                 throw new Exception("Employé introuvable");
             }

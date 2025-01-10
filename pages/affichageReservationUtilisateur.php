@@ -6,7 +6,7 @@
     session_start();
     verif_session();
 
-    $message = '';
+    $messageSucces = $messageErreur ='';
     $tabSalle = listeSalles();
     $tabActivite = listeActivites();
     $tabDate = listeDate();
@@ -19,9 +19,9 @@
         // Appeler la fonction de suppression
         try {
             supprimerResa($id_reservation);
-            $_SESSION['message'] = 'Reservation supprimée avec succès !';
+            $messageSucces = 'Votre réservation est supprimée avec succès !';
         } catch (Exception $e) {
-            $_SESSION['message'] = "La réservation n'a pas pu être effectuée, 
+            $messageErreur = "Votre réservation n'a pas pu être supprimée, 
                                         un problème est survenu.";
         }
     }
@@ -55,12 +55,25 @@
                     <br><br><br>
                 </div>
 
-                <?php if (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-info text-center" role="alert">
-                        <?php
-                        echo $_SESSION['message'];
-                        unset($_SESSION['message']); // Effacer le message après l'affichage
-                        ?>
+                <!-- Affichage du message d'erreur -->
+                <?php if ($messageErreur): ?>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-danger">
+                                <?= $messageErreur ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Affichage du message de succès -->
+                <?php if ($messageSucces): ?>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-success">
+                                <?= $messageSucces ?>
+                            </div>
+                        </div>
                     </div>
                 <?php endif; ?>
 

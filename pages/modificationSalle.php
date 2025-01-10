@@ -10,6 +10,11 @@
     $mettreAJour = isset($_POST['mettreAJour']) ?? htmlspecialchars($_POST['mettreAJour']);;
     $tabAttribut = recupAttributSalle($idSalle);
 
+    // Tableau pour stocker les erreurs
+    $erreurs = [];
+    $messageSucces = "";
+    $messageErreur = "";
+
     // Tableau de correspondance entre les noms des champs de formulaire et les colonnes de la base de données
     $mapChamps = [
         'nomSalle' => 'nom',
@@ -30,11 +35,6 @@
                 ? htmlspecialchars($tabAttribut[$champBD], ENT_QUOTES)
                 : '');
     }
-
-    // Tableau pour stocker les erreurs
-    $erreurs = [];
-    $messageSucces = "";
-    $messageErreur = "";
 
     // Vérification des champs obligatoires
     if (!isset($nomSalle) || $nomSalle === '') {

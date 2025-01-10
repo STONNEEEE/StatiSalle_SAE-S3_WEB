@@ -50,7 +50,7 @@
         try {
             // Appel à la fonction pour insérer la réservation
             insertionReservation($nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $objet, $nom, $prenom, $numTel, $precisActivite, $idLogin);
-            $messageSucces = "Réservation effectuée avec succès!";
+            $messageSucces = "Votre réservation a été effectuée avec succès!";
         } catch (PDOException $e) {
             $messageErreur = "Une erreur est survenue lors de la réservation.";
         }
@@ -82,7 +82,6 @@
             'heureFin' => $heureFin
         ];
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">

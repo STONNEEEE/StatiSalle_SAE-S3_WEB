@@ -103,7 +103,7 @@ if ($identifiant != "" && $mdp != "") {
                             <div class="d-flex flex-column flex-sm-row justify-content-between">
                                 <label for="identifiant" class="form-label mb-1 mb-sm-0">Identifiant</label>
                                 <small class="form-text text-sm-start text-md-end">
-                                    <a href="#" class="text-danger text-decoration-none" title="Identifiant oublié">
+                                    <a class="text-danger text-decoration-none" title="Fonctionnalité indisponible">
                                         Identifiant oublié ?
                                     </a>
                                 </small>
@@ -117,7 +117,7 @@ if ($identifiant != "" && $mdp != "") {
                             <div class="d-flex flex-column flex-sm-row justify-content-between">
                                 <label for="mdp" class="form-label mb-1 mb-sm-0">Mot de passe</label>
                                 <small class="form-text text-sm-start text-md-end">
-                                    <a href="#" class="text-danger text-decoration-none" title="Mot de passe oublié">
+                                    <a class="text-danger text-decoration-none" title="Fonctionnalité indisponible">
                                         Mot de passe oublié ?
                                     </a>
                                 </small>

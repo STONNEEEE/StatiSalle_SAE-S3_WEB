@@ -46,9 +46,7 @@
             creationSalle($nomSalle, $capacite, $videoProjecteur, $ordinateurXXL, $nbrOrdi, $typeMateriel, $logiciel, $imprimante);
             $messageSucces = "Salle ajoutée avec succès !";
         } catch (PDOException $e) {
-            //Il y a eu une erreur
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
-            $messageErreur = "Une erreur est survenue lors de l'accès à la base de données. Veuillez réessayer plus tard ou contacter l'administrateur si le problème persiste.";
+            $messageErreur = "Une erreur est survenue lors de la création de la salle.";
         }
     }
 ?>

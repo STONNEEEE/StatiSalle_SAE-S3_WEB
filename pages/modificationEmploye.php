@@ -7,9 +7,8 @@
     verif_session();
 
     // Initialisation des variables et messages d'erreur
-    $nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
+    $nom = $prenom = $numTel = $login = $mdp = $cmdp = $messageSucces = "";
     $erreurs = [];
-    $messageSucces = "";
 
     //vérifie si la modification est souhaitée
     $modifie = $_POST['modifie'] ?? false;
@@ -26,12 +25,12 @@
         $admin = $_POST['admin'] ?? false; // Par défaut, pas d'admin
         $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé)
 
-        $nom    = htmlspecialchars($_POST['nom'])?? '';
+        $nom    = htmlspecialchars($_POST['nom'])    ?? '';
         $prenom = htmlspecialchars($_POST['prenom']) ?? '';
         $numTel = htmlspecialchars($_POST['numTel']) ?? '';
-        $login  = htmlspecialchars($_POST['login']) ?? '';
-        $mdp    = htmlspecialchars($_POST['mdp']) ?? '';
-        $cmdp   = htmlspecialchars($_POST['cmdp']) ?? '';
+        $login  = htmlspecialchars($_POST['login'])  ?? '';
+        $mdp    = htmlspecialchars($_POST['mdp'])    ?? '';
+        $cmdp   = htmlspecialchars($_POST['cmdp'])   ?? '';
 
         // Vérification des champs requis
         if (!isset($nom) || $nom === '')    $erreurs['nom'] = "Le nom est requis.";

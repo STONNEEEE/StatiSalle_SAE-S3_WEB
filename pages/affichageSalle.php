@@ -6,8 +6,7 @@
     session_start();
     verif_session();
 
-    $message = '';
-
+    $messageSucces = $messageErreur ='';
     $supprimer = isset($_POST['supprimer']) ? $_POST['supprimer'] : 'false';
     $id_salle = $_POST['idSalle'] ?? null;
 
@@ -17,17 +16,17 @@
 
             if (count($reservations) > 0) {
                 // Si des réservations existent, afficher un message d'erreur
-                $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                $messageErreur = '<span class="fa-solid fa-arrow-right erreur"></span>
                                             <span class="erreur">Impossible de supprimer cette salle. 
                                             Des réservations y sont associées.</span>
                                             <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
             } else {
                 // Si pas de réservations, supprimer la salle
                 supprimerSalle($id_salle);
-                $_SESSION['message'] = 'Salle supprimée avec succès !';
+                $messageSucces = 'Salle supprimée avec succès !';
             }
         } catch (Exception $e) {
-            $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+            $messageSucces = '<span class="fa-solid fa-arrow-right erreur"></span>
                                         <span class="erreur">Une erreur est survenue : ' . htmlspecialchars($e->getMessage()) . '</span>';
         }
     }
@@ -67,13 +66,25 @@
                     <br><br><br>
                 </div>
 
-                <!-- Message de confirmation ou d'erreur -->
-                <?php if (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-info text-center" role="alert">
-                        <?php
-                        echo $_SESSION['message'];
-                        unset($_SESSION['message']); // Effacer le message après l'affichage
-                        ?>
+                <!-- Affichage du message d'erreur -->
+                <?php if ($messageErreur): ?>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-danger">
+                                <?= $messageErreur ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Affichage du message de succès -->
+                <?php if ($messageSucces): ?>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-success">
+                                <?= $messageSucces ?>
+                            </div>
+                        </div>
                     </div>
                 <?php endif; ?>
 
@@ -172,7 +183,7 @@
                 <!-- Tableau des données -->
                 <div class="row mt-3">
 
-                    <!-- Comtpeur -->
+                    <!-- Compteur et chargement des données -->
                     <?php
                     try {
                         $listeSalle = listeDesSalles();
@@ -206,54 +217,43 @@
                             </thead>
                             <tbody>
                             <?php
-                            // Chargement des données
-                            try {
-                                $listeSalles = listeDesSalles();
-                            } catch (Exception $e) {
-                                echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger la liste des salles en raison d’un problème technique...</td></tr>';
-                            }
-                            // Vérifier si le tableau est vide
-                            if (empty($listeSalles)) {
-                                echo '<tr><td colspan="5" class="text-center fw-bold">Aucune salle n’est enregistré ici !</td></tr>';
-                            } else {
-                                // Affichage des salles
-                                foreach ($listeSalles as $salle) {
-                                    echo "<tr>";
-                                    echo "<td>".$salle['id_salle']."</td>";
-                                    echo "<td>".$salle['nom']."</td>";
-                                    echo "<td>".$salle['capacite']."</td>";
-                                    // Videoproj : Condition pour afficher Oui/Non
-                                    echo "<td>".($salle['videoproj'] == 1 ? "Oui" : "Non")."</td>";
-                                    // Ecran XXL : Condition pour afficher Oui/Non
-                                    echo "<td>".($salle['ecran_xxl'] == 1 ? "Oui" : "Non")."</td>";
-                                    echo "<td>".$salle['ordinateur']."</td>";
-                                    echo "<td>".$salle['type']."</td>";
-                                    echo "<td>".$salle['logiciels']."</td>";
-                                    // Imprimante : Condition pour afficher Oui/Non
-                                    echo "<td>".($salle['imprimante'] == 1 ? "Oui" : "Non")."</td>";
-                                    if($_SESSION['typeUtilisateur'] === 1){
-                                        // Mise en forme (boutons alignés verticalement
-                                        echo '<td class="btn-colonne">';
-                                        echo '<div class="d-flex justify-content-center gap-1">';
-                                        ?>
-                                        <!-- Paramètre envoyé pour supprimer la salle -->
-                                        <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?')">
-                                            <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
-                                            <input name="supprimer" type="hidden" value="true">
-                                            <button type="submit" class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
-                                        </form>
+                            // Affichage des salles
+                                foreach ($listeSalle as $salle) {
+                                echo "<tr>";
+                                echo "<td>".$salle['id_salle']."</td>";
+                                echo "<td>".$salle['nom']."</td>";
+                                echo "<td>".$salle['capacite']."</td>";
+                                // Videoproj : Condition pour afficher Oui/Non
+                                echo "<td>".($salle['videoproj'] == 1 ? "Oui" : "Non")."</td>";
+                                // Ecran XXL : Condition pour afficher Oui/Non
+                                echo "<td>".($salle['ecran_xxl'] == 1 ? "Oui" : "Non")."</td>";
+                                echo "<td>".$salle['ordinateur']."</td>";
+                                echo "<td>".$salle['type']."</td>";
+                                echo "<td>".$salle['logiciels']."</td>";
+                                // Imprimante : Condition pour afficher Oui/Non
+                                echo "<td>".($salle['imprimante'] == 1 ? "Oui" : "Non")."</td>";
+                                if($_SESSION['typeUtilisateur'] === 1){
+                                    // Mise en forme (boutons alignés verticalement
+                                    echo '<td class="btn-colonne">';
+                                    echo '<div class="d-flex justify-content-center gap-1">';
+                                    ?>
+                                    <!-- Paramètre envoyé pour supprimer la salle -->
+                                    <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?')">
+                                        <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
+                                        <input name="supprimer" type="hidden" value="true">
+                                        <button type="submit" class="btn-suppr rounded-2"><span class="fa-solid fa-trash"></span></button>
+                                    </form>
 
-                                        <!-- Paramètre envoyé pour modifier la salle -->
-                                        <form  method="post" action="modificationSalle.php">
-                                            <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
-                                            <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
-                                        </form>
-                                        <?php
-                                        echo '</div>';
-                                        echo "</td>";
-                                    }
-                                    echo "</tr>";
+                                    <!-- Paramètre envoyé pour modifier la salle -->
+                                    <form  method="post" action="modificationSalle.php">
+                                        <input name="idSalle" type="hidden" value="<?php echo $salle['id_salle']; ?>">
+                                        <button type="submit" class="btn-modifier rounded-2"><span class="fa-regular fa-pen-to-square"></span></button>
+                                    </form>
+                                    <?php
+                                    echo '</div>';
+                                    echo "</td>";
                                 }
+                                echo "</tr>";
                             }
                             ?>
                             </tbody>

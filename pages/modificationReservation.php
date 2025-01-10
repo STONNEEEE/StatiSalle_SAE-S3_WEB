@@ -8,6 +8,10 @@
 
     $idLogin = $_SESSION['id'];
 
+    // Variables des erreurs
+    $messageSucces = "";
+    $erreurs = [];
+
     // Vérification des variables issues du formulaire
     $idResa =         isset($_POST['idReservation'])  ? htmlspecialchars($_POST['idReservation']) : null;
     $nomSalle =       isset($_POST['nomSalle'])       ? htmlspecialchars($_POST['nomSalle']) : '';
@@ -20,7 +24,7 @@
     $valeurChamp3 =   isset($_POST['prenom'])         ? htmlspecialchars($_POST['prenom']) : '';
     $valeurChamp4 =   isset($_POST['numTel'])         ? htmlspecialchars($_POST['numTel']) : '';
     $precisActivite = isset($_POST['precisActivite']) ? htmlspecialchars($_POST['precisActivite']) : '';
-    $nomActivitePrecedent = '';
+    $nomActivitePrecedent = isset($_POST['nomActivitePrecedente']) ? $_POST['nomActivitePrecedente'] : '';
     $mettreAJour =    isset($_POST['mettreAJour']) ?? htmlspecialchars($_POST['mettreAJour']);
 
     // Contenu pour les listes déroulantes
@@ -63,14 +67,7 @@
                     break;
             }
         }
-    } else {
-        $messageErreur = "Impossible de charger les détails de la réservation.";
     }
-
-    // Variables des erreurs
-    $messageSucces = "";
-    $messageErreur = "";
-    $erreurs = [];
 
     // Validation des champs
     if ($nomSalle == '') {
@@ -95,12 +92,12 @@
     }
 
     // Si aucun champ n'a d'erreur, on tente l'insertion
-    if (empty($erreurs) && $messageErreur == "" && $mettreAJour == 1) {
+    if (empty($erreurs) && $mettreAJour == 1) {
         try {
             modifReservation($idResa, $nomSalle, $nomActivite, $date, $heureDebut, $heureFin, $valeurChamp1, $valeurChamp2, $valeurChamp3, $valeurChamp4, $precisActivite, $idLogin, $nomActivitePrecedent);
             $messageSucces = "Modification effectuée avec succès!";
         } catch (PDOException $e) {
-            $messageErreur = "Une erreur est survenue lors de la réservation.";
+            $erreurs[] = "Impossible de modifier la réservation dans la base de données : " . $e->getMessage();
         }
     }
 
@@ -159,12 +156,16 @@
                 </div>
                 <br>
 
-                <!-- Affichage des erreurs -->
-                <?php if ($messageErreur): ?>
+                <!-- Affichage des erreurs globales seulement après soumission -->
+                <?php if (!empty($erreurs)): ?>
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <div class="alert alert-danger">
-                                <?= $messageErreur ?>
+                                   <ul>
+                                    <?php foreach ($erreurs as $erreur): ?>
+                                        <li><?= $erreur ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -334,13 +335,13 @@
                     <div class="row mb-3">
                         <div class="col-12 col-sm-7 offset-sm-3 col-md-8 offset-md-2">
                             <button type="submit" class="btn-bleu rounded w-100" id="submit">
-                                Mise à jour de la salle
+                                Mise à jour de la réservation
                             </button>
                         </div>
                     </div>
                 </form>
-                <div class="row mb-3">
-                    <div class="col-12 col-sm-7 offset-sm-3 col-md-1 offset-md-2">
+                <div class ="row offset-md-2">
+                    <div class="col-12 col-sm-7 offset-sm-3 col-md-2 offset-md-0">
                         <button class="btn-suppr rounded w-100" type="button" onclick="window.location.href='affichageReservation.php'">
                             Retour
                         </button>

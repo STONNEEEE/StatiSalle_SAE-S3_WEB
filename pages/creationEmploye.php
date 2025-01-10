@@ -7,9 +7,8 @@
     verif_session();
 
     // Initialisation des variables et messages d'erreur
-    $nom = $prenom = $numTel = $login = $mdp = $cmdp = "";
+    $nom = $prenom = $numTel = $login = $mdp = $cmdp = $messageSucces = "";
     $erreurs = [];
-    $messageSucces = "";
 
     // Vérification si le formulaire a été soumis
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

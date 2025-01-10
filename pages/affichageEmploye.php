@@ -6,7 +6,7 @@
     session_start();
     verif_session();
 
-    $message = '';
+    $messageSucces = $messageErreur ='';
 
     if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         $id_employe = $_POST['id_employe'];
@@ -14,15 +14,15 @@
         // Appeler la fonction de suppression
         try {
             supprimerEmploye($id_employe);
-            $_SESSION['message'] = 'Employé supprimé avec succès !';
+            $messageSucces = 'Employé supprimé avec succès !';
         } catch (Exception $e) {
             if ($e->getCode() == '23000') { // Code SQLSTATE pour contrainte de clé étrangère
-                $_SESSION['message'] = '<span class="fa-solid fa-arrow-right erreur"></span>
+                $messageErreur = '<span class="fa-solid fa-arrow-right erreur"></span>
                                         <span class="erreur">Impossible de supprimer cet employé : 
                                         veuillez supprimer la réservation qui lui est attribuée.</span>
                                         <a href="affichageReservation.php" title="Page réservation">Cliquez ici</a>';
             } else {
-                $_SESSION['message'] = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
+                $messageErreur = 'Erreur lors de la suppression de l\'employé : ' . $e->getMessage();
             }
         }
     }
@@ -59,13 +59,25 @@
                     <br><br><br>
                 </div>
 
-                <!-- Message de confirmation ou d'erreur -->
-                <?php if (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-info text-center" role="alert">
-                        <?php
-                        echo $_SESSION['message'];
-                        unset($_SESSION['message']); // Effacer le message après l'affichage
-                        ?>
+                <!-- Affichage du message d'erreur -->
+                <?php if ($messageErreur): ?>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-danger">
+                                <?= $messageErreur ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Affichage du message de succès -->
+                <?php if ($messageSucces): ?>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-success">
+                                <?= $messageSucces ?>
+                            </div>
+                        </div>
                     </div>
                 <?php endif; ?>
 
@@ -134,41 +146,36 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    // Vérifier si le tableau est vide
-                                    if (empty($listeEmploye)) {
-                                        echo '<tr><td colspan="5" class="text-center fw-bold">Aucun compte employé n’est enregistré ici !</td></tr>';
-                                    } else {
-                                        // Afficher les employés
-                                        foreach ($listeEmploye as $employe) {
-                                            echo '<tr>';
-                                            echo '<td>' . $employe->nom . '</td>';
-                                            echo '<td>' . $employe->prenom . '</td>';
-                                            echo '<td>';
-                                            // Ajouter une icône si l'utilisateur est un admin
-                                            if ($employe->type_utilisateur === 'admin') {
-                                                echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
-                                            }
-                                            echo $employe->id_compte. '</td>';
-                                            echo '<td>' . $employe->telephone . '</td>';
-                                            echo '<td class="btn-colonne">';
-                                            echo '<div class="d-flex justify-content-center gap-1">';
-                                            echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
-                                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
-                                            echo '    <input type="hidden" name="supprimer" value="true">';
-                                            echo '    <button type="submit" class="btn-suppr rounded-2">';
-                                            echo '        <span class="fa-solid fa-trash"></span>';
-                                            echo '    </button>';
-                                            echo '</form>';
-                                            echo '<form method="POST" action="modificationEmploye.php">
-                                                      <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
-                                                      <button type="submit" class="btn-modifier rounded-2">
-                                                          <span class="fa-regular fa-pen-to-square"></span>
-                                                      </button>
-                                                  </form>';
-                                            echo '</div>';
-                                            echo '</td>';
-                                            echo '</tr>';
+                                    // Afficher les employés
+                                    foreach ($listeEmploye as $employe) {
+                                        echo '<tr>';
+                                        echo '<td>' . $employe->nom . '</td>';
+                                        echo '<td>' . $employe->prenom . '</td>';
+                                        echo '<td>';
+                                        // Ajouter une icône si l'utilisateur est un admin
+                                        if ($employe->type_utilisateur === 'admin') {
+                                            echo '<span class="fa-solid fa-shield-alt text-primary me-1" title="Compte administrateur"></span>';
                                         }
+                                        echo $employe->id_compte. '</td>';
+                                        echo '<td>' . $employe->telephone . '</td>';
+                                        echo '<td class="btn-colonne">';
+                                        echo '<div class="d-flex justify-content-center gap-1">';
+                                        echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
+                                        echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
+                                        echo '    <input type="hidden" name="supprimer" value="true">';
+                                        echo '    <button type="submit" class="btn-suppr rounded-2">';
+                                        echo '        <span class="fa-solid fa-trash"></span>';
+                                        echo '    </button>';
+                                        echo '</form>';
+                                        echo '<form method="POST" action="modificationEmploye.php">
+                                                  <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
+                                                  <button type="submit" class="btn-modifier rounded-2">
+                                                      <span class="fa-regular fa-pen-to-square"></span>
+                                                  </button>
+                                              </form>';
+                                        echo '</div>';
+                                        echo '</td>';
+                                        echo '</tr>';
                                     }
                                 ?>
                             </tbody>
