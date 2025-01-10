@@ -34,7 +34,7 @@ verif_session();
             <div class="acc-container p-4 w-50">
                 <table class="table table-striped">
                     <p>
-                        Pour commencer il y a le tableau central qui contient la liste de toutes les salles de l’entreprise.
+                        Pour commencer il y a le tableau central qui contient la liste de toutes les salles de l’entreprise avec deux boutons un pour modifier et un pour supprimer la salle. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une salle par inadvertence.
                     </p>
                     <tr>
                         <th>ID</th>
@@ -60,7 +60,7 @@ verif_session();
                     </tr>
                 </table>
                 <p>
-                    Ensuite, nous avons des filtres qui permettent de rechercher les salles en fonction de certain critère comme le nom de la salle.
+                    Ensuite, nous avons des filtres qui permettent de rechercher les salles en fonction de certain critère comme le nom de la salle. Si aucune salle n'est trouvé avec les filtres appliqués alors un message d'erreur s'affiche disant : "Aucune salle trouvée".
                 </p>
                 <!-- Nom -->
                 <div class="col-12 col-md-2 mb-1 col-reduit-salle ">

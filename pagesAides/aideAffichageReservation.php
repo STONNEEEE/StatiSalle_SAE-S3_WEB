@@ -34,7 +34,8 @@ verif_session();
             <div class="acc-container p-4 w-50">
                 <table class="table table-striped">
                     <p>
-                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations. En plus de l’affichage il y a les boutons de modification et de suppression. Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Pour plus d’information sur une réservation vous pouvez passer votre souris sur le i(mettre logo sur la page).                    </p>
+                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations. En plus de l’affichage il y a les boutons de modification et de suppression. Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Il y a également un bouton pour effectuer la suppression d'une réservation. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une réservation par inadvertence. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le i<span class="fa-solid fa-circle-info info-icon"></span>.
+                    </p>
                     <tr>
                         <th>ID</th>
                         <th>Salle</th>
@@ -64,7 +65,7 @@ verif_session();
                     </tr>
                 </table>
                 <p>
-                    Il y a des filtres qui permettent de faciliter la recherche d’une réservation avec le nom de la salle
+                    Il y a des filtres qui permettent de faciliter la recherche d’une réservation avec le nom de la salle si aucune réservation n'est trouvée alors, il a un message disant : "Aucune réservation n'est trouvée".
                 </p>
                 <!-- Salle -->
                 <div class="col-12 col-md-2 mb-1 col-reduit-salle ">

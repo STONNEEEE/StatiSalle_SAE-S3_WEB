@@ -107,7 +107,7 @@ verif_session();
                     </div>
                 </div>
                 <p>
-                    Ensuite, il y a le bouton pour confirmer la création de la salle, mais aussi pour retourner en arrière.
+                    Enfin, il y a le bouton pour confirmer la création de la salle, mais aussi pour retourner en arrière.
                 </p>
                 <button class="btn-suppr rounded-2" type="button">
                     Retour

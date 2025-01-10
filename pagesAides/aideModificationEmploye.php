@@ -29,7 +29,7 @@ require("../fonction/connexion.php");
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
                 <p>
-                    Pour effectuer une modification, il suffit de renseigner uniquement le champ que vous souhaitez modifier parmi les informations disponibles sur l'utilisateur. Par exemple, dans le cas d'un employé, il est possible de modifier son nom, son prénom, son numéro de téléphone, son nom d’utilisateur ou identifiant, ainsi que son mot de passe.
+                    Pour effectuer une modification, il suffit de renseigner uniquement le champ que vous souhaitez modifier parmi les informations disponibles sur l'utilisateur. Par exemple, dans le cas d'un employé, il est possible de modifier son nom, son prénom, son numéro de téléphone, son nom d’utilisateur ou identifiant, ainsi que son mot de passe. Il peut y avoir des erreurs comme lors d'un essai de modification sur un identifiant de compte doit être différent des identifiants de compte déjà présent dans la base de données.
                 </p>
             </div>
         </div>

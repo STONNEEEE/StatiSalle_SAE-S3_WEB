@@ -33,7 +33,7 @@ require("../fonction/connexion.php");
                     <div class="d-flex flex-column flex-sm-row justify-content-between">
                         <label for="identifiant" class="form-label mb-1 mb-sm-0">Identifiant</label>
                         <small class="form-text text-sm-start text-md-end">
-                            <a href="#" target="_blank" class="text-danger text-decoration-none" title="Identifiant oublié">
+                            <a href="#" class="text-danger text-decoration-none" title="Identifiant oublié">
                                 Identifiant oublié ?
                             </a>
                         </small>
@@ -49,7 +49,7 @@ require("../fonction/connexion.php");
                     <div class="d-flex flex-column flex-sm-row justify-content-between">
                         <label for="mdp" class="form-label mb-1 mb-sm-0">Mot de passe</label>
                         <small class="form-text text-sm-start text-md-end">
-                            <a href="#" target="_blank" class="text-danger text-decoration-none" title="Mot de passe oublié">
+                            <a href="#" class="text-danger text-decoration-none" title="Mot de passe oublié">
                                 Mot de passe oublié ?
                             </a>
                         </small>

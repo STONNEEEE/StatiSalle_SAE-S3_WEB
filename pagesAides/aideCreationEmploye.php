@@ -45,7 +45,7 @@ verif_session();
                 </div>
             </div>
             <p>
-                Pour confirmer la création d’un employé, nous avons mis un bouton de confirmation mais aussi un bouton de retour si jamais l’administrateur veut revenir en arrière.
+                Pour confirmer la création d’un employé, nous avons mis un bouton de confirmation, mais aussi un bouton de retour si jamais l’administrateur veut revenir en arrière.
             </p>
         </div>
     </div>
