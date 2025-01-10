@@ -38,8 +38,9 @@
             Besoin d'aide ?
         </button>
         <button class="rounded bouton-footer"
-                type="button" onclick="window.open('contact.php', '_blank');"
-                aria-label="Ouvrir la page de contact">
+                type="button"
+                onclick="window.location.href=
+                        '<?php echo ($_SESSION['nom_page'] === 'index') ? 'pages/contact.php' : '../pages/contact.php'; ?>'">
             Contactez-nous
         </button>
     </div>
@@ -76,7 +77,7 @@
     </div>
     <div class="col-12 col-md-4 d-flex justify-content-md-end justify-content-center">
         <a href="
-        <?php echo ($_SESSION['nom_page'] === 'index') ? '#' : 'index.php'; ?>
+        <?php echo ($_SESSION['nom_page'] === 'index') ? '#' : '../index.php'; ?>
         " title="Page d'accueil">
             <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid d-none d-sm-none d-md-block">
         </a>

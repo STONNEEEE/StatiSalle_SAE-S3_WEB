@@ -20,8 +20,17 @@
     </head>
         <body>
         <div class="container-fluid">
-            <!-- Header de la page -->
-            <?php include '../include/header.php'; ?>
+            <!-- header custom statique -->
+            <header class="header row align-items-center">
+                <div class="header-gauche d-flex align-items-center gap-2">
+                    <a href="accueil.php" title="Page d'accueil">
+                        <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
+                    </a>
+                    <a href="accueil.php" class="text-decoration-none text-white" title="Page d'accueil">
+                        <h1 class="m-0">StatiSalle</h1>
+                    </a>
+                </div>
+            </header>
 
             <div class="full-screen">
                 <div class="row text-center padding-header">

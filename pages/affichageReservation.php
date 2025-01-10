@@ -138,7 +138,7 @@
                     <!-- Heure fin -->
                     <div class="col-grand-reservation col-12 col-md-1 mb-1">
                         <select class="form-select select-nom" id="heure_fin">
-                            <option value=""  selected>Heure fin</option>
+                            <option value="" selected>Heure fin</option>
                             <?php
                             foreach ($heureFin as $heure){ // On boucle sur les différentes dates contenues dans le tableau
                                 echo '<option value="' . $heure . '">' . $heure . "</option>";
@@ -258,15 +258,6 @@
                             ?>
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-between align-items-center my-3">
-                        <div>
-                            <button class="btn-pagination rounded rows-per-page" data-rows="10">5 lignes</button>
-                            <button class="btn-pagination rounded rows-per-page" data-rows="20">10 lignes</button>
-                            <button class="btn-pagination rounded rows-per-page" data-rows="30">15 lignes</button>
-                        </div>
-                        <div id="pagination" class="pagination-container"></div>
                     </div>
                 </div>
             </div>
