@@ -160,19 +160,21 @@
                                         echo '<td>' . $employe->telephone . '</td>';
                                         echo '<td class="btn-colonne">';
                                         echo '<div class="d-flex justify-content-center gap-1">';
-                                        echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
-                                        echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
-                                        echo '    <input type="hidden" name="supprimer" value="true">';
-                                        echo '    <button type="submit" class="btn-suppr rounded-2">';
-                                        echo '        <span class="fa-solid fa-trash"></span>';
-                                        echo '    </button>';
-                                        echo '</form>';
-                                        echo '<form method="POST" action="modificationEmploye.php">
-                                                  <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
-                                                  <button type="submit" class="btn-modifier rounded-2">
-                                                      <span class="fa-regular fa-pen-to-square"></span>
-                                                  </button>
-                                              </form>';
+                                        if ($employe->type_utilisateur != 'admin') {
+                                            echo '<form method="POST" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet employé ?\');">';
+                                            echo '    <input type="hidden" name="id_employe" value="' . $employe->id_employe . '">';
+                                            echo '    <input type="hidden" name="supprimer" value="true">';
+                                            echo '    <button type="submit" class="btn-suppr rounded-2">';
+                                            echo '        <span class="fa-solid fa-trash"></span>';
+                                            echo '    </button>';
+                                            echo '</form>';
+                                            echo '<form method="POST" action="modificationEmploye.php">
+                                                      <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
+                                                      <button type="submit" class="btn-modifier rounded-2">
+                                                          <span class="fa-regular fa-pen-to-square"></span>
+                                                      </button>
+                                                  </form>';
+                                        }
                                         echo '</div>';
                                         echo '</td>';
                                         echo '</tr>';
