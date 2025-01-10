@@ -330,17 +330,17 @@
                             </div>
                         </div>
                     </div>
-                    <br class="d-md-block d-none">
+                    <br>
                     <div class="row mb-3">
-                        <div class="col-12 col-sm-7 offset-sm-3 col-md-4 offset-md-4">
+                        <div class="col-12 col-sm-7 offset-sm-3 col-md-8 offset-md-2">
                             <button type="submit" class="btn-bleu rounded w-100" id="submit">
                                 Mise à jour de la salle
                             </button>
                         </div>
                     </div>
                 </form>
-                <div class ="row offset-md-2">
-                    <div class="col-12 col-sm-7 offset-sm-3 col-md-2 offset-md-0">
+                <div class="row mb-3">
+                    <div class="col-12 col-sm-7 offset-sm-3 col-md-1 offset-md-2">
                         <button class="btn-suppr rounded w-100" type="button" onclick="window.location.href='affichageSalle.php'">
                             Retour
                         </button>
