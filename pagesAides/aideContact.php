@@ -1,6 +1,9 @@
 <?php
 $startTime = microtime(true);
-require '../fonction/connexion.php';
+require("../fonction/connexion.php");
+
+session_start();
+verif_session();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,8 +23,10 @@ require '../fonction/connexion.php';
 </head>
 <body>
 <div class="container-fluid">
+    <!-- Header de la page -->
+    <?php include '../include/header.php'; ?>
 
-    <div class="full-screen mt-4">
+    <div class="full-screen padding-header">
         <div class="row text-center">
             <h1>StatiSalle</h1>
         </div>

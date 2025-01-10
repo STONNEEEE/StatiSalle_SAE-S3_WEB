@@ -34,7 +34,7 @@ verif_session();
             <div class="acc-container p-4 w-50">
                 <table class="table table-striped">
                     <p>
-                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations. En plus de l’affichage il y a les boutons de modification et de suppression. Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Il y a également un bouton pour effectuer la suppression d'une réservation. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une réservation par inadvertence. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le i<span class="fa-solid fa-circle-info info-icon"></span>.
+                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations. En plus de l’affichage il y a les boutons de modification et de suppression seulement pour l'administrateur comme sur cette page (si vous êtes utilisateur normal, vous ne verrez pas ces boutons). Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Il y a également un bouton pour effectuer la suppression d'une réservation. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une réservation par inadvertence. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le i<span class="fa-solid fa-circle-info info-icon"></span>.
                     </p>
                     <tr>
                         <th>ID</th>
@@ -54,14 +54,18 @@ verif_session();
                         <td>21-11-2025</td>
                         <td>07:00:00</td>
                         <td>10:00:00</td>
-                        <td>
-                            <button type="submit" class="btn-suppr rounded-2">
-                                <span class="fa-solid fa-trash"></span>
-                            </button>
-                            <button type="submit" class="btn-modifier rounded-2">
-                                <span class="fa-regular fa-pen-to-square"></span>
-                            </button>
-                        </td>
+                        <?php
+                            if($_SESSION['typeUtilisateur'] === 1){
+                                echo '<td>';
+                                echo '<button type="submit" class="btn-suppr rounded-2">';
+                                echo '<span class="fa-solid fa-trash"></span>';
+                                echo '</button>';
+                                echo '<button type="submit" class="btn-modifier rounded-2">';
+                                echo '<span class="fa-regular fa-pen-to-square"></span>';
+                                echo '</button>';
+                                echo '</td>';
+                            }
+                        ?>
                     </tr>
                 </table>
                 <p>
