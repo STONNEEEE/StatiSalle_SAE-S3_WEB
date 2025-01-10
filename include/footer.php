@@ -75,8 +75,9 @@
         </div>
     </div>
     <div class="col-12 col-md-4 d-flex justify-content-md-end justify-content-center">
-        <!-- TODO changer le lien -->
-        <a href="../index.php" title="Page d'accueil">
+        <a href="
+        <?php echo ($_SESSION['nom_page'] === 'index') ? '#' : 'index.php'; ?>
+        " title="Page d'accueil">
             <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid d-none d-sm-none d-md-block">
         </a>
     </div>

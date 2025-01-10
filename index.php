@@ -93,7 +93,7 @@ if ($identifiant != "" && $mdp != "") {
                                 echo "Authentification";
                             }
                         ?>
-                        <a href="#" target="_blank" class="ms-2" title="Page d'aide">
+                        <a href="https://www.ut-capitole.fr/accueil/campus/vie-etudiante/outils-numeriques/quest-ce-quun-compte-informatique-comment-lutiliser" target="_blank" class="ms-2" title="Page d'aide">
                             <i class="fa fa-question-circle fs-5 text-black"></i>
                         </a>
                     </h3>

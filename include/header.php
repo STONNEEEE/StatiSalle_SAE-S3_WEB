@@ -39,10 +39,10 @@
                 </button>
                 <?php
                     if($_SESSION['typeUtilisateur'] === 1){
-                        ?>
-                        <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='affichageEmploye.php';">
-                                  Utilisateurs
-                        </button>
+                ?>
+                <button class="rounded bouton-header d-none d-md-block" type="button" onclick="window.location.href='affichageEmploye.php';">
+                          Utilisateurs
+                </button>
                 <?php
                     }
                 ?>
