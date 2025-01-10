@@ -66,7 +66,7 @@ if ($identifiant != "" && $mdp != "") {
     </head>
     <body>
         <div class="container-fluid">
-            <!-- l'index (page de connexion) est la seule page avec un header custom-->
+            <!-- header custom statique -->
             <header class="header row align-items-center">
                 <div class="header-gauche d-flex align-items-center gap-2">
                     <a href="#" title="Page d'accueil">
