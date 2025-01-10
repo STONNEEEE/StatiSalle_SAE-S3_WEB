@@ -1,6 +1,10 @@
 <?php
-$startTime = microtime(true);
-require("../fonction/connexion.php");
+    $startTime = microtime(true);
+    require("../fonction/connexion.php");
+
+    // Détection de la page actuelle
+    $isAidePage = isset($_SESSION['nom_page']) && str_starts_with($_SESSION['nom_page'], 'aide');
+    $basePath = $isAidePage ? '../' : ''; // Ajuste le chemin de base
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,11 +16,11 @@ require("../fonction/connexion.php");
         <!-- FontAwesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <!-- CSS -->
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="<?php echo $basePath; ?>css/style.css">
+        <link rel="stylesheet" href="<?php echo $basePath; ?>css/header.css">
+        <link rel="stylesheet" href="<?php echo $basePath; ?>css/footer.css">
         <!-- Icon du site -->
-        <link rel="icon" href=" ../img/logo.ico">
+        <link rel="icon" href="<?php echo $basePath; ?>img/logo.ico">
     </head>
     <body>
         <div class="container-fluid">
@@ -24,10 +28,10 @@ require("../fonction/connexion.php");
             <!-- header custom statique -->
             <header class="header row align-items-center">
                 <div class="header-gauche d-flex align-items-center gap-2">
-                    <a href="../pages/accueil.php" title="Page d'accueil">
-                        <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
+                    <a href="<?php echo $basePath; ?>pages/accueil.php" title="Page d'accueil">
+                        <img src="<?php echo $basePath; ?>img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid">
                     </a>
-                    <a href="accueil.php" class="text-decoration-none text-white" title="Page d'accueil">
+                    <a href="<?php echo $basePath; ?>pages/accueil.php" class="text-decoration-none text-white" title="Page d'accueil">
                         <h1 class="m-0">StatiSalle</h1>
                     </a>
                 </div>
@@ -53,7 +57,7 @@ require("../fonction/connexion.php");
                             <input type="text" class="form-control mt-2 mt-sm-0" name="identifiant" id="identifiant" placeholder="Entrez votre identifiant">
                         </div>
                         <p>
-                            Dans ce champ, vous devez entrer l’identifiant de votre compte pour pouvoir accéder au reste des pages et fonctionnalités du site. La fonctionnalité de <b>l'identifiant oublié ne fonctionne pas</b>, elle est là pour montrer que cette fonctionnalité pourrait implémenter dans le futur.
+                            Dans ce champ, vous devez entrer l’identifiant de votre compte pour pouvoir accéder au reste des pages et fonctionnalités du site. La fonctionnalité de <b>l'identifiant oublié ne fonctionne pas</b>, elle est là pour montrer que cette fonctionnalité pourrait être implémentée dans le futur.
                         </p>
                         <!-- Champ mot de passe -->
                         <div class="mb-3">
@@ -69,7 +73,7 @@ require("../fonction/connexion.php");
                             <input type="password" class="form-control mt-2 mt-sm-0" name="mdp" id="mdp" placeholder="Entrez votre mot de passe">
                         </div>
                         <p>
-                            Dans ce champ, vous devez entrer le mot de passe concernant l’identifiant entrer au-dessus afin d'accéder au reste du site. La fonctionnalité de <b>mot de passe oublié ne fonctionne pas</b>, elle est là pour montrer que cette fonctionnalité pourrait implémenter dans le futur.
+                            Dans ce champ, vous devez entrer le mot de passe concernant l’identifiant entré au-dessus afin d'accéder au reste du site. La fonctionnalité de <b>mot de passe oublié ne fonctionne pas</b>, elle est là pour montrer que cette fonctionnalité pourrait être implémentée dans le futur.
                             <br>
                         </p>
                         <button type="submit" class="btn btn-info w-100">Se connecter</button>
@@ -83,7 +87,7 @@ require("../fonction/connexion.php");
             </div>
 
             <!-- Footer de la page -->
-            <?php include '../include/footer.php'; ?>
+            <?php include $basePath . 'include/footer.php'; ?>
         </div>
     </body>
 </html>
