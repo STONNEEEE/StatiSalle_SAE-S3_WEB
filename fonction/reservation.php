@@ -200,7 +200,7 @@
             'reservation_formation',
             'reservation_pret_louer',
             'reservation_reunion',
-            'reservation' // la table réservation est mise en dernier car les autres tables héritent de celle-ci
+            'reservation' // la table réservation est mise en dernier, car les autres tables héritent de celle-ci
         ];
 
         try {
@@ -233,7 +233,7 @@
             $stmtLastId->execute();
             $lastId = $stmtLastId->fetchColumn();
 
-            // Si aucune réservation n'existe encore, démarrer à "R000001"
+            // Si aucune réservation n'existe encore, démarrer à "R000001".
             if ($lastId === false) {
                 $idReservation = 'R000001';
             } else {

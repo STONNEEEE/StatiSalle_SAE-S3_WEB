@@ -1,5 +1,5 @@
 <?php
-$startTime = microtime(true);
+$startTime = microtime(true); // temps de chargement de la page
 require("../fonction/connexion.php");
 
 ?>
@@ -42,7 +42,7 @@ require("../fonction/connexion.php");
                 <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
                     <div class="acc-container p-4 w-50">
                         <p>
-                            Cette page sert à nous contacter en cas de besoin, si vous avez le moindre problème réessayez ultérieurement avant de nous contacter. Puis, si le problème persiste, contactez-nous.
+                            Cette page sert à nous contacter en cas de besoin, si vous avez le moindre problème, réessayez ultérieurement avant de nous contacter. Puis, si le problème persiste, contactez-nous.
                         </p>
                     </div>
                 </div>

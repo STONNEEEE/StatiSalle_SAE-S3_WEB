@@ -1,5 +1,5 @@
 <?php
-$startTime = microtime(true);
+$startTime = microtime(true); // temps de chargement de la page
 require("../fonction/connexion.php");
 
 session_start();
@@ -94,7 +94,7 @@ verif_session();
                     Pour plus d'informations, allez sur la page d’aide de la page de création d’un employé.
                 </p>
                 <div class="col-12">
-                    <button class="btn-bleu rounded-2" type="button";">
+                    <button class="btn-bleu rounded-2" type="button">
                         <span class="fa-plus"></span> Ajouter
                     </button>
                 </div>

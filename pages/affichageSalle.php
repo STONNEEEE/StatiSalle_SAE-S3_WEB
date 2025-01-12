@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     require '../fonction/connexion.php';
     require '../fonction/salle.php';
 
@@ -55,6 +55,7 @@
     </head>
     <body>
         <div class="container-fluid">
+            <!-- Header de la page -->
             <?php include '../include/header.php'; ?>
 
             <div class="full-screen">
@@ -88,7 +89,7 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- 1ère ligne avec le bouton "Ajouter" -->
+                <!-- 1 ère ligne avec le bouton "Ajouter" -->
                 <?php
                 if($_SESSION['typeUtilisateur'] === 1 ){
                     echo '<div class="row mb-3">
@@ -120,7 +121,7 @@
                         <select class="form-select select-nom" id="capacite">
                             <option value="" selected>Capacité</option>
                             <?php
-                            foreach ($tabCapacite as $capacite) { // On boucle sur la capacité contenus dans le tableau
+                            foreach ($tabCapacite as $capacite) { // On boucle sur la capacité contenue dans le tableau
                                 echo "<option value=".$capacite.">".$capacite."</option>";
                             }
                             ?>
@@ -147,7 +148,7 @@
                         <select class="form-select select-nom" id="nbrOrdi">
                             <option value="" selected>Ordinateur</option>
                             <?php
-                            foreach ($tabOrdinateur as $nbrOrdi) { // On boucle sur le nombre d'ordinateur contenus dans le tableau
+                            foreach ($tabOrdinateur as $nbrOrdi) { // On boucle sur le nombre d'ordinateurs contenus dans le tableau
                                 echo "<option value=".$nbrOrdi.">".$nbrOrdi."</option>";
                             }
                             ?>
@@ -261,6 +262,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
         <!-- JavaScript pour les filtres -->

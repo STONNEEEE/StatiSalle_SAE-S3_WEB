@@ -1,5 +1,5 @@
 <?php
-$startTime = microtime(true);
+$startTime = microtime(true); // temps de chargement de la page
 require("../fonction/connexion.php");
 session_start();
 verif_session();
@@ -32,10 +32,10 @@ verif_session();
 
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
+                <p>
+                    Pour commencer il y a le tableau central qui contient la liste de toutes les réservations. En plus de l’affichage il y a les boutons de modification et de suppression seulement pour l'administrateur comme sur cette page (si vous êtes utilisateur normal, vous ne verrez pas ces boutons). Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Il y a également un bouton pour effectuer la suppression d'une réservation. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une réservation par inadvertence. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le i<span class="fa-solid fa-circle-info info-icon"></span>.
+                </p>
                 <table class="table table-striped">
-                    <p>
-                        Pour commencer il y a le tableau central qui contient la liste de toutes les réservations. En plus de l’affichage il y a les boutons de modification et de suppression seulement pour l'administrateur comme sur cette page (si vous êtes utilisateur normal, vous ne verrez pas ces boutons). Lorsque vous cliquez sur le bouton de modification un page s’ouvre, pour plus d’aide n’hésitez pas à aller sur la page de la modification des réservations. Il y a également un bouton pour effectuer la suppression d'une réservation. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une réservation par inadvertence. Pour plus d’information sur une réservation, vous pouvez passer votre souris sur le i<span class="fa-solid fa-circle-info info-icon"></span>.
-                    </p>
                     <tr>
                         <th>ID</th>
                         <th>Salle</th>
@@ -124,7 +124,6 @@ verif_session();
                         <button class="btn-bleu rounded-2"">
                         <i class="fa fa-calendar"></i>
                         Réserver
-                        </button>
                     </div>
                 </div>
                 <p>

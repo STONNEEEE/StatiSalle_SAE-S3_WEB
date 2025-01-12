@@ -1,5 +1,5 @@
 <?php
-$startTime = microtime(true);
+$startTime = microtime(true); // temps de chargement de la page
 require '../fonction/connexion.php';
 require '../fonction/salle.php';
 
@@ -128,7 +128,6 @@ if (isset($_POST['btn-annuler']) && $_POST['btn-annuler'] === 'true') {
 </head>
 <body>
 <div class="container-fluid">
-
     <!-- Header de la page -->
     <?php include '../include/header.php'; ?>
 

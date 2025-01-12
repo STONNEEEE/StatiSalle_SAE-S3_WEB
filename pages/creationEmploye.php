@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     require '../fonction/employe.php';
     require '../fonction/connexion.php';
 
@@ -214,7 +214,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
     </body>

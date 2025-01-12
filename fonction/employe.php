@@ -219,7 +219,7 @@
         $requeteVerifType = "SELECT COUNT(id_type) FROM type_utilisateur WHERE id_type = :id_type";
         $stmtVerif = $pdo->prepare($requeteVerifType);
         $stmtVerif->execute(['id_type' => $id_type]);
-        return $stmtVerif->fetchColumn(); // Retourne le nombre d'occurrences de id_type
+        return $stmtVerif->fetchColumn(); // Retourne le nombre d'occurrences d'id_type
     }
 
     // Fonction pour vérifier si le login existe déjà

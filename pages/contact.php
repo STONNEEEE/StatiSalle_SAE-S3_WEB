@@ -20,7 +20,7 @@
     </head>
         <body>
         <div class="container-fluid">
-            <!-- header custom statique -->
+            <!-- header custom statique pour les pages accessible sans connexion -->
             <header class="header row align-items-center">
                 <div class="header-gauche d-flex align-items-center gap-2">
                     <a href="accueil.php" title="Page d'accueil">
@@ -47,7 +47,7 @@
                             </a>
                         </p>
                         <p class="text-muted mt-4">
-                            Nos horaires : Lundi au Samedi, de 7h à 20h.
+                            Nos horaires : Lundi au samedi, de 7h à 20h.
                         </p>
                     </div>
                 </div>

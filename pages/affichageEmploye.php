@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     require '../fonction/employe.php';
     require '../fonction/connexion.php';
 
@@ -117,15 +117,15 @@
                 <!-- Tableau des données -->
                 <div class="row mt-3">
 
-                    <!-- Comtpeur -->
+                    <!-- Compteur -->
                     <?php
                     try {
-                        $listeEmploye = renvoyerEmployes();
+                        $listeEmploye = renvoyerEmployes(); // récupération des employés dans la base de données
                     } catch (PDOException $e) {
                         echo '<div class="text-center text-danger fw-bold">Impossible de charger les employés en raison d’un problème technique...</div>';
                     }
 
-                    $nombreEmploye = count($listeEmploye ?? []);
+                    $nombreEmploye = count($listeEmploye ?? []); // Nombre d'employés
                     ?>
                     <div class="col-12 text-center mb-3">
                         <p class="fw-bold compteur-employe">
@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
         <!-- JavaScript pour les filtres -->

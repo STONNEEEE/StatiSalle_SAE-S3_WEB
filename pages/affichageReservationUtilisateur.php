@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     require '../fonction/connexion.php';
     require '../fonction/reservation.php';
 
@@ -44,6 +44,7 @@
     </head>
     <body>
         <div class="container-fluid">
+            <!-- Header de la page -->
             <?php include '../include/header.php'; ?>
 
             <div class="full-screen">
@@ -77,7 +78,7 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- 1ère ligne avec le bouton "Réserver" -->
+                <!-- 1 ère ligne avec le bouton "Réserver" -->
                 <div class="row mb-3 ">
                     <div class="col-12 text-center text-md-end">
                         <button class="btn-bleu rounded-2" onclick="window.location.href='creationReservation.php';">
@@ -210,9 +211,10 @@
                                         echo '<td class="tab-trier">';
                                         echo $ligne['nom_activite'];
                                         echo '<span class="fa-solid fa-circle-info info-icon">';
-                                        echo '<span class="tooltip">';
+                                        echo '<span class="tooltip">'; //Bulle quand on passe le curseur sur le logo i
                                         echo '<table class="table table-striped">';
                                         try {
+                                            //Récupération des informations supplémentaires sur les réservations
                                             $listeType = affichageTypeReservation($ligne['id_reservation']);
                                         } catch (PDOException $e) {
                                             echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Impossible de charger les informations sur le type de reservation</td></tr>';
@@ -272,6 +274,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
         <script defer src="../fonction/filtreReservation.js"></script>
