@@ -4,12 +4,11 @@ function connecteBD() {
     /*
      * Configuration de l'accès à la base de données.
      * - Si vous travaillez en local, décommentez la ligne `$hostAUtiliser = 'localhost';`.
-     * - Si vous utilisez la base de données fournie par l'équipe, décommentez `$hostAUtiliser = 'statisalle.fr';`.
      * - Si vous devez connecter une autre base de données, modifiez directement les variables
      *   `$host`, `$user`, `$pass`, et éventuellement `$db` pour refléter vos paramètres de connexion (à partir de ligne 54).
      */
-    //$hostAUtiliser = 'localhost';                  // local
-    $hostAUtiliser = 'distant';                      // base de donnée fournit
+    $hostAUtiliser = 'local';                      // local
+    //$hostAUtiliser = 'distant';                  // base de donnée fournit
 
 
 
@@ -32,7 +31,7 @@ function connecteBD() {
 
 
 
-    if ($hostAUtiliser === 'localhost') {
+    if ($hostAUtiliser == 'local') {
 
         $host = 'localhost';                     // Adresse de l'hôte pour la base locale
         $db = 'statisallebd';                    // Base de données local
@@ -49,7 +48,7 @@ function connecteBD() {
             $host = 'localhost';           // Utiliser l'hôte local si le script est appelé depuis le domaine principal
         } else {
             /*
-             * MODIFIER EN CAS DE BESOIN
+             * MODIFIER AVEC L'ADDRESSE DE VOTRE BASE DE DONNEE
              */
             $host = 'statisalle.fr';       // Utilisation de la base de données hébergée chez O2Switch
         }
