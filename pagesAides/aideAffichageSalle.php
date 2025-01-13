@@ -42,7 +42,6 @@ verif_session();
                                 <th>Nom</th>
                                 <th>Capacité</th>
                                 <th>Vidéo Projecteur</th>
-                                <th>Écran XXL</th>
                                 <th>Nombre Ordinateurs</th>
                                 <th>Type</th>
                                 <th>Logiciels</th>
@@ -53,7 +52,6 @@ verif_session();
                                 <td>A6</td>
                                 <td>15</td>
                                 <td>oui</td>
-                                <td>non</td>
                                 <td>4</td>
                                 <td>Pc portable</td>
                                 <td>Bureautique</td>
@@ -134,6 +132,13 @@ verif_session();
                         <div class="col-4">
                             <button class="btn-reset rounded-1 w-100" type="submit">Réinitialiser filtres</button>
                         </div>
+                        <br>
+                        <p>
+                            Il y a une flêche bleue constamment affichée en bas à gauche de la page qui sert à remonter tout en haut de la page.
+                        </p>
+                        <button class="boutton btn-bleu rounded-2" title="Retour en haut de la page">
+                            <span class="fa-solid fa-arrow-up"></span>
+                        </button>
                     </div>
                 </div>
             </div>

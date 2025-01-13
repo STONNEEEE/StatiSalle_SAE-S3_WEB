@@ -132,24 +132,13 @@ verif_session();
                         <div class="col-4">
                             <button class="btn-reset rounded-1 w-100" type="submit">Réinitialiser filtres</button>
                         </div>
+                        <br>
                         <p>
-                            Il y a aussi un moyen de naviguer entre différentes pages de réservation avec les flèches situées en bas à droite.
+                            Il y a une flêche bleue constamment affichée en bas à gauche de la page qui sert à remonter tout en haut de la page.
                         </p>
-                        <div>
-                            <button class="btn-pagination rounded rows-per-page"><<</button>
-                            <button class="btn-pagination rounded rows-per-page"><</button>
-                            <button class="btn-pagination rounded rows-per-page">1</button>
-                            <button class="btn-pagination rounded rows-per-page">2</button>
-                            <button class="btn-pagination rounded rows-per-page">></button>
-                            <button class="btn-pagination rounded rows-per-page">>></button>
-
-                        </div>
-                        <p>
-                            Mais aussi, il y a un moyen d’afficher plus de réservation sur la page courante en appuyant sur le nombre de lignes en bas à gauche. Ce nombre de lignes correspond au nombre de lignes affichées sur la page actuelle.
-                        </p>
-                        <button class="btn-pagination rounded rows-per-page" data-rows="10">5 lignes</button>
-                        <button class="btn-pagination rounded rows-per-page" data-rows="20">10 lignes</button>
-                        <button class="btn-pagination rounded rows-per-page" data-rows="30">15 lignes</button>
+                        <button class="boutton btn-bleu rounded-2" title="Retour en haut de la page">
+                            <span class="fa-solid fa-arrow-up"></span>
+                        </button>
                     </div>
                 </div>
             </div>

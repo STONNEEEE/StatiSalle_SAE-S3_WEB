@@ -14,7 +14,7 @@
         'affichageSalle'          => '../pagesAides/aideAffichageSalle.php',
         'affichageReservation'    => '../pagesAides/aideAffichageReservation.php',
 
-        'mesReservation'          => '../pagesAides/aideMesReservation.php',
+        'affichageReservationUtilisateur'          => '../pagesAides/aideMesReservations.php',
 
         'creationEmploye'         => '../pagesAides/aideCreationEmploye.php',
         'creationReservation'     => '../pagesAides/aideCreationReservation.php',
@@ -36,7 +36,7 @@
         'aideErreurBD'                => '../pagesAides/aideErreurBD.php',
         'aideExportation'             => '../pagesAides/aideExportation.php',
         'aideIndex'                   => '../pagesAides/aideIndex.php',
-        'aideMesReservation'          => '../pagesAides/aideMesReservation.php',
+        'aideMesReservations'          => '../pagesAides/aideMesReservations.php',
         'aideModificationEmploye'     => '../pagesAides/aideModificationEmploye.php',
         'aideModificationReservation' => '../pagesAides/aideModificationReservation.php',
         'aideModificationSalle'       => '../pagesAides/aideModificationSalle.php',
