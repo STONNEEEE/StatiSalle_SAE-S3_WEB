@@ -274,6 +274,12 @@
                         </table>
                     </div>
                 </div>
+                <!-- Bouton Retour en haut -->
+                <div class="row mt-3 mb-5">
+                    <button id="scrollToTopBtn" class="boutton btn-bleu rounded-2" title="Retour en haut de la page">
+                        <span class="fa-solid fa-arrow-up"></span>
+                    </button>
+                </div>
             </div>
             <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>

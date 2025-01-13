@@ -187,14 +187,11 @@
                         </table>
                     </div>
 
-                    <!-- Pagination et limite -->
-                    <div class="row mt-3">
-                        <div class="col-12 d-flex justify-content-center gap-2">
-                            <button type="submit" name="limite" value="5" class="btn btn-secondary">5</button>
-                            <button type="submit" name="limite" value="10" class="btn btn-secondary">10</button>
-                            <button type="submit" name="limite" value="15" class="btn btn-secondary">15</button>
-                            <button type="submit" name="limite" value="tous" class="btn btn-secondary">Tous</button>
-                        </div>
+                    <!-- Bouton Retour en haut -->
+                    <div class="row mt-3 mb-5">
+                        <button id="scrollToTopBtn" class="boutton btn-bleu rounded-2" title="Retour en haut de la page">
+                            <span class="fa-solid fa-arrow-up"></span>
+                        </button>
                     </div>
                 </div>
             </div>
