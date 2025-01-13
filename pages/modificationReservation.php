@@ -101,32 +101,39 @@
         }
     }
 
+
     /*
+     * Pour les prochains développeurs, l'impossibilité de réserver une salle
+     * sur un même créneau le même jour a été effectuer sur la création d'une réservation.
+     * Mais il faudrait aussi refaire cela sur la modification d'une réservation.
+     * -----------------------------------------------------------------------------------
+     * On vous laisse ci-dessous la structuration des informations que l'on a utiliser dans "creationReservation.php".
      * Structuration des réservations par salle et par date
      * afin de faciliter leur utilisation en JavaScript
      * (griser les heures déjà prises selon la salle et la date)
      */
-//    $reservationsParSalle = [];
-//    foreach ($tabReservation as $reservation) {
-//        $salle = $reservation['nom_salle'];
-//        $dateReservation = $reservation['date'];
-//        $heureDebut = $reservation['heure_debut'];
-//        $heureFin = $reservation['heure_fin'];
-//
-//        if (!isset($reservationsParSalle[$salle])) {
-//            $reservationsParSalle[$salle] = [];
-//        }
-//
-//        if (!isset($reservationsParSalle[$salle][$dateReservation])) {
-//            $reservationsParSalle[$salle][$dateReservation] = [];
-//        }
-//
-//        // Ajouter les plages horaires réservées
-//        $reservationsParSalle[$salle][$dateReservation][] = [
-//            'heureDebut' => $heureDebut,
-//            'heureFin' => $heureFin
-//        ];
-//    }
+    /*
+    $reservationsParSalle = [];
+    foreach ($tabReservation as $reservation) {
+        $salle = $reservation['nom_salle'];
+        $dateReservation = $reservation['date'];
+        $heureDebut = $reservation['heure_debut'];
+        $heureFin = $reservation['heure_fin'];
+
+        if (!isset($reservationsParSalle[$salle])) {
+            $reservationsParSalle[$salle] = [];
+        }
+
+        if (!isset($reservationsParSalle[$salle][$dateReservation])) {
+            $reservationsParSalle[$salle][$dateReservation] = [];
+        }
+
+        // Ajouter les plages horaires réservées
+        $reservationsParSalle[$salle][$dateReservation][] = [
+            'heureDebut' => $heureDebut,
+            'heureFin' => $heureFin
+        ];
+    }*/
 ?>
 <!DOCTYPE html>
 <html lang="fr">
