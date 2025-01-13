@@ -145,7 +145,7 @@
                             <div class="row"> <!-- Nombre d'ordinateurs -->
                                 <div class="form-group col-12">
                                     <label for="nbrOrdi">Nombre d'ordinateur : </label>
-                                    <input type="number" class="form-control" name="nbrOrdi" id="nbrOrdi" min="0" >
+                                    <input type="number" class="form-control" name="nbrOrdi" id="nbrOrdi" min="0" value="0" >
                                 </div>
                             </div>
                             <br>
@@ -168,7 +168,7 @@
                                     <label for="imprimante">Imprimante : </label>
                                     <input type="radio" class="form-check-input" id="OuiImprimante" name="imprimante" value="1">
                                     <label class="form-check-label" for="OUI">Oui</label>
-                                    <input type="radio" class="form-check-input" id="NonImprimante" name="imprimante" value="0">
+                                    <input type="radio" class="form-check-input" id="NonImprimante" name="imprimante" value="0" checked>
                                     <label class="form-check-label" for="NON">Non</label>
                                 </div>
                             </div>
