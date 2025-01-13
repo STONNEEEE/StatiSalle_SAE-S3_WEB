@@ -22,26 +22,26 @@ verif_session();
     <link rel="icon" href=" ../img/logo.ico">
 </head>
 <body>
-<div class="container-fluid">
-    <!-- Header de la page -->
-    <?php include '../include/header.php'; ?>
+    <div class="container-fluid">
+        <!-- Header de la page -->
+        <?php include '../include/header.php'; ?>
 
-    <div class="full-screen padding-header">
-        <div class="row text-center">
-            <h1>StatiSalle</h1>
-        </div>
+        <div class="full-screen padding-header">
+            <div class="row text-center">
+                <h1>StatiSalle</h1>
+            </div>
 
-        <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
-            <div class="acc-container p-4 w-50">
-                <p>
-                    Cette page sert uniquement à vous informer d'un problème de connexion avec la base de données. Si jamais le problème persiste n'hésitez pas à nous contacter.
-                </p>
+            <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
+                <div class="acc-container p-4 w-50">
+                    <p>
+                        Cette page sert uniquement à vous informer d'un problème de connexion avec la base de données. Si jamais le problème persiste n'hésitez pas à nous contacter.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Footer de la page -->
-    <?php include '../include/footer.php'; ?>
-</div>
+        <!-- Footer de la page -->
+        <?php include '../include/footer.php'; ?>
+    </div>
 </body>
 </html>
