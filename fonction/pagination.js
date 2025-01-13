@@ -1,4 +1,18 @@
 // ---------------- PAGINATION ----------------
+/*
+
+
+
+
+              CODE NON UTILISÉ
+              FUTUR Mise à jour :
+              Utiliser des filtres en JS ou en AJAX
+              Limiter le nombre de lignes par requete
+
+
+
+
+*/
 const paginationContainer = document.querySelector("#pagination");
 const rowsPerPageOptions = document.querySelectorAll(".rows-per-page");
 let rowsPerPage = 10; // Par défaut, 10 lignes par page

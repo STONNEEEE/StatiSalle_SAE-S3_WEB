@@ -87,46 +87,21 @@ body {
     text-align: center; /* Centre les icônes */
 }
 
-.btn-pagination {
-    background-color: rgb(120, 118, 118);
-    border-color: #787676;
-    margin-left: 3px;
-}
-.btn-pagination:hover {
-    background-color: #787676;
-    box-shadow: 0 0 30px 5px #787676;
-}
-
-.btn-pagination.active {
-    background-color: #c5c1c1;
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 150px;
+    left: 20px;
+    display: none; /* Cacher le bouton au début */
+    z-index: 1000; /* Au-dessus des autres éléments */
+    font-size: 24px; /* Taille de l'icône */
+    padding: 10px;
     border: none;
+    cursor: pointer;
+    width: 60px;
 }
 
-.btn-points:hover {
-    background-color: #787676;
-    box-shadow: none;
-}
-.btn-points:hover:before {
-    -webkit-animation: none;
-    -moz-animation: none;
-    animation: none;
-}
-
-.btn-pagination-disabled {
-    background-color: #c5c1c1;
-    border-color: #c5c1c1;
-    cursor: not-allowed;
-    pointer-events: none;
-    margin-left: 3px;
-}
-.btn-pagination-disabled:hover {
-    background-color: #c5c1c1;
-    box-shadow: none;
-}
-.btn-pagination-disabled:hover:before {
-    -webkit-animation: none;
-    -moz-animation: none;
-    animation: none;
+#scrollToTopBtn:hover {
+    background-color: #0056b3;
 }
 
 
