@@ -7,8 +7,8 @@ function connecteBD() {
      * - Si vous devez connecter une autre base de données, modifiez directement les variables
      *   `$host`, `$user`, `$pass`, et éventuellement `$db` pour refléter vos paramètres de connexion (à partir de ligne 54).
      */
-    $hostAUtiliser = 'local';                      // local
-    //$hostAUtiliser = 'distant';                  // base de donnée fournit
+      $hostAUtiliser = 'local';                    // local
+    //$hostAUtiliser = 'distant';                  // base de donnée distante
 
 
 
