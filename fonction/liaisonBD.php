@@ -6,10 +6,16 @@ function connecteBD() {
      * - Si vous travaillez en local, décommentez la ligne `$hostAUtiliser = 'localhost';`.
      * - Si vous utilisez la base de données fournie par l'équipe, décommentez `$hostAUtiliser = 'statisalle.fr';`.
      * - Si vous devez connecter une autre base de données, modifiez directement les variables
-     *   `$host`, `$user`, `$pass`, et éventuellement `$db` pour refléter vos paramètres de connexion.
+     *   `$host`, `$user`, `$pass`, et éventuellement `$db` pour refléter vos paramètres de connexion (à partir de ligne 54).
      */
     //$hostAUtiliser = 'localhost';                  // local
-    $hostAUtiliser = 'statisalle.fr';                // base de donnée fournit
+    $hostAUtiliser = 'distant';                      // base de donnée fournit
+
+
+
+
+
+
 
 
 
@@ -37,13 +43,20 @@ function connecteBD() {
 
     } else {
 
-        // Vérification si le script est exécuté sur le serveur en production ou en local
+        // Vérification si le script est exécuté sur le serveur en production ou en local avec accès distant au serveur
         if ($_SERVER['HTTP_HOST'] === 'statisalle.fr') {
-            $host = 'localhost';         // Utiliser l'hôte local si le script est appelé depuis le domaine principal
+            // NE PAS MODIFIER
+            $host = 'localhost';           // Utiliser l'hôte local si le script est appelé depuis le domaine principal
         } else {
-            $host = 'statisalle.fr';    // Utilisation de la base de données hébergée chez O2Switch
+            /*
+             * MODIFIER EN CAS DE BESOIN
+             */
+            $host = 'statisalle.fr';       // Utilisation de la base de données hébergée chez O2Switch
         }
 
+        /*
+         * MODIFIER EN CAS DE BESOIN
+         */
         $db = 'sc1vosi2297_StatisalleBD';  // Nom de la base de données
         $user = 'sc1vosi2297_application'; // Identifiant de l'utilisateur de la base
         $pass = '@ppl1cat1on123';          // Mot de passe pour accéder à la base
@@ -69,9 +82,9 @@ function connecteBD() {
         // Gestion des erreurs de connexion : affichage des détails pour le débogage
         echo "Erreur de connexion : " . $e->getMessage() . "<br>"; // Message d'erreur
         echo "Code d'erreur : " . $e->getCode() . "<br>";          // Code de l'erreur
-        echo "Hôte : $host<br>";                                  // Hôte utilisé
-        echo "Port : $port<br>";                                  // Port utilisé
-        echo "Utilisateur : $user<br>";                           // Identifiant utilisé
+        echo "Hôte : $host<br>";                                   // Hôte utilisé
+        echo "Port : $port<br>";                                   // Port utilisé
+        echo "Utilisateur : $user<br>";                            // Identifiant utilisé
         exit; // Arrêt du script en cas d'échec
     }
 }
