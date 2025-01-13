@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (!filterStart && !filterEnd) return true;
 
-                const rowDate = new Date(values.date);
+                const rowDate = new Date(values.date.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1')); // Assure que la date est formatée comme YYYY-MM-DD
                 const startDate = filterStart ? new Date(filterStart) : null;
                 const endDate = filterEnd ? new Date(filterEnd) : null;
 

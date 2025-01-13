@@ -122,7 +122,7 @@
                             <option value=""  selected>Date Début</option>
                             <?php
                             foreach ($tabDate as $date){ // On boucle sur les différentes dates contenues dans le tableau
-                                echo '<option value="' . $date . '">' . $date . "</option>";
+                                echo '<option value="' . $date . '">' . date('d/m/Y', strtotime($date)) . "</option>";
                             }
                             ?>
                         </select>
@@ -133,7 +133,7 @@
                             <option value=""  selected>Date Fin</option>
                             <?php
                             foreach ($tabDate as $date){ // On boucle sur les différentes dates contenues dans le tableau
-                                echo '<option value="' . $date . '">' . $date . "</option>";
+                                echo '<option value="' . $date . '">' . date('d/m/Y', strtotime($date)) . "</option>";
                             }
                             ?>
                         </select>
@@ -241,7 +241,7 @@
                                     echo '</span>';
                                     echo '</span>';
                                     echo '</td>';
-                                    echo '<td class="tab-trier">' . $ligne['date'] . '</td>';
+                                    echo '<td class="tab-trier">' . date('d/m/Y', strtotime($ligne['date'])) . '</td>';
                                     echo '<td class="tab-trier">' . $ligne['heure_debut'] . '</td>';
                                     echo '<td class="tab-trier">' . $ligne['heure_fin'] . '</td>';
 
