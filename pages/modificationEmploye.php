@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     include '../fonction/employe.php';
     include '../fonction/connexion.php';
 
@@ -23,7 +23,7 @@
     if (isset($_POST['modifier'])) {
         // Récupération de la valeur de la case admin
         $admin = $_POST['admin'] ?? false; // Par défaut, pas d'admin
-        $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé)
+        $id_type = $admin ? 1 : 2;  // Si admin est coché, id_type = 1 (admin), sinon 2 (employé).
 
         $nom    = htmlspecialchars($_POST['nom'])    ?? '';
         $prenom = htmlspecialchars($_POST['prenom']) ?? '';
@@ -235,6 +235,7 @@
                     </form>
                 </div>
             </div>
+            <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
     </body>

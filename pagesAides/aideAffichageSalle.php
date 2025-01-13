@@ -1,5 +1,5 @@
 <?php
-$startTime = microtime(true);
+$startTime = microtime(true); // temps de chargement de la page
 require("../fonction/connexion.php");
 
 session_start();
@@ -33,10 +33,10 @@ verif_session();
 
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
+                <p>
+                    Pour commencer il y a le tableau central qui contient la liste de toutes les salles de l’entreprise avec deux boutons un pour modifier et un pour supprimer la salle. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une salle par inadvertence.
+                </p>
                 <table class="table table-striped">
-                    <p>
-                        Pour commencer il y a le tableau central qui contient la liste de toutes les salles de l’entreprise avec deux boutons un pour modifier et un pour supprimer la salle. Avant d'effectuer la suppression une confirmation vous sera demandé pour faire en sorte que vous ne supprimiez pas une salle par inadvertence.
-                    </p>
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>

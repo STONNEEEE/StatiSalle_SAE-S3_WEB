@@ -1,5 +1,5 @@
 <?php
-$startTime = microtime(true);
+$startTime = microtime(true); // temps de chargement de la page
 require("../fonction/connexion.php");
 
 session_start();
@@ -34,16 +34,12 @@ verif_session();
         <div class="row d-flex justify-content-center align-items-start w-100 mb-5">
             <div class="acc-container p-4 w-50">
                 <p>
-                    Page d’exportation (exportation.php)<br>
-                    Etape 1 :<br>
-                    Ouvrez votre fichier php.ini (situé dans votre installation de PHP, par exemple : C:\php\php.ini ou dans le dossier de configuration de votre serveur local comme WAMP, XAMPP, etc.).<br>
-                    Recherchez cette ligne :<br>
-                    ;extension=zip<br>
-                    Supprimez le point-virgule ; au début de cette ligne pour activer l'extension :
-                    extension=zip<br>
-                    Sauvegardez le fichier php.ini.<br>
-                    Etape 2 :<br>
-                    Redémarrez la machine sur laquelle vous avez modifié la ligne
+                    Voici les informations concernant les manipulations et résultats de cette page :  <br>
+                    <ul>
+                        <li>Les boutons commençant par "Télécharger le ..." renvoient un fichier texte (.txt) qui peut être importé dans l'application Java associée au site.
+                            Ce fichier est nommé de cette façon "nomDuFichier jj_mm_yyyy hh_mm.txt". </li><br>
+                        <li>Le bouton "Télécharger tous les fichiers" renvoie un dossier compressé (.zip) contenant les 4 fichiers téléchargeables individuellement au-dessus de ce bouton.</li>
+                    </ul>
                 </p>
             </div>
         </div>

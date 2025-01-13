@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     require '../fonction/employe.php';
     require '../fonction/connexion.php';
 
@@ -120,7 +120,7 @@
                 <!-- Tableau des données -->
                 <div class="row mt-3">
 
-                    <!-- Comtpeur -->
+                    <!-- Compteur -->
                     <?php
                     $nombreTotalEmployes = compterEmployes();
                     ?>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Footer de la page -->
             <?php include '../include/footer.php'; ?>
         </div>
         <!-- JavaScript pour les filtres -->

@@ -1,5 +1,5 @@
 <?php
-    $startTime = microtime(true);
+    $startTime = microtime(true); // temps de chargement de la page
     require '../fonction/connexion.php';
     require '../fonction/salle.php';
 

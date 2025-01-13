@@ -97,7 +97,8 @@
         <a href="
         <?php echo ($_SESSION['nom_page'] === 'index') ? '#' : '../index.php'; ?>
         " title="Page d'accueil">
-            <img src="../img/LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid d-none d-sm-none d-md-block">
+            <?php $path = ($_SESSION['nom_page'] === 'index') ? 'img/' : '../img/';?>
+            <img src="<?= $path?>LogoStatisalle.jpg" alt="Logo de StatiSalle" class="img-fluid d-none d-sm-none d-md-block">
         </a>
     </div>
 </footer>
