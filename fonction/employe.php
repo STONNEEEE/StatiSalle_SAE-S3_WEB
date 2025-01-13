@@ -2,20 +2,42 @@
     include 'liaisonBD.php';
     $pdo = connecteBD();
 
-    function renvoyerEmployes(): array {
+    function renvoyerEmployes(?int $limite = null): array {
         global $pdo;
 
         $requete = "SELECT nom, prenom, login.login AS id_compte, 
                            telephone, type_utilisateur.nom_type AS type_utilisateur, 
                            employe.id_employe
                     FROM employe
-                    JOIN login
+                    JOIN login 
                     ON login.id_employe = employe.id_employe
-                    JOIN type_utilisateur
+                    JOIN type_utilisateur 
                     ON type_utilisateur.id_type = login.id_type
                     ORDER BY nom, prenom";
-        $stmt = $pdo->query($requete);
+
+        if ($limite) {
+            $requete .= " LIMIT :limite";
+        }
+
+        $stmt = $pdo->prepare($requete);
+
+        if ($limite) {
+            $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    function compterEmployes(): int {
+        global $pdo;
+
+        $requete = "SELECT COUNT(*) AS total FROM employe";
+        $stmt = $pdo->query($requete);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Retourne uniquement la valeur numérique
+        return (int)$result['total'];
     }
 
     function supprimerEmploye($id_employe): void {

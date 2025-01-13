@@ -65,8 +65,11 @@ if (empty($erreurs) && $messageErreur == "" && $mettreAJour == 1) {
     try {
         // Si la salle est réservée, afficher un message de confirmation
         if ($miseAJour === "true" && count($reservationsSalle) > 0) {
-            // Afficher le message de confirmation
-            $messageVerif = "Attention ! Cette salle fait l'objet d'une réservation.<br>
+            /*
+             * Afficher le message de confirmation
+             * Passer à nouveau toutes les données des champs afin de ne pas les perdre en route
+             */
+            $messageVerif = "Attention ! Cette salle fait l'objet d'une réservation ou plusieurs réservations.<br>
                                  Voulez-vous confirmer vos modifications ?<br>
                                  <form method='post' action='modificationSalle.php'>
                                     <input type='hidden' name='miseAJour' value='true'>
@@ -79,21 +82,23 @@ if (empty($erreurs) && $messageErreur == "" && $mettreAJour == 1) {
                                     <input type='hidden' name='typeMateriel' value='$typeMateriel'>
                                     <input type='hidden' name='logiciel' value='$logiciel'>
                                     <input type='hidden' name='imprimante' value='$imprimante'>
-                                    <button id='btn-confirmer' name='btn-confirmer' value='true' class='btn-bleu rounded'>Confirmer</button>
-                                    <button id='btn-annuler' name='btn-annuler' value='true' class='btn-suppr rounded'>Annuler</button>
+                                    <br/>
+                                    <div class ='text-center'>
+                                        <button id='btn-annuler' name='btn-annuler' value='true' class='btn-suppr rounded'>Annuler</button>
+                                        <button id='btn-confirmer' name='btn-confirmer' value='true' class='btn-bleu rounded'>Confirmer</button> 
+                                    </div>
                                  </form>";
         } else {
             // Mise à jour de la salle sans réservation
             mettreAJourSalle(intval($idSalle), $nomSalle, intval($capacite), $videoProjecteur, $ordinateurXXL, intval($nbrOrdi), $typeMateriel, $logiciel, $imprimante);
             $messageSucces = "Salle mise à jour avec succès !";
-            // On empêche la redirection en JavaScript et la page est rafraîchie pour afficher le message
         }
     } catch (PDOException $e) {
         $messageErreur = "Une erreur est survenue lors de l'accès à la base de données. Veuillez réessayer plus tard ou contacter l'administrateur si le problème persiste.";
     }
 }
 
-// Vérification des actions "confirmer" et "annuler"
+// Actions des boutons "confirmer" et "annuler"
 if (isset($_POST['btn-confirmer']) && $_POST['btn-confirmer'] === 'true') {
     try {
         // Mise à jour de la salle dans la base de données
@@ -105,8 +110,8 @@ if (isset($_POST['btn-confirmer']) && $_POST['btn-confirmer'] === 'true') {
 }
 
 if (isset($_POST['btn-annuler']) && $_POST['btn-annuler'] === 'true') {
-    // Redirection vers la page souhaitée en cas d'annulation
-    header("Location: affichageSalle.php"); // Change ici le nom de la page vers celle que tu souhaites
+    // Redirection vers la page d'affichage des salles
+    header("Location: affichageSalle.php");
     exit(); // Assure que le script s'arrête après la redirection
 }
 ?>
@@ -249,6 +254,7 @@ if (isset($_POST['btn-annuler']) && $_POST['btn-annuler'] === 'true') {
             <br>
             <div class="row mb-3">
                 <div class="col-12 col-sm-7 offset-sm-3 col-md-4 offset-md-4">
+                    <!-- Input cacher afin de déterminer si l'on clique sur le bouton -->
                     <input name="miseAJour" type="hidden" value="true">
                     <button type="submit" class="btn-bleu rounded w-100" id="submit">
                         Mise à jour de la salle

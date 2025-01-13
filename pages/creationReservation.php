@@ -210,7 +210,7 @@
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label for="heureFin" class="petite-taille <?= isset($erreurs['heureFin']) ? 'erreur' : '' ;?>">
-                                                <a title="Champ Obligatoire">Heure début : *</a>
+                                                <a title="Champ Obligatoire">Heure fin : *</a>
                                             </label>
                                             <select id="heureFin" name="heureFin" class="form-select" required>
                                                 <!-- Option initiale vide -->

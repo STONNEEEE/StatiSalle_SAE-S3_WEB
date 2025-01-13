@@ -8,6 +8,9 @@
 
     $messageSucces = $messageErreur ='';
 
+    // Définir la limite par défaut
+    $limite = $_POST['limite'] ?? 5; // Valeur par défaut : 5
+
     if (isset($_POST['id_employe']) && $_POST['supprimer'] == "true") {
         $id_employe = $_POST['id_employe'];
 
@@ -119,17 +122,11 @@
 
                     <!-- Compteur -->
                     <?php
-                    try {
-                        $listeEmploye = renvoyerEmployes(); // récupération des employés dans la base de données
-                    } catch (PDOException $e) {
-                        echo '<div class="text-center text-danger fw-bold">Impossible de charger les employés en raison d’un problème technique...</div>';
-                    }
-
-                    $nombreEmploye = count($listeEmploye ?? []); // Nombre d'employés
+                    $nombreTotalEmployes = compterEmployes();
                     ?>
                     <div class="col-12 text-center mb-3">
                         <p class="fw-bold compteur-employe">
-                            Nombre de comptes employé trouvé(s) : <?= $nombreEmploye ?>
+                            Nombre de comptes employé trouvé(s) : <?= $nombreTotalEmployes ?>
                         </p>
                     </div>
 
@@ -146,7 +143,10 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    // Afficher les employés
+                                // Afficher les employés
+                                try {
+                                    $listeEmploye = renvoyerEmployes();
+
                                     foreach ($listeEmploye as $employe) {
                                         echo '<tr>';
                                         echo '<td>' . $employe->nom . '</td>';
@@ -169,19 +169,29 @@
                                             echo '    </button>';
                                             echo '</form>';
                                             echo '<form method="POST" action="modificationEmploye.php">
-                                                      <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
-                                                      <button type="submit" class="btn-modifier rounded-2">
-                                                          <span class="fa-regular fa-pen-to-square"></span>
-                                                      </button>
-                                                  </form>';
+                                                          <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
+                                                          <button type="submit" class="btn-modifier rounded-2">
+                                                              <span class="fa-regular fa-pen-to-square"></span>
+                                                          </button>
+                                                      </form>';
                                         }
                                         echo '</div>';
                                         echo '</td>';
                                         echo '</tr>';
                                     }
+                                } catch (PDOException $e) {
+                                    echo '<tr><td class="text-center text-danger fw-bold" colspan="6">' . 'Impossible de charger les employés en raison d’un problème technique...' . '</td></tr>';
+                                }
                                 ?>
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- Bouton Retour en haut -->
+                    <div class="row mt-3 mb-5">
+                        <button id="scrollToTopBtn" class="boutton btn-bleu rounded-2" title="Retour en haut de la page">
+                            <span class="fa-solid fa-arrow-up"></span>
+                        </button>
                     </div>
                 </div>
             </div>

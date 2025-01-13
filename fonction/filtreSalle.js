@@ -88,3 +88,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialisation du compteur et du tableau
     filterTable();
 });
+
+/* ---------------- Boutons remonter en haut ---------------- */
+var boutonScroll = document.getElementById("scrollToTopBtn");
+
+// Afficher le bouton après avoir fait défiler 100px
+window.onscroll = function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        boutonScroll.style.display = "block";
+    } else {
+        boutonScroll.style.display = "none";
+    }
+};
+
+// Lorsque l'utilisateur clique sur le bouton, faire défiler la page vers le haut
+boutonScroll.onclick = function() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+};
+

@@ -48,6 +48,9 @@ verif_session();
                         if ($_SESSION['typeUtilisateur'] === 1) {
                             echo '📅 Gérer les réservations. </a>';
                             echo " <br> Ceci correspond à l'affichage de toutes les reservations, mais c'est aussi l'endroit où l'administrateur peut gérer les salles.";
+                        } else {
+                            echo '📅 Afficher les réservations. </a>';
+                            echo " <br> Ceci correspond à l'affichage de toutes les reservations.";
                         }
                         ?>
                     </a>
