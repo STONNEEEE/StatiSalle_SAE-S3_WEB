@@ -193,29 +193,41 @@
         }
     }
 
-
     function modifierEmploye($id, $nom, $prenom, $login, $telephone, $mdp, $id_type) {
         global $pdo;
         try {
             // Début de la transaction
             $pdo->beginTransaction();
 
-            // Première requête : mise à jour des informations de connexion
+            // Construction dynamique de la requête pour les informations de connexion
             $requete = "UPDATE login 
-                SET login = :login, mdp = :mdp, id_type = :id_type
-                WHERE id_employe = :id_employe";
+                SET login = :login, id_type = :id_type";
+
+            // Ajout de la mise à jour du mot de passe uniquement si $mdp n'est pas null
+            if ($mdp !== null) {
+                $requete .= ", mdp = :mdp";
+            }
+
+            $requete .= " WHERE id_employe = :id_employe";
+
             $stmt = $pdo->prepare($requete);
             $stmt->bindParam(':login', $login);
-            $hashMdp = sha1($mdp);
-            $stmt->bindParam(':mdp', $hashMdp);
             $stmt->bindParam(':id_type', $id_type);
             $stmt->bindParam(':id_employe', $id);
+
+            // Bind du mot de passe seulement s'il est fourni
+            if ($mdp !== null) {
+                $hashMdp = sha1($mdp);
+                $stmt->bindParam(':mdp', $hashMdp);
+            }
+
             $stmt->execute();
 
             // Deuxième requête : mise à jour des informations personnelles
             $requete = "UPDATE employe
                 SET nom = :nom, prenom = :prenom, telephone = :telephone
                 WHERE id_employe = :id_employe";
+
             $stmt = $pdo->prepare($requete);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
@@ -232,7 +244,24 @@
             $pdo->rollBack();
             echo "Une erreur est survenue : " . $e->getMessage();
         }
+    }
 
+    function modifierEmployeSansMdp($id, $nom, $prenom, $login, $numTel, $id_type) {
+        global $pdo;
+
+        // Mise à jour des informations personnelles (table employe)
+        $sqlEmploye = "UPDATE employe 
+                           SET nom = ?, prenom = ?, telephone = ?
+                           WHERE id_employe = ?";
+        $stmtEmploye = $pdo->prepare($sqlEmploye);
+        $stmtEmploye->execute([$nom, $prenom, $login, $numTel]);
+
+        // Mise à jour des informations de connexion (table login)
+        $sqlLogin = "UPDATE login 
+                     SET login = ?, id_type = ? 
+                     WHERE id_employe = ?";
+        $stmtLogin = $pdo->prepare($sqlLogin);
+        $stmtLogin->execute([$login, $id_type, $id]);
     }
 
     function verifIdType($id_type) {

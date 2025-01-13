@@ -168,13 +168,13 @@
                                             echo '        <span class="fa-solid fa-trash"></span>';
                                             echo '    </button>';
                                             echo '</form>';
+                                        }
                                             echo '<form method="POST" action="modificationEmploye.php">
                                                           <input name="id_employe" type="hidden" value="' . $employe->id_employe . '">
                                                           <button type="submit" class="btn-modifier rounded-2">
                                                               <span class="fa-regular fa-pen-to-square"></span>
                                                           </button>
                                                       </form>';
-                                        }
                                         echo '</div>';
                                         echo '</td>';
                                         echo '</tr>';
